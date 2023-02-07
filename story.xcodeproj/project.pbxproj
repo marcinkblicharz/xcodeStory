@@ -16,6 +16,7 @@
 		BC9742C22991771B0049EB0D /* storyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9742C12991771B0049EB0D /* storyTests.swift */; };
 		BC9742CC2991771B0049EB0D /* storyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9742CB2991771B0049EB0D /* storyUITests.swift */; };
 		BC9742CE2991771B0049EB0D /* storyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9742CD2991771B0049EB0D /* storyUITestsLaunchTests.swift */; };
+		BCF43EB32992C3C300DEFEB7 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF43EB22992C3C300DEFEB7 /* WelcomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		BC9742C72991771B0049EB0D /* storyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = storyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC9742CB2991771B0049EB0D /* storyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = storyUITests.swift; sourceTree = "<group>"; };
 		BC9742CD2991771B0049EB0D /* storyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = storyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		BCF43EB22992C3C300DEFEB7 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				BC9742B32991771B0049EB0D /* Assets.xcassets */,
 				BC9742B52991771B0049EB0D /* LaunchScreen.storyboard */,
 				BC9742B82991771B0049EB0D /* Info.plist */,
+				BCF43EB22992C3C300DEFEB7 /* WelcomeViewController.swift */,
 			);
 			path = story;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC9742AF2991771A0049EB0D /* ViewController.swift in Sources */,
+				BCF43EB32992C3C300DEFEB7 /* WelcomeViewController.swift in Sources */,
 				BC9742AB2991771A0049EB0D /* AppDelegate.swift in Sources */,
 				BC9742AD2991771A0049EB0D /* SceneDelegate.swift in Sources */,
 			);
