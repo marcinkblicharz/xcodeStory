@@ -37,11 +37,19 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u67-Mw-YkD">
+                                <rect key="frame" x="97" y="462" width="200" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                     </view>
                     <connections>
+                        <outlet property="errorLabel" destination="u67-Mw-YkD" id="7O9-js-LZi"/>
                         <outlet property="loginText" destination="Y4k-KH-k1h" id="jjq-lN-APb"/>
                         <outlet property="passwordText" destination="i1l-9h-aLF" id="QJf-Yq-bi5"/>
                         <segue destination="Qgj-zc-s0n" kind="show" identifier="goToWelcome" id="oA2-kC-L53"/>

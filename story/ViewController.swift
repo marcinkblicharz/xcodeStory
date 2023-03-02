@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import Foundation
 
 class ViewController: UIViewController {
     
     @IBOutlet weak var loginText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
+    @IBOutlet weak var errorLabel: UILabel!
+    @StateObject var restLogin = RestLogin()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +22,7 @@ class ViewController: UIViewController {
 
     @IBAction func signInButton(_ sender: UIButton) {
         
+        restLogin.getLogins(urlLink: "http://localhost:8080/rest/getUsers")
         performSegue(withIdentifier: "goToWelcome", sender: self)
         
     }

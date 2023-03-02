@@ -17,6 +17,7 @@
 		BC9742CC2991771B0049EB0D /* storyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9742CB2991771B0049EB0D /* storyUITests.swift */; };
 		BC9742CE2991771B0049EB0D /* storyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9742CD2991771B0049EB0D /* storyUITestsLaunchTests.swift */; };
 		BCF43EB32992C3C300DEFEB7 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF43EB22992C3C300DEFEB7 /* WelcomeViewController.swift */; };
+		BCF659BA29B0B9F700213F54 /* RestLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF659B929B0B9F700213F54 /* RestLogin.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		BC9742CB2991771B0049EB0D /* storyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = storyUITests.swift; sourceTree = "<group>"; };
 		BC9742CD2991771B0049EB0D /* storyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = storyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BCF43EB22992C3C300DEFEB7 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		BCF659B929B0B9F700213F54 /* RestLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestLogin.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 		BC9742A92991771A0049EB0D /* story */ = {
 			isa = PBXGroup;
 			children = (
+				BCF659B829B0B9CC00213F54 /* app */,
 				BC9742AA2991771A0049EB0D /* AppDelegate.swift */,
 				BC9742AC2991771A0049EB0D /* SceneDelegate.swift */,
 				BC9742AE2991771A0049EB0D /* ViewController.swift */,
@@ -128,6 +131,14 @@
 				BC9742CD2991771B0049EB0D /* storyUITestsLaunchTests.swift */,
 			);
 			path = storyUITests;
+			sourceTree = "<group>";
+		};
+		BCF659B829B0B9CC00213F54 /* app */ = {
+			isa = PBXGroup;
+			children = (
+				BCF659B929B0B9F700213F54 /* RestLogin.swift */,
+			);
+			path = app;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,6 +276,7 @@
 				BCF43EB32992C3C300DEFEB7 /* WelcomeViewController.swift in Sources */,
 				BC9742AB2991771A0049EB0D /* AppDelegate.swift in Sources */,
 				BC9742AD2991771A0049EB0D /* SceneDelegate.swift in Sources */,
+				BCF659BA29B0B9F700213F54 /* RestLogin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
