@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         restLogin.getLogins(urlLink: "http://localhost:8080/rest/getUsers")
         print("Size of login table is: " + String(restLogin.vm_logins.count))
         for ApiUser in restLogin.vm_logins {
-            if loginText.text! == ApiUser.name! && passwordText.text! == ApiUser.password! {
+            if loginText.text!.caseInsensitiveCompare(ApiUser.name!) == .orderedSame && passwordText.text! == ApiUser.password! {
                 print("USER: " + ApiUser.name! + ", PASS: " + ApiUser.password!)
                 performSegue(withIdentifier: "goToWelcome", sender: self)
                 isLogin = true
