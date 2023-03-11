@@ -34,6 +34,14 @@ class ViewController: UIViewController {
                 print("USER: " + ApiUser.name! + ", PASS: " + ApiUser.password!)
                 performSegue(withIdentifier: "goToWelcome", sender: self)
                 isLogin = true
+                var calendar = Calendar.current
+                calendar.firstWeekday = 2
+                let currentDate = Date()
+                let currentWeek = calendar.component(.weekOfYear, from: currentDate)
+//                let currentDateComponents = calendar.component([.YearForWeekOfYear, .WeekOfYear ], fromDate: currentDate)
+//                let prevMonday = Date.today().previous(.sunday)
+                let lastMonday = calendar.component(.yearForWeekOfYear, from: currentDate)
+                print("current week is: " + String(currentWeek) + "., first day of week: " + String(lastMonday))
             }
         }
         if !isLogin {
