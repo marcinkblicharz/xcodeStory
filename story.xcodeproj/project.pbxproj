@@ -18,6 +18,7 @@
 		BC9742CE2991771B0049EB0D /* storyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9742CD2991771B0049EB0D /* storyUITestsLaunchTests.swift */; };
 		BCF43EB32992C3C300DEFEB7 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF43EB22992C3C300DEFEB7 /* WelcomeViewController.swift */; };
 		BCF659BA29B0B9F700213F54 /* RestLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF659B929B0B9F700213F54 /* RestLogin.swift */; };
+		BCF659BC29BCE2FC00213F54 /* RestCosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF659BB29BCE2FC00213F54 /* RestCosts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		BC9742CD2991771B0049EB0D /* storyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = storyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BCF43EB22992C3C300DEFEB7 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		BCF659B929B0B9F700213F54 /* RestLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestLogin.swift; sourceTree = "<group>"; };
+		BCF659BB29BCE2FC00213F54 /* RestCosts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestCosts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				BCF659B929B0B9F700213F54 /* RestLogin.swift */,
+				BCF659BB29BCE2FC00213F54 /* RestCosts.swift */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				BCF43EB32992C3C300DEFEB7 /* WelcomeViewController.swift in Sources */,
 				BC9742AB2991771A0049EB0D /* AppDelegate.swift in Sources */,
 				BC9742AD2991771A0049EB0D /* SceneDelegate.swift in Sources */,
+				BCF659BC29BCE2FC00213F54 /* RestCosts.swift in Sources */,
 				BCF659BA29B0B9F700213F54 /* RestLogin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
