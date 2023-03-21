@@ -7,14 +7,22 @@
 
 import Foundation
 
-let dateFormatterDay = DateFormatter()
-dateFormatterDay.dateFormat = "YYYY-MM-dd"
-
 class RestCosts : ObservableObject {
     
     @Published var vm_costs : [ApiCosts] = []
     
+    private let dateFormatter: DateFormatter = {
+        let df = DateFormatter()
+//        "date": "2023-03-12T23:00:00.000+00:00",
+        df.dateFormat = "yyyy-MM-dd"
+        df.locale = Locale(identifier: "en_US_POSIX")
+        return df
+    }()
+    
     func getCosts(urlLink : String){
+
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
         
         guard let url = URL(string: urlLink) else {
             return
@@ -46,7 +54,7 @@ class RestCosts : ObservableObject {
 
 struct ApiCosts : Hashable, Codable {
     var cid : Int?
-    var date: Date.fo?
+    var date: String?   //must be Date
     var value : Double?
     var name : String?
     var info : String?

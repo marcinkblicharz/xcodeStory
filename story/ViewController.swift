@@ -20,8 +20,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        restLogin.getLogins(urlLink: "http://localhost:8080/rest/getUsers")
-        print("Size of login table is: " + String(restLogin.vm_logins.count))
+//        restLogin.getLogins(urlLink: "http://localhost:8080/rest/getUsers")
+//        print("Size of login table is: " + String(restLogin.vm_logins.count))
     }
 
     @IBAction func signInButton(_ sender: UIButton) {
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         errorLabel.isHidden = true
         var pastMonday : Int = 0
         restLogin.getLogins(urlLink: "http://localhost:8080/rest/getUsers")
-        print("Size of login table is: " + String(restLogin.vm_logins.count))
+        print("\nSize of login table is: " + String(restLogin.vm_logins.count))
         for ApiUser in restLogin.vm_logins {
             if loginText.text!.caseInsensitiveCompare(ApiUser.name!) == .orderedSame && passwordText.text! == ApiUser.password! {
                 print("USER: " + ApiUser.name! + ", PASS: " + ApiUser.password!)
@@ -62,7 +62,7 @@ class ViewController: UIViewController {
                     pastMonday = (2 - dayOfWeek) * -1
                     print("Monday was " + String(pastMonday) + "days ago")
                 }
-                dateComponent.day = pastMonday * -1
+                dateComponent.day = pastMonday * -1 - 7
                 let lastMonday = Calendar.current.date(byAdding: dateComponent, to: currentDate)
                 print("current week is: " + String(currentWeek) + "., day of week is: " + String(dayOfWeek) + "., day of month is: " + String(dayOfMonth) + "., first day of week: " + dateFormatterDay.string(from: lastMonday!))
                 let costLink = "http://localhost:8080/rest/getCosts?from=" + dateFormatterDay.string(from: lastMonday!)
