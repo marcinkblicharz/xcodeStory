@@ -28,7 +28,7 @@ class RestCosts : ObservableObject {
             return
         }
         
-        print("vm_costs (initial) size is: " + String(vm_costs.count))
+        print("vm_costs (initial) size is: " + String(vm_costs.count) + " for link: " + urlLink)
         
         let task = URLSession.shared.dataTask(with : url) { [weak self] data, _, error in
             guard let data = data, error == nil else {
@@ -39,6 +39,7 @@ class RestCosts : ObservableObject {
                 let costs = try JSONDecoder().decode([ApiCosts].self, from: data)
                 DispatchQueue.main.async {
                     self?.vm_costs = costs
+                    print(costs)
                 }
 
             } catch {
@@ -53,13 +54,13 @@ class RestCosts : ObservableObject {
 }
 
 struct ApiCosts : Hashable, Codable {
-    var cid : Int?
-    var date: String?   //must be Date
-    var value : Double?
-    var name : String?
-    var info : String?
-    var ctid : Int?
-    var type : String?
-    var subtype : String?
-    var color : String?
+    var cid : Int
+    var date: String   //must be Date
+    var value : Double
+    var name : String
+    var info : String
+    var ctid : Int
+    var type : String
+    var subtype : String
+    var color : String
 }
