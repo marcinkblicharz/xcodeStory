@@ -10,6 +10,7 @@ import Foundation
 class RestCosts : ObservableObject {
     
     @Published var vm_costs : [ApiCosts] = []
+    private var dataTask : URLSessionDataTask?
     
     private let dateFormatter: DateFormatter = {
         let df = DateFormatter()
@@ -50,6 +51,47 @@ class RestCosts : ObservableObject {
         print("vm_costs (final) size is: " + String(vm_costs.count))
         
         task.resume()
+    }
+    
+    func getLastCosts(urlLink : String, completion: @escaping (Result<ApiCosts, Error>) -> Void){
+     
+        print("getLastCosts is Started! " + urlLink)
+        
+        guard let url = URL(string: urlLink) else {
+            return
+        }
+        
+        dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            if let error = error {
+                completion(.failure(error))
+                print("DataTask error: " + error.localizedDescription)
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse else {
+                print("Empty response")
+                return
+            }
+            print("Response status code: " + String(response.statusCode))
+            
+            guard let data = data else {
+                print("Empty data")
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                let jsonData = try decoder.decode(ApiCosts.self, from: data)
+                
+                DispatchQueue.main.async {
+                    completion(.success(jsonData))
+                }
+            } catch let error {
+                completion(.failure(error))
+            }
+        }
+        dataTask?.resume()
     }
 }
 

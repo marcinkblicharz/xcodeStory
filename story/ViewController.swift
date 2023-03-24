@@ -68,7 +68,7 @@ class ViewController: UIViewController {
                 print("current week is: " + String(currentWeek) + "., day of week is: " + String(dayOfWeek) + "., day of month is: " + String(dayOfMonth) + "., first day of week: " + dateFormatterDay.string(from: lastMonday!))
                 costLink = "http://localhost:8080/rest/getCosts?from=" + dateFormatterDay.string(from: lastMonday!)
                 print("link for current week costs is: '" + costLink! + "'")
-                restCost.getCosts(urlLink: costLink!)
+//                restCost.getCosts(urlLink: costLink!)
             }
         }
         if !isLogin {
