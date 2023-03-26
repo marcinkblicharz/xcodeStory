@@ -13,10 +13,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var loginText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var linkText: UITextField!
     var restLogin = RestLogin()
     var isLogin : Bool = false
     var restCost = RestCosts()
-    var costLink : String? = ""
+    var costLink : String! = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +68,7 @@ class ViewController: UIViewController {
                 let lastMonday = Calendar.current.date(byAdding: dateComponent, to: currentDate)
                 print("current week is: " + String(currentWeek) + "., day of week is: " + String(dayOfWeek) + "., day of month is: " + String(dayOfMonth) + "., first day of week: " + dateFormatterDay.string(from: lastMonday!))
                 costLink = "http://localhost:8080/rest/getCosts?from=" + dateFormatterDay.string(from: lastMonday!)
+                linkText.text = costLink
                 print("link for current week costs is: '" + costLink! + "'")
 //                restCost.getCosts(urlLink: costLink!)
             }
@@ -88,7 +90,7 @@ class ViewController: UIViewController {
             if let password = passwordText.text {
                 destinationVC?.password = password
             }
-            if let link = costLink {
+            if let link = linkText.text {
                 destinationVC?.link = link
             }
         }

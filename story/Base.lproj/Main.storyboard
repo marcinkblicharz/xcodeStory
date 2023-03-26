@@ -55,12 +55,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zD8-pq-KaI">
+                                <rect key="frame" x="159" y="67" width="97" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                     </view>
                     <connections>
                         <outlet property="errorLabel" destination="u67-Mw-YkD" id="7O9-js-LZi"/>
+                        <outlet property="linkText" destination="zD8-pq-KaI" id="ge3-Cg-i7n"/>
                         <outlet property="loginText" destination="Y4k-KH-k1h" id="jjq-lN-APb"/>
                         <outlet property="passwordText" destination="i1l-9h-aLF" id="QJf-Yq-bi5"/>
                         <segue destination="Qgj-zc-s0n" kind="show" identifier="goToWelcome" id="oA2-kC-L53"/>

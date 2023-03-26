@@ -10,6 +10,7 @@ import Foundation
 class RestCosts : ObservableObject {
     
     @Published var vm_costs : [ApiCosts] = []
+    @Published var vm_costss : [ApiCosts] = []
     private var dataTask : URLSessionDataTask?
     
     private let dateFormatter: DateFormatter = {
@@ -53,7 +54,7 @@ class RestCosts : ObservableObject {
         task.resume()
     }
     
-    func getLastCosts(urlLink : String, completion: @escaping (Result<ApiCosts, Error>) -> Void){
+    func getLastCosts(urlLink : String, completion: @escaping (Result<[ApiCosts], Error>) -> Void){
      
         print("getLastCosts is Started! " + urlLink)
         
@@ -82,15 +83,25 @@ class RestCosts : ObservableObject {
             
             do {
                 let decoder = JSONDecoder()
-                let jsonData = try decoder.decode(ApiCosts.self, from: data)
+                let jsonData = try decoder.decode([ApiCosts].self, from: data)
                 
                 DispatchQueue.main.async {
+                    self.vm_costss = jsonData
                     completion(.success(jsonData))
+                    print("vm_costs size01: " + String(self.vm_costs.count))
+                    for x in jsonData{
+                        self.vm_costs.append(x)
+//                        ApiCosts(apicosts: x)
+                    }
+                    dump(self.vm_costs)
                 }
+                print("vm_costs size02: " + String(self.vm_costs.count))
             } catch let error {
                 completion(.failure(error))
             }
         }
+//        print("vm_costss size03: " + String(self.vm_costss.count))
+        print("vm_costs size03: " + String(self.vm_costs.count))
         dataTask?.resume()
     }
 }

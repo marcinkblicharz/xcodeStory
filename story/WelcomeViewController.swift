@@ -11,8 +11,9 @@ class WelcomeViewController: UIViewController {
     
     var login : String = ""
     var password : String = ""
-    var link : String = ""
     var restCosts = RestCosts()
+    var link : String =  "" //"http://localhost:8080/rest/getCosts?from=2023-03-13"
+    var acl : [ApiCosts] = []
     
     @IBOutlet weak var welcomeLabel: UILabel!
     
@@ -20,13 +21,18 @@ class WelcomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+//        let link : String = "http://localhost:8080/rest/getCosts?from=2023-03-13"
+        link = "http://localhost:8080/rest/getCosts?from=2023-03-13"
+        
         print("link from started is: " + link)
         
         welcomeLabel.text = "Hi \(login), welcome in App!"
         restCosts.getLastCosts(urlLink: link) { (result) in
-            print(result)
+//            print(result)
+//            print(result.get().count)
+//            try acl = result.get()
         }
+        print("size of costs: " + String(restCosts.vm_costs.count))
 //        RCost.getCosts(urlLink: link)
 //        RCost.vm_costs
 //        var CostsList : [ApiCosts] = RCost.vm_costs
