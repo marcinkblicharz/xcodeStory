@@ -13,7 +13,8 @@ class WelcomeViewController: UIViewController {
     var password : String = ""
     var restCosts = RestCosts()
     var link : String =  "" //"http://localhost:8080/rest/getCosts?from=2023-03-13"
-    var acl : [ApiCosts] = []
+//    var acl : [ApiCosts] = []
+    var acl = [ApiCosts]()
     
     @IBOutlet weak var welcomeLabel: UILabel!
     
@@ -27,12 +28,22 @@ class WelcomeViewController: UIViewController {
         print("link from started is: " + link)
         
         welcomeLabel.text = "Hi \(login), welcome in App!"
-        restCosts.getLastCosts(urlLink: link) { (result) in
+//        restCosts.getLastCosts(urlLink: link) { (result) in
 //            print(result)
-//            print(result.get().count)
-//            try acl = result.get()
+////            print(result.get().count)
+////            try acl = result.get()
+//        }
+        
+        restCosts.getLastCosts(urlLink: link) { [weak self] (result) in
+            switch result {
+            case .success(let listA):
+                self?.acl[0] = listA.first!
+            case .failure(let error):
+                print("Error processing json data: ")// + String(error))
+            }
         }
         print("size of costs: " + String(restCosts.vm_costs.count))
+        print("size of acl: " + String(acl.count))
 //        RCost.getCosts(urlLink: link)
 //        RCost.vm_costs
 //        var CostsList : [ApiCosts] = RCost.vm_costs

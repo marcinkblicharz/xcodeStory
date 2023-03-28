@@ -89,11 +89,11 @@ class RestCosts : ObservableObject {
                     self.vm_costss = jsonData
                     completion(.success(jsonData))
                     print("vm_costs size01: " + String(self.vm_costs.count))
-                    for x in jsonData{
-                        self.vm_costs.append(x)
-//                        ApiCosts(apicosts: x)
-                    }
-                    dump(self.vm_costs)
+//                    for x in jsonData{
+//                        self.vm_costs.append(x)
+////                        ApiCosts(apicosts: x)
+//                    }
+//                    dump(self.vm_costs)
                 }
                 print("vm_costs size02: " + String(self.vm_costs.count))
             } catch let error {
