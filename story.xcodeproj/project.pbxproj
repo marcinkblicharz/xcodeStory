@@ -16,6 +16,7 @@
 		BC9742C22991771B0049EB0D /* storyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9742C12991771B0049EB0D /* storyTests.swift */; };
 		BC9742CC2991771B0049EB0D /* storyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9742CB2991771B0049EB0D /* storyUITests.swift */; };
 		BC9742CE2991771B0049EB0D /* storyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9742CD2991771B0049EB0D /* storyUITestsLaunchTests.swift */; };
+		BCC312D329D49EEF001C702C /* CostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC312D229D49EEF001C702C /* CostViewModel.swift */; };
 		BCF43EB32992C3C300DEFEB7 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF43EB22992C3C300DEFEB7 /* WelcomeViewController.swift */; };
 		BCF659BA29B0B9F700213F54 /* RestLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF659B929B0B9F700213F54 /* RestLogin.swift */; };
 		BCF659BC29BCE2FC00213F54 /* RestCosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF659BB29BCE2FC00213F54 /* RestCosts.swift */; };
@@ -52,6 +53,7 @@
 		BC9742C72991771B0049EB0D /* storyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = storyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC9742CB2991771B0049EB0D /* storyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = storyUITests.swift; sourceTree = "<group>"; };
 		BC9742CD2991771B0049EB0D /* storyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = storyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		BCC312D229D49EEF001C702C /* CostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostViewModel.swift; sourceTree = "<group>"; };
 		BCF43EB22992C3C300DEFEB7 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		BCF659B929B0B9F700213F54 /* RestLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestLogin.swift; sourceTree = "<group>"; };
 		BCF659BB29BCE2FC00213F54 /* RestCosts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestCosts.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			children = (
 				BCF659B829B0B9CC00213F54 /* app */,
 				BC9742AA2991771A0049EB0D /* AppDelegate.swift */,
+				BCC312D229D49EEF001C702C /* CostViewModel.swift */,
 				BC9742AC2991771A0049EB0D /* SceneDelegate.swift */,
 				BC9742AE2991771A0049EB0D /* ViewController.swift */,
 				BC9742B02991771A0049EB0D /* Main.storyboard */,
@@ -275,6 +278,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCC312D329D49EEF001C702C /* CostViewModel.swift in Sources */,
 				BC9742AF2991771A0049EB0D /* ViewController.swift in Sources */,
 				BCF43EB32992C3C300DEFEB7 /* WelcomeViewController.swift in Sources */,
 				BC9742AB2991771A0049EB0D /* AppDelegate.swift in Sources */,

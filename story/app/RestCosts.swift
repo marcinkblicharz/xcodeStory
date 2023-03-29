@@ -86,7 +86,7 @@ class RestCosts : ObservableObject {
                 let jsonData = try decoder.decode(ApiCostsData.self, from: data)
                 
                 DispatchQueue.main.async {
-                    self.vm_costss = jsonData
+//                    self.vm_costss = jsonData
                     completion(.success(jsonData))
                     print("vm_costs size01: " + String(self.vm_costs.count))
 //                    for x in jsonData{
@@ -109,6 +109,10 @@ class RestCosts : ObservableObject {
 
 struct ApiCostsData : Decodable {
     var costs : [ApiCosts]
+    
+    private enum CodingKeys: String, CodingKey {
+        case costs = "results"
+    }
 }
 
 struct ApiCosts :Decodable {
