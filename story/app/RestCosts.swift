@@ -54,7 +54,7 @@ class RestCosts : ObservableObject {
         task.resume()
     }
     
-    func getLastCosts(urlLink : String, completion: @escaping (Result<[ApiCosts], Error>) -> Void){
+    func getLastCosts(urlLink : String, completion: @escaping (Result<ApiCostsData, Error>) -> Void){
      
         print("getLastCosts is Started! " + urlLink)
         
@@ -83,7 +83,7 @@ class RestCosts : ObservableObject {
             
             do {
                 let decoder = JSONDecoder()
-                let jsonData = try decoder.decode([ApiCosts].self, from: data)
+                let jsonData = try decoder.decode(ApiCostsData.self, from: data)
                 
                 DispatchQueue.main.async {
                     self.vm_costss = jsonData
@@ -106,7 +106,12 @@ class RestCosts : ObservableObject {
     }
 }
 
-struct ApiCosts : Hashable, Codable {
+
+struct ApiCostsData : Decodable {
+    var costs : [ApiCosts]
+}
+
+struct ApiCosts :Decodable {
     var cid : Int
     var date: String   //must be Date
     var value : Double

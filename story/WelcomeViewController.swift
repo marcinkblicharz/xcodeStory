@@ -37,7 +37,8 @@ class WelcomeViewController: UIViewController {
         restCosts.getLastCosts(urlLink: link) { [weak self] (result) in
             switch result {
             case .success(let listA):
-                self?.acl[0] = listA.first!
+                self?.acl = listA.costs
+                completion()
             case .failure(let error):
                 print("Error processing json data: ")// + String(error))
             }
