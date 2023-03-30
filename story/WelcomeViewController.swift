@@ -11,8 +11,8 @@ class WelcomeViewController: UIViewController {
     
     var login : String = ""
     var password : String = ""
-//    var restCosts = RestCosts()
-//    var link : String =  "" //"http://localhost:8080/rest/getCosts?from=2023-03-13"
+    var restCosts = RestCosts()
+    var link : String =  "http://localhost:8080/rest/getCosts?from=2023-03-20"
 //    var acl : [ApiCosts] = []
 //    var acl = [ApiCosts]()
 //    var acll = [ApiCosts]()
@@ -27,7 +27,7 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        let link : String = "http://localhost:8080/rest/getCosts?from=2023-03-13"
-//        link = "http://localhost:8080/rest/getCosts?from=2023-03-13"
+        link = "http://localhost:8080/rest/getCosts?from=2023-03-13"
 //
 //        print("link from started is: " + link)
         
@@ -36,12 +36,13 @@ class WelcomeViewController: UIViewController {
 //        }
         
         welcomeLabel.text = "Hi \(login), welcome in App!"
-        loadJsonData()
-//        restCosts.getLastCosts(urlLink: link) { (result) in
-//            print(result)
-////            print(result.get().count)
-////            try acl = result.get()
-//        }
+//        loadJsonData()
+        print("Link: " + link)
+        restCosts.getLastCosts(urlLink: link) { (result) in
+            print(result)
+//            print(result.get().count)
+//            try acl = result.get()
+        }
 //        print("size of costs: " + String(restCosts.vm_costs.count))
 //        print("size of acl: " + String(acl.count))
 //        RCost.getCosts(urlLink: link)
@@ -58,30 +59,30 @@ class WelcomeViewController: UIViewController {
 //        }
     }
     
-    private func loadJsonData() {
-        viewModel.fetchJsonData { [weak self] in
-            self?.tableCosts.dataSource = self
-            self?.tableCosts.reloadData()
-        }
-//        fetchJsonData { [weak self] in
+//    private func loadJsonData() {
+//        viewModel.fetchJsonData { [weak self] in
 //            self?.tableCosts.dataSource = self
 //            self?.tableCosts.reloadData()
 //        }
-    }
+////        fetchJsonData { [weak self] in
+////            self?.tableCosts.dataSource = self
+////            self?.tableCosts.reloadData()
+////        }
+//    }
 
 }
 
-extension MovieViewController: UITableViewDataSource {
-    func tableCosts(_ tableCosts: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfRowsInSection(section: section)
-    }
-    
-    func tableCosts(_ tableCosts: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableCosts.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CostTableViewCell
-        
-        let ApiCosts = tableCosts.cellForRowAt(indexPath: indexPath)
-        cell.setCellWithValuesOf(ApiCosts)
-        
-        return cell
-    }
-}
+//extension WelcomeViewController: UITableViewDataSource {
+//    func tableView(_ tableCosts: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return viewModel.numberOfRowsInSection(section: section)
+//    }
+//    
+////    func tableView(_ tableCosts: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+////        let cell = tableCosts.dequeueReusableCell(withIdentifier: "cell", for: indexPath) //as! CostTableViewCell
+////
+////        let ApiCosts = viewModel.cellForRowAt(indexPath: indexPath)
+////        cell.setCellWithValuesOf(ApiCosts)
+////
+////        return cell
+////    }
+//}
