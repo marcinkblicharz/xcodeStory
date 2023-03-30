@@ -70,3 +70,18 @@ class WelcomeViewController: UIViewController {
     }
 
 }
+
+extension MovieViewController: UITableViewDataSource {
+    func tableCosts(_ tableCosts: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.numberOfRowsInSection(section: section)
+    }
+    
+    func tableCosts(_ tableCosts: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableCosts.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CostTableViewCell
+        
+        let ApiCosts = tableCosts.cellForRowAt(indexPath: indexPath)
+        cell.setCellWithValuesOf(ApiCosts)
+        
+        return cell
+    }
+}
