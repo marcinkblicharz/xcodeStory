@@ -12,6 +12,7 @@ class RestCosts : ObservableObject {
     @Published var vm_costs : [ApiCosts] = []
     @Published var vm_costss : [ApiCosts] = []
     private var dataTask : URLSessionDataTask?
+    @Published var acl : [ApiCosts] = []
     
     private let dateFormatter: DateFormatter = {
         let df = DateFormatter()
@@ -85,18 +86,23 @@ class RestCosts : ObservableObject {
             do {
                 let decoder = JSONDecoder()
 //                let jsonData = try decoder.decode(ApiCostsData.self, from: data)
-                let jsonData = try decoder.decode([ApiCosts].self, from: data)
-                
-                DispatchQueue.main.async {
-//                    self.vm_costss = jsonData
-                    completion(.success(jsonData))
-                    print("vm_costs size01: " + String(self.vm_costs.count))
-//                    for x in jsonData{
-//                        self.vm_costs.append(x)
-////                        ApiCosts(apicosts: x)
-//                    }
-//                    dump(self.vm_costs)
+//                let jsonData = try decoder.decode([ApiCosts].self, from: data)
+//
+//                DispatchQueue.main.async {
+////                    self.vm_costss = jsonData
+//                    completion(.success(jsonData))
+//                    print("vm_costs size01: " + String(self.vm_costs.count))
+////                    for x in jsonData{
+////                        self.vm_costs.append(x)
+//////                        ApiCosts(apicosts: x)
+////                    }
+////                    dump(self.vm_costs)
+//                }
+                guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else {
+                    return
                 }
+                print(json)
+//                self.vm_costs = json
                 print("vm_costs size02: " + String(self.vm_costs.count))
             } catch let error {
                 completion(.failure(error))
@@ -106,6 +112,27 @@ class RestCosts : ObservableObject {
         print("vm_costs size03: " + String(self.vm_costs.count))
         dataTask?.resume()
     }
+    
+    func getCostsInner(urlLink : String, completed: @escaping () -> ()){
+        
+        let url = URL(string: urlLink)
+        
+        URLSession.shared.dataTask(with : url!) { data, response, error in
+            if error == nil {
+                do {
+                    self.acl = try JSONDecoder().decode([ApiCosts].self, from: data!)
+                } catch {
+                    print("error get data from api")
+                }
+                
+                DispatchQueue.main.async {
+                    completed()
+                }
+            }
+        }.resume()
+    }
+    
+    
 }
 
 
