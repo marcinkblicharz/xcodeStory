@@ -10,6 +10,7 @@ import Foundation
 class RestLogin : ObservableObject {
     
     @Published var vm_logins : [ApiUser] = []
+    @Published var vm_login : ApiUser = ApiUser()
     
     func getLogins(urlLink : String){
         
@@ -39,14 +40,42 @@ class RestLogin : ObservableObject {
         
         task.resume()
     }
+    
+    func getLogin(urlLink : String, completed: @escaping () -> ()){
+        
+        let url = URL(string: urlLink)
+        
+        URLSession.shared.dataTask(with : url!) { data, response, error in
+            if error == nil {
+                do {
+                    self.vm_login = try JSONDecoder().decode(ApiUser.self, from: data!)
+                } catch {
+                    print("error get data from api")
+                }
+                DispatchQueue.main.async {
+                    completed()
+                }
+            }
+        }.resume()
+    }
 }
 
 struct ApiUser : Hashable, Codable {
-    var id : Int?
-    var name: String?
-    var password : String?
-    var cost : String?
-    var cost_type : String?
-    var income : String?
-    var income_type : String?
+    var id : Int
+    var name: String
+    var password : String
+    var cost : String
+    var cost_type : String
+    var income : String
+    var income_type : String
+    
+    init() {
+        self.id = 0
+        self.name = ""
+        self.password = ""
+        self.cost = ""
+        self.cost_type = ""
+        self.income = ""
+        self.income_type = ""
+    }
 }
