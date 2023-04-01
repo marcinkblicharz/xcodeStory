@@ -55,7 +55,6 @@ class RestCosts : ObservableObject {
         task.resume()
     }
     
-//    func getLastCosts(urlLink : String, completion: @escaping (Result<ApiCostsData, Error>) -> Void){
     func getLastCosts(urlLink : String, completion: @escaping (Result<[ApiCosts], Error>) -> Void){
      
         print("getLastCosts is Started! " + urlLink)
@@ -85,30 +84,15 @@ class RestCosts : ObservableObject {
             
             do {
                 let decoder = JSONDecoder()
-//                let jsonData = try decoder.decode(ApiCostsData.self, from: data)
-//                let jsonData = try decoder.decode([ApiCosts].self, from: data)
-//
-//                DispatchQueue.main.async {
-////                    self.vm_costss = jsonData
-//                    completion(.success(jsonData))
-//                    print("vm_costs size01: " + String(self.vm_costs.count))
-////                    for x in jsonData{
-////                        self.vm_costs.append(x)
-//////                        ApiCosts(apicosts: x)
-////                    }
-////                    dump(self.vm_costs)
-//                }
                 guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else {
                     return
                 }
                 print(json)
-//                self.vm_costs = json
                 print("vm_costs size02: " + String(self.vm_costs.count))
             } catch let error {
                 completion(.failure(error))
             }
         }
-//        print("vm_costss size03: " + String(self.vm_costss.count))
         print("vm_costs size03: " + String(self.vm_costs.count))
         dataTask?.resume()
     }
@@ -135,15 +119,6 @@ class RestCosts : ObservableObject {
     
 }
 
-
-//struct ApiCostsData : Encodable, Decodable {
-//    var costs : [ApiCosts]
-//
-//    private enum CodingKeys: String, CodingKey {
-//        case costs = "results"
-//    }
-//}
-
 struct ApiCosts : Decodable {
     var cid : Int
     var date: String   //must be Date
@@ -154,8 +129,4 @@ struct ApiCosts : Decodable {
     var type : String
     var subtype : String
     var color : String
-    
-//    private enum CodingKeys: String, CodingKey {
-//        case cid = "id"
-//    }
 }
