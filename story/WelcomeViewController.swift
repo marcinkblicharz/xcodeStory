@@ -7,15 +7,12 @@
 
 import UIKit
 
-class WelcomeViewController: UIViewController {
+class WelcomeViewController: UIViewController, UITableViewDataSource {
     
     var login : String = ""
     var password : String = ""
     var restCosts = RestCosts()
-    var link : String =  "http://localhost:8080/rest/getCosts?from=2023-03-20"
-//    var acl : [ApiCosts] = []
-//    var acl = [ApiCosts]()
-//    var acll = [ApiCosts]()
+    var link : String =  ""
     var aclfj = [ApiCosts]()
     var list_size : Int = 0
     
@@ -33,7 +30,6 @@ class WelcomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        link = "http://localhost:8080/rest/getCosts?from=2023-03-13"
         
         welcomeLabel.text = "Hi \(login), welcome in App!"
         print("Link: " + link)
@@ -43,10 +39,18 @@ class WelcomeViewController: UIViewController {
             self.list_size = self.aclfj.count
             print("Size of aclfj is: " + String(self.list_size))
             if self.list_size > 0 {
-                print("aclfj[0] (date): ", self.aclfj[0].date)
+                print("aclfj[0] (date): ", self.aclfj[0].date, ", (value): ", String(self.aclfj[0].value), ", (name): ", self.aclfj[0].name, ", (type): ", self.aclfj[0].type)
             } else {
                 print("aclfj 0 sized")
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // Code Here
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Code Here
     }
 }

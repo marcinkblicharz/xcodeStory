@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var loginText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
-    @IBOutlet weak var linkText: UITextField!
+//    @IBOutlet weak var linkText: UITextField!
     var restLogin = RestLogin()
     var isLogin : Bool = false
     var restCost = RestCosts()
@@ -27,7 +27,7 @@ class ViewController: UIViewController {
         
         isLogin = false
         errorLabel.isHidden = true
-//        restLogin.getLogins(urlLink: "http://localhost:8080/rest/getUsers")
+        costLink = "http://localhost:8080/rest/getCosts?from=" + getLastMonday()
         print("\nSize of login table is: " + String(restLogin.vm_logins.count))
         
         restLogin.getLogin(urlLink: "http://localhost:8080/rest/getLogin?name=" + loginText.text! + "&password=" + passwordText.text!){
@@ -35,8 +35,7 @@ class ViewController: UIViewController {
                 print("Get data from JSON, user: " + self.loginText.text! + ", password: " + self.passwordText.text! + " with success!")
                 self.performSegue(withIdentifier: "goToWelcome", sender: self)
                 self.isLogin = true
-                self.costLink = "http://localhost:8080/rest/getCosts?from=" + self.getLastMonday()
-                self.linkText.text = self.costLink
+//                self.linkText.text = self.costLink
                 print("link for current week costs is: '" + self.costLink! + "'")
             } else {
                 print("Get data from JSON, user: " + self.loginText.text! + ", password: " + self.passwordText.text! + " with error!")
@@ -59,7 +58,7 @@ class ViewController: UIViewController {
             if let password = passwordText.text {
                 destinationVC?.password = password
             }
-            if let link = linkText.text {
+            if let link = self.costLink {
                 destinationVC?.link = link
             }
         }
