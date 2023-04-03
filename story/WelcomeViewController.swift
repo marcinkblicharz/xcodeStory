@@ -15,6 +15,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
     var link : String =  ""
     var aclfj = [ApiCosts]()
     var list_size : Int = 0
+    var tableViewData = [String]()
     
     private let dateFormatter: DateFormatter = {
         let df = DateFormatter()
@@ -33,24 +34,46 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
         
         welcomeLabel.text = "Hi \(login), welcome in App!"
         print("Link: " + link)
-        restCosts.getCostsInner(urlLink: link){
+        restCosts.getCostsInner(urlLink: link){ //[self] in
             print("Get data from JSON with success!")
+//            aclfj = restCosts.acl
             self.aclfj = self.restCosts.acl
+            print("size of inside 'aclfj' is: " + String(self.aclfj.count))
             self.list_size = self.aclfj.count
             print("Size of aclfj is: " + String(self.list_size))
             if self.list_size > 0 {
                 print("aclfj[0] (date): ", self.aclfj[0].date, ", (value): ", String(self.aclfj[0].value), ", (name): ", self.aclfj[0].name, ", (type): ", self.aclfj[0].type)
+                self.tableViewData.append(self.aclfj[0].date + " - " + String(self.aclfj[0].value) + " - " + self.aclfj[0].name + " - " + self.aclfj[0].type)
+                self.tableCosts.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
+                self.tableCosts.dataSource = self.self
             } else {
                 print("aclfj 0 sized")
             }
         }
+//        tableViewData.append("Is one row!")
+//        print("size of outside 'aclfj' is: " + String(self.aclfj.count))
+////        tableViewData.append(aclfj[0].date)
+//        tableCosts.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
+//        tableCosts.dataSource = self
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Code Here
+//        return 5
+        return self.tableViewData.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Code Here
+//        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
+        cell.textLabel?.text = self.tableViewData[indexPath.row]
+        return cell
     }
+    
+//    func getApiCosts(urlLink: String) -> [ApiCosts] {
+//        restCosts.getCostsInner(urlLink: urlLink){
+//            guard let put = self.restCosts.acl else { return }
+//            return put
+//        }
+//
+//    }
 }
