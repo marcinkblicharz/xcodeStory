@@ -35,6 +35,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
         welcomeLabel.text = "Hi \(login), welcome in App!"
         print("Link: " + link)
         restCosts.getCostsInner(urlLink: link){ //[self] in
+//            sleep(4)
             print("Get data from JSON with success!")
 //            aclfj = restCosts.acl
             self.aclfj = self.restCosts.acl
@@ -43,18 +44,25 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
             print("Size of aclfj is: " + String(self.list_size))
             if self.list_size > 0 {
                 print("aclfj[0] (date): ", self.aclfj[0].date, ", (value): ", String(self.aclfj[0].value), ", (name): ", self.aclfj[0].name, ", (type): ", self.aclfj[0].type)
-                self.tableViewData.append(self.aclfj[0].date + " - " + String(self.aclfj[0].value) + " - " + self.aclfj[0].name + " - " + self.aclfj[0].type)
+                for element in 0...self.aclfj.count-1 {
+                    self.tableViewData.append(self.aclfj[element].date + " - " + String(self.aclfj[element].value) + " - " + self.aclfj[element].name + " - " + self.aclfj[element].type)
+                }
                 self.tableCosts.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
-                self.tableCosts.dataSource = self.self
+                self.updateTable(add: "dodaj")
+                self.tableCosts.dataSource = self
+//                self.superclass?.viewDidLoad()
+//                self.superclass?.loadView()
             } else {
                 print("aclfj 0 sized")
             }
         }
 //        tableViewData.append("Is one row!")
-//        print("size of outside 'aclfj' is: " + String(self.aclfj.count))
+        print("size of outside 'aclfj' is: " + String(self.aclfj.count))
 ////        tableViewData.append(aclfj[0].date)
 //        tableCosts.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
 //        tableCosts.dataSource = self
+//        sleep(4)
+        super.loadView()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -68,6 +76,14 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
         cell.textLabel?.text = self.tableViewData[indexPath.row]
         return cell
     }
+    
+    func updateTable (add : String) {
+        tableViewData.append(add)
+    }
+    
+//    func wait() async {
+//        try await Task.sleep(nanoseconds: UInt64(5.0 * Double(NSEC_PER_SEC)))
+//    }
     
 //    func getApiCosts(urlLink: String) -> [ApiCosts] {
 //        restCosts.getCostsInner(urlLink: urlLink){

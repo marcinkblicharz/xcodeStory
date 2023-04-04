@@ -13,7 +13,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var loginText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
-//    @IBOutlet weak var linkText: UITextField!
     var restLogin = RestLogin()
     var isLogin : Bool = false
     var restCost = RestCosts()
@@ -31,18 +30,18 @@ class ViewController: UIViewController {
         print("\nSize of login table is: " + String(restLogin.vm_logins.count))
         
         restLogin.getLogin(urlLink: "http://localhost:8080/rest/getLogin?name=" + loginText.text! + "&password=" + passwordText.text!){
-            if self.loginText.text!.caseInsensitiveCompare(self.restLogin.vm_login.name) == .orderedSame && self.passwordText.text! == self.restLogin.vm_login.password {
-                print("Get data from JSON, user: " + self.loginText.text! + ", password: " + self.passwordText.text! + " with success!")
+//            if self.loginText.text!.caseInsensitiveCompare(self.restLogin.vm_login.name) == .orderedSame && self.passwordText.text! == self.restLogin.vm_login.password {
+//                print("Get data from JSON, user: " + self.loginText.text! + ", password: " + self.passwordText.text! + " with success!")
                 self.performSegue(withIdentifier: "goToWelcome", sender: self)
                 self.isLogin = true
 //                self.linkText.text = self.costLink
                 print("link for current week costs is: '" + self.costLink! + "'")
-            } else {
-                print("Get data from JSON, user: " + self.loginText.text! + ", password: " + self.passwordText.text! + " with error!")
-                self.errorLabel.textColor = UIColor.red
-                self.errorLabel.isHidden = false
-                self.errorLabel.text = "Login or password is incorrect!"
-            }
+//            } else {
+//                print("Get data from JSON, user: " + self.loginText.text! + ", password: " + self.passwordText.text! + " with error!")
+//                self.errorLabel.textColor = UIColor.red
+//                self.errorLabel.isHidden = false
+//                self.errorLabel.text = "Login or password is incorrect!"
+//            }
         }
         if restLogin.error == true {
             print("Could not connect to the server!")
