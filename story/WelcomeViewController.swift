@@ -43,7 +43,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
             self.list_size = self.aclfj.count
             print("Size of aclfj is: " + String(self.list_size))
             if self.list_size > 0 {
-                print("aclfj[0] (date): ", self.aclfj[0].date, ", (value): ", String(self.aclfj[0].value), ", (name): ", self.aclfj[0].name, ", (type): ", self.aclfj[0].type)
+                print("aclfj[0] (date): ", self.aclfj[0].date, ", (value): ", String(self.aclfj[0].value), ", (name): ", self.aclfj[0].name, ", (type): ", self.aclfj[0].type, ", (color): ", self.aclfj[0].color + "ff")
                 for element in 0...self.aclfj.count-1 {
                     self.tableViewData.append(self.aclfj[element].date + " - " + String(self.aclfj[element].value) + " - " + self.aclfj[element].name + " - " + self.aclfj[element].type)
                 }
@@ -73,6 +73,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
 //        return UITableViewCell()
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
         cell.textLabel?.text = self.tableViewData[indexPath.row]
+        let color : String = self.aclfj[indexPath.row].color + "ff"
+        cell.backgroundColor = UIColor(hex: color)
         return cell
     }
     
@@ -91,4 +93,32 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
 //        }
 //
 //    }
+}
+
+extension UIColor {
+    public convenience init?(hex: String) {
+        let r, g, b, a: CGFloat
+
+        if hex.hasPrefix("#") {
+            let start = hex.index(hex.startIndex, offsetBy: 1)
+            let hexColor = String(hex[start...])
+
+            if hexColor.count == 8 {
+                let scanner = Scanner(string: hexColor)
+                var hexNumber: UInt64 = 0
+
+                if scanner.scanHexInt64(&hexNumber) {
+                    r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
+                    g = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
+                    b = CGFloat((hexNumber & 0x0000ff00) >> 8) / 255
+                    a = CGFloat(hexNumber & 0x000000ff) / 255
+
+                    self.init(red: r, green: g, blue: b, alpha: a)
+                    return
+                }
+            }
+        }
+
+        return nil
+    }
 }
