@@ -32,7 +32,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        welcomeLabel.text = "Hi \(login), welcome in App!"
+        welcomeLabel.text = "Hi \(login), welcome to App!"
         print("Link: " + link)
         restCosts.getCostsInner(urlLink: link){ //[self] in
 //            sleep(4)
@@ -48,10 +48,9 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
                     self.tableViewData.append(self.aclfj[element].date + " - " + String(self.aclfj[element].value) + " - " + self.aclfj[element].name + " - " + self.aclfj[element].type)
                 }
                 self.tableCosts.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
-                self.updateTable(add: "dodaj")
+//                self.updateTable(add: "dodaj")
                 self.tableCosts.dataSource = self
-//                self.superclass?.viewDidLoad()
-//                self.superclass?.loadView()
+                self.tableCosts.reloadData()
             } else {
                 print("aclfj 0 sized")
             }
@@ -61,8 +60,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
 ////        tableViewData.append(aclfj[0].date)
 //        tableCosts.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
 //        tableCosts.dataSource = self
+//        tableCosts.reloadData()
 //        sleep(4)
-        super.loadView()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
