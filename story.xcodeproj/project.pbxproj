@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC90DBC329DEE3DE0094D452 /* RestIncomes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC90DBC229DEE3DE0094D452 /* RestIncomes.swift */; };
 		BC9742AB2991771A0049EB0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9742AA2991771A0049EB0D /* AppDelegate.swift */; };
 		BC9742AD2991771A0049EB0D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9742AC2991771A0049EB0D /* SceneDelegate.swift */; };
 		BC9742AF2991771A0049EB0D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9742AE2991771A0049EB0D /* ViewController.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BC90DBC229DEE3DE0094D452 /* RestIncomes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestIncomes.swift; sourceTree = "<group>"; };
 		BC9742A72991771A0049EB0D /* story.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = story.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC9742AA2991771A0049EB0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC9742AC2991771A0049EB0D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 			children = (
 				BCF659B929B0B9F700213F54 /* RestLogin.swift */,
 				BCF659BB29BCE2FC00213F54 /* RestCosts.swift */,
+				BC90DBC229DEE3DE0094D452 /* RestIncomes.swift */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC90DBC329DEE3DE0094D452 /* RestIncomes.swift in Sources */,
 				BCC312D329D49EEF001C702C /* CostViewModel.swift in Sources */,
 				BC9742AF2991771A0049EB0D /* ViewController.swift in Sources */,
 				BCF43EB32992C3C300DEFEB7 /* WelcomeViewController.swift in Sources */,

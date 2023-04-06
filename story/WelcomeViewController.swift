@@ -12,9 +12,13 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
     var login : String = ""
     var password : String = ""
     var restCosts = RestCosts()
-    var link : String =  ""
+    var restIncomes = RestIncomes()
+    var linkCosts : String =  ""
+    var linkIncomes : String =  ""
     var aclfj = [ApiCosts]()
-    var list_size : Int = 0
+    var ailfj = [ApiIncomes]()
+    var listCosts_size : Int = 0
+    var listIncomes_size : Int = 0
     var tableViewData = [String]()
     
     private let dateFormatter: DateFormatter = {
@@ -27,72 +31,101 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
     private var viewModel = CostViewModel()
     
     @IBOutlet weak var tableCosts: UITableView!
+    @IBOutlet weak var tableIncome: UITableView!
     @IBOutlet weak var welcomeLabel: UILabel!
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableCosts.delegate = self
+        tableCosts.dataSource = self
+        tableIncome.delegate = self
+        tableIncome.dataSource = self
+        
         welcomeLabel.text = "Hi \(login), welcome to App!"
-        print("Link: " + link)
-        restCosts.getCostsInner(urlLink: link){ //[self] in
-//            sleep(4)
-            print("Get data from JSON with success!")
-//            aclfj = restCosts.acl
+        print("LinkCosts: " + linkCosts)
+        restCosts.getCostsInner(urlLink: linkCosts){
+            print("Get data CostsList from JSON with success!")
             self.aclfj = self.restCosts.acl
             print("size of inside 'aclfj' is: " + String(self.aclfj.count))
-            self.list_size = self.aclfj.count
-            print("Size of aclfj is: " + String(self.list_size))
-            if self.list_size > 0 {
+            self.listCosts_size = self.aclfj.count
+            print("Size of aclfj is: " + String(self.listCosts_size))
+            if self.listCosts_size > 0 {
                 print("aclfj[0] (date): ", self.aclfj[0].date, ", (value): ", String(self.aclfj[0].value), ", (name): ", self.aclfj[0].name, ", (type): ", self.aclfj[0].type, ", (color): ", self.aclfj[0].color + "ff")
-                for element in 0...self.aclfj.count-1 {
-                    self.tableViewData.append(self.aclfj[element].date + " - " + String(self.aclfj[element].value) + " - " + self.aclfj[element].name + " - " + self.aclfj[element].type)
-                }
+//                for element in 0...self.aclfj.count-1 {
+//                    self.tableViewData.append(self.aclfj[element].date + " - " + String(self.aclfj[element].value) + " - " + self.aclfj[element].name + " - " + self.aclfj[element].type)
+//                }
                 self.tableCosts.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
-//                self.updateTable(add: "dodaj")
                 self.tableCosts.dataSource = self
                 self.tableCosts.reloadData()
             } else {
                 print("aclfj 0 sized")
             }
         }
-//        tableViewData.append("Is one row!")
         print("size of outside 'aclfj' is: " + String(self.aclfj.count))
-////        tableViewData.append(aclfj[0].date)
-//        tableCosts.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
-//        tableCosts.dataSource = self
-//        tableCosts.reloadData()
-//        sleep(4)
+        restIncomes.getIncomes(urlLink: linkIncomes){
+            print("Get data IncomesList from JSON with success!")
+            self.ailfj = self.restIncomes.ail
+            print("size of inside 'ailfj' is: " + String(self.ailfj.count))
+            self.listIncomes_size = self.ailfj.count
+            print("Size of ailfj is: " + String(self.listIncomes_size))
+            if self.listIncomes_size > 0 {
+                print("ailfj[0] (date): ", self.ailfj[0].date, ", (value): ", String(self.ailfj[0].value), ", (name): ", self.ailfj[0].name, ", (type): ", self.ailfj[0].type, ", (color): ", self.ailfj[0].color + "ff")
+//                for element in 0...self.ailfj.count-1 {
+//                    self.tableViewData.append(self.ailfj[element].date + " - " + String(self.ailfj[element].value) + " - " + self.ailfj[element].name + " - " + self.ailfj[element].type)
+//                }
+                self.tableIncome.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
+                self.tableIncome.dataSource = self
+                self.tableIncome.reloadData()
+            } else {
+                print("ailfj 0 sized")
+            }
+        }
+        print("size of outside 'ailfj' is: " + String(self.ailfj.count))
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 5
-        return self.tableViewData.count
+//        return self.tableViewData.count
+        if tableView.tag == 0 {
+            return self.listCosts_size
+        } else if tableView.tag == 1 {
+            return self.listIncomes_size
+        } else {
+            return 0
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        return UITableViewCell()
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
-        cell.textLabel?.text = self.tableViewData[indexPath.row]
-        let color : String = self.aclfj[indexPath.row].color + "ff"
-        cell.backgroundColor = UIColor(hex: color)
-        return cell
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
+//        cell.textLabel?.text = self.tableViewData[indexPath.row]
+////        let color : String = self.aclfj[indexPath.row].color + "ff"
+////        cell.backgroundColor = UIColor(hex: color)
+//        return cell
+        if tableView.tag == 0 {
+            let cell = tableCosts.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
+            cell.textLabel?.text = self.aclfj[indexPath.row].date + " - " + String(self.aclfj[indexPath.row].value) + " - " + self.aclfj[indexPath.row].name + " - " + self.aclfj[indexPath.row].type
+            return cell
+        } else if tableView.tag == 1 {
+            let cell = tableIncome.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
+            cell.textLabel?.text = self.ailfj[indexPath.row].date + " - " + String(self.ailfj[indexPath.row].value) + " - " + self.ailfj[indexPath.row].name + " - " + self.ailfj[indexPath.row].type
+            return cell
+        }
     }
     
     func updateTable (add : String) {
         tableViewData.append(add)
     }
     
-//    func wait() async {
-//        try await Task.sleep(nanoseconds: UInt64(5.0 * Double(NSEC_PER_SEC)))
-//    }
+    @IBAction func costButton(_ sender: UIButton) {
+        tableCosts.isHidden = false
+        tableIncome.isHidden = true
+    }
     
-//    func getApiCosts(urlLink: String) -> [ApiCosts] {
-//        restCosts.getCostsInner(urlLink: urlLink){
-//            guard let put = self.restCosts.acl else { return }
-//            return put
-//        }
-//
-//    }
+    @IBAction func incomeButton(_ sender: UIButton) {
+        tableCosts.isHidden = true
+        tableIncome.isHidden = false
+    }
 }
 
 extension UIColor {

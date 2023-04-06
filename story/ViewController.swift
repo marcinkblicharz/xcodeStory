@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     var isLogin : Bool = false
     var restCost = RestCosts()
     var costLink : String! = ""
+    var incomeLink : String! = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,7 @@ class ViewController: UIViewController {
         isLogin = false
         errorLabel.isHidden = true
         costLink = "http://localhost:8080/rest/getCosts?from=" + getLastMonday()
+        incomeLink = "http://localhost:8080/rest/getIncomes?from=" + getFirstDayOfMonth()
         print("\nSize of login table is: " + String(restLogin.vm_logins.count))
         
         restLogin.getLogin(urlLink: "http://localhost:8080/rest/getLogin?name=" + loginText.text! + "&password=" + passwordText.text!){
@@ -36,6 +38,7 @@ class ViewController: UIViewController {
                 self.isLogin = true
 //                self.linkText.text = self.costLink
                 print("link for current week costs is: '" + self.costLink! + "'")
+                print("link for current day incomes is: '" + self.incomeLink! + "'")
 //            } else {
 //                print("Get data from JSON, user: " + self.loginText.text! + ", password: " + self.passwordText.text! + " with error!")
 //                self.errorLabel.textColor = UIColor.red
@@ -57,8 +60,11 @@ class ViewController: UIViewController {
             if let password = passwordText.text {
                 destinationVC?.password = password
             }
-            if let link = self.costLink {
-                destinationVC?.link = link
+            if let linkCosts = self.costLink {
+                destinationVC?.linkCosts = linkCosts
+            }
+            if let linkIncomes = self.incomeLink {
+                destinationVC?.linkIncomes = linkIncomes
             }
         }
     }
@@ -89,6 +95,19 @@ class ViewController: UIViewController {
         let lastMonday = Calendar.current.date(byAdding: dateComponent, to: currentDate)
         print("current week is: " + String(currentWeek) + "., day of week is: " + String(dayOfWeek) + "., day of month is: " + String(dayOfMonth) + "., first day of week: " + dateFormatterDay.string(from: lastMonday!))
         return dateFormatterDay.string(from: lastMonday!)
+    }
+    
+    func getFirstDayOfMonth() -> String {
+        let dateFormatterDay = DateFormatter()
+        dateFormatterDay.dateFormat = "YYYY-MM-dd"
+        var calendar = Calendar.current
+        let currentDate = Date()
+        var dateComponent = DateComponents()
+        let dayOfMonth = calendar.component(.day, from: currentDate)
+        dateComponent.day = (dayOfMonth - 1) * -1 //- 7
+        let firstDay = Calendar.current.date(byAdding: dateComponent, to: currentDate)
+        print("current day of month is: " + String(dayOfMonth) + "., first day of month: " + dateFormatterDay.string(from: firstDay!))
+        return dateFormatterDay.string(from: firstDay!)
     }
 }
 

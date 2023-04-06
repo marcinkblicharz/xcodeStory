@@ -91,6 +91,36 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ViB-i6-jgV">
+                                <rect key="frame" x="0.0" y="766" width="172" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="Costs"/>
+                                <connections>
+                                    <action selector="costButton:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="Go0-LS-vUU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1FM-R7-nwL">
+                                <rect key="frame" x="242" y="766" width="172" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="Incomes"/>
+                                <connections>
+                                    <action selector="incomeButton:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="Cn2-Rj-dGx"/>
+                                </connections>
+                            </button>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="6Uf-1C-KPj">
+                                <rect key="frame" x="0.0" y="146" width="414" height="612"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <tableView key="tableFooterView" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Qmj-ge-SOD">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="612"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </tableView>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dwP-g5-gzK"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
@@ -98,6 +128,7 @@
                     <navigationItem key="navigationItem" id="xxN-5F-glB"/>
                     <connections>
                         <outlet property="tableCosts" destination="uQA-x7-FXA" id="Vs6-mg-Sq5"/>
+                        <outlet property="tableIncome" destination="Qmj-ge-SOD" id="aiY-SL-bSe"/>
                         <outlet property="welcomeLabel" destination="Uk4-uS-vrc" id="E6I-Bf-W4E"/>
                     </connections>
                 </viewController>
