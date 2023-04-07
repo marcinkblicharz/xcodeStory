@@ -3,4 +3,114 @@
    uuid = "7C418DE3-2DD4-422E-88FB-BF39E7983A53"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "442E081C-E92E-47DD-8EE2-45872FE6AA89"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "story/WelcomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "WelcomeViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "442E081C-E92E-47DD-8EE2-45872FE6AA89 - e9652d0f5af6189b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "story.WelcomeViewController.tableIncome.getter : Swift.Optional&lt;__C.UITableView&gt;"
+                  moduleName = "story"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcinblicharz/soft/xcode/story/story/WelcomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "88">
+               </Location>
+               <Location
+                  uuid = "442E081C-E92E-47DD-8EE2-45872FE6AA89 - ebbbbe8cb43834a7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "story.WelcomeViewController.tableIncome.setter : Swift.Optional&lt;__C.UITableView&gt;"
+                  moduleName = "story"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcinblicharz/soft/xcode/story/story/WelcomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "108">
+               </Location>
+               <Location
+                  uuid = "442E081C-E92E-47DD-8EE2-45872FE6AA89 - cd16f0b74d3ffd94"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "story.WelcomeViewController.tableIncome.modify : Swift.Optional&lt;__C.UITableView&gt;"
+                  moduleName = "story"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcinblicharz/soft/xcode/story/story/WelcomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "442E081C-E92E-47DD-8EE2-45872FE6AA89 - e8b356fc7169650b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "story.WelcomeViewController.tableIncome.modify : Swift.Optional&lt;__C.UITableView&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "story"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcinblicharz/soft/xcode/story/story/WelcomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  uuid = "442E081C-E92E-47DD-8EE2-45872FE6AA89 - f32dff1cbb460748"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "story.WelcomeViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; story.WelcomeViewController"
+                  moduleName = "story"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcinblicharz/soft/xcode/story/story/WelcomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "864">
+               </Location>
+               <Location
+                  uuid = "442E081C-E92E-47DD-8EE2-45872FE6AA89 - 598b12ec04825136"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "story.WelcomeViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;story.WelcomeViewController&gt;"
+                  moduleName = "story"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcinblicharz/soft/xcode/story/story/WelcomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "840">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

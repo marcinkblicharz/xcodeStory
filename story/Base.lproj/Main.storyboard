@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="dark"/>
+    <device id="retina6_0" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,7 +14,7 @@
             <objects>
                 <viewController storyboardIdentifier="ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="story" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i1l-9h-aLF">
@@ -75,7 +76,7 @@
             <objects>
                 <viewController storyboardIdentifier="WelcomeViewController" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Qgj-zc-s0n" customClass="WelcomeViewController" customModule="story" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O32-9s-VA3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" text="Hi ___, welcome to App" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uk4-uS-vrc">
@@ -91,18 +92,24 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Qmj-ge-SOD">
+                                <rect key="frame" x="0.0" y="146" width="414" height="612"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ViB-i6-jgV">
-                                <rect key="frame" x="0.0" y="766" width="172" height="35"/>
+                                <rect key="frame" x="0.0" y="757" width="172" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="Costs"/>
                                 <connections>
                                     <action selector="costButton:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="Go0-LS-vUU"/>
+                                    <action selector="incomeButton:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="v1N-ru-e02"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1FM-R7-nwL">
-                                <rect key="frame" x="242" y="766" width="172" height="35"/>
+                                <rect key="frame" x="218" y="757" width="172" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                 <state key="normal" title="Button"/>
@@ -111,30 +118,81 @@
                                     <action selector="incomeButton:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="Cn2-Rj-dGx"/>
                                 </connections>
                             </button>
-                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="6Uf-1C-KPj">
-                                <rect key="frame" x="0.0" y="146" width="414" height="612"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VC3-8e-j3c">
+                                <rect key="frame" x="0.0" y="108" width="35" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <tableView key="tableFooterView" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Qmj-ge-SOD">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="612"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                </tableView>
-                            </tableView>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="&lt;"/>
+                                <connections>
+                                    <action selector="backDate:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="1iT-lX-SN9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5F4-Z4-mWA" userLabel="Next Date">
+                                <rect key="frame" x="355" y="108" width="35" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="&gt;"/>
+                                <connections>
+                                    <action selector="nextDate:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="g1e-lN-laV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uyy-38-6rv">
+                                <rect key="frame" x="57" y="108" width="82" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="fromDate:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="vX4-H5-P6E"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="51z-Rp-w8l">
+                                <rect key="frame" x="250" y="108" width="82" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="toDate:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="KLh-ka-nSN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MMS-LU-XT6">
+                                <rect key="frame" x="175" y="113" width="40" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <menu key="menu" id="doo-ci-SJK">
+                                    <children>
+                                        <command title="week" id="RH0-dJ-6Hj"/>
+                                        <command title="2-weeks" id="4UK-bh-io1"/>
+                                        <command title="month" id="0Kb-4b-zhR"/>
+                                    </children>
+                                </menu>
+                                <state key="normal" title="range"/>
+                                <connections>
+                                    <action selector="rangeDate:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="UCA-Iw-4SY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dwP-g5-gzK"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </view>
                     <navigationItem key="navigationItem" id="xxN-5F-glB"/>
                     <connections>
+                        <outlet property="backDate" destination="VC3-8e-j3c" id="Rrd-ve-N6f"/>
+                        <outlet property="backDateButton" destination="VC3-8e-j3c" id="J36-Dq-EMI"/>
+                        <outlet property="fromDate" destination="uyy-38-6rv" id="0Ki-7F-u2y"/>
+                        <outlet property="fromDateButton" destination="uyy-38-6rv" id="DLt-Hf-45E"/>
+                        <outlet property="netDateButton" destination="5F4-Z4-mWA" id="7NZ-F9-RQH"/>
+                        <outlet property="nextDate" destination="5F4-Z4-mWA" id="gVv-AZ-Q85"/>
+                        <outlet property="rangeDate" destination="MMS-LU-XT6" id="8eY-Ua-WwK"/>
+                        <outlet property="rangeDateButton" destination="MMS-LU-XT6" id="6ys-kR-zeF"/>
                         <outlet property="tableCosts" destination="uQA-x7-FXA" id="Vs6-mg-Sq5"/>
                         <outlet property="tableIncome" destination="Qmj-ge-SOD" id="aiY-SL-bSe"/>
+                        <outlet property="toDate" destination="51z-Rp-w8l" id="IrL-fM-y1K"/>
+                        <outlet property="toDateButton" destination="51z-Rp-w8l" id="86U-Lc-G7H"/>
                         <outlet property="welcomeLabel" destination="Uk4-uS-vrc" id="E6I-Bf-W4E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MVg-N1-O7V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="884.05797101449286" y="3.3482142857142856"/>
+            <point key="canvasLocation" x="883.07692307692309" y="2.8436018957345972"/>
         </scene>
     </scenes>
     <resources>

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WelcomeViewController: UIViewController, UITableViewDataSource {
+class WelcomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var login : String = ""
     var password : String = ""
@@ -34,12 +34,12 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var tableIncome: UITableView!
     @IBOutlet weak var welcomeLabel: UILabel!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableCosts.delegate = self
         tableCosts.dataSource = self
+        tableCosts.delegate = self
+//        tableCosts.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableIncome.delegate = self
         tableIncome.dataSource = self
         
@@ -56,7 +56,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
 //                for element in 0...self.aclfj.count-1 {
 //                    self.tableViewData.append(self.aclfj[element].date + " - " + String(self.aclfj[element].value) + " - " + self.aclfj[element].name + " - " + self.aclfj[element].type)
 //                }
-                self.tableCosts.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
+                self.tableViewData.append("aaaa_cost")
+                self.tableCosts.register(UITableViewCell.self, forCellReuseIdentifier: "TableCostsCell")
                 self.tableCosts.dataSource = self
                 self.tableCosts.reloadData()
             } else {
@@ -75,7 +76,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
 //                for element in 0...self.ailfj.count-1 {
 //                    self.tableViewData.append(self.ailfj[element].date + " - " + String(self.ailfj[element].value) + " - " + self.ailfj[element].name + " - " + self.ailfj[element].type)
 //                }
-                self.tableIncome.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
+                self.tableViewData.append("aaaa_income")
+                self.tableIncome.register(UITableViewCell.self, forCellReuseIdentifier: "TableIncomeCell")
                 self.tableIncome.dataSource = self
                 self.tableIncome.reloadData()
             } else {
@@ -87,13 +89,15 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return self.tableViewData.count
-        if tableView.tag == 0 {
-            return self.listCosts_size
-        } else if tableView.tag == 1 {
-            return self.listIncomes_size
+        var size : Int?
+        if tableView == self.tableCosts {
+            size = self.listCosts_size
+        } else if tableView == self.tableIncome {
+            size =  self.listIncomes_size
         } else {
-            return 0
+            size = 0
         }
+        return size!
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -102,15 +106,17 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
 ////        let color : String = self.aclfj[indexPath.row].color + "ff"
 ////        cell.backgroundColor = UIColor(hex: color)
 //        return cell
-        if tableView.tag == 0 {
-            let cell = tableCosts.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
-            cell.textLabel?.text = self.aclfj[indexPath.row].date + " - " + String(self.aclfj[indexPath.row].value) + " - " + self.aclfj[indexPath.row].name + " - " + self.aclfj[indexPath.row].type
-            return cell
-        } else if tableView.tag == 1 {
-            let cell = tableIncome.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
-            cell.textLabel?.text = self.ailfj[indexPath.row].date + " - " + String(self.ailfj[indexPath.row].value) + " - " + self.ailfj[indexPath.row].name + " - " + self.ailfj[indexPath.row].type
-            return cell
+        var cell : UITableViewCell?
+        if tableView == self.tableCosts {
+            cell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath)
+            cell!.textLabel!.text = self.aclfj[indexPath.row].date + " - " + String(self.aclfj[indexPath.row].value) + " - " + self.aclfj[indexPath.row].name + " - " + self.aclfj[indexPath.row].type
+            return cell!
+        } else if tableView == self.tableIncome {
+            cell = tableIncome.dequeueReusableCell(withIdentifier: "TableIncomeCell", for: indexPath)
+            cell!.textLabel!.text = self.ailfj[indexPath.row].date + " - " + String(self.ailfj[indexPath.row].value) + " - " + self.ailfj[indexPath.row].name + " - " + self.ailfj[indexPath.row].type
+            return cell!
         }
+        return cell!
     }
     
     func updateTable (add : String) {
@@ -125,6 +131,21 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
     @IBAction func incomeButton(_ sender: UIButton) {
         tableCosts.isHidden = true
         tableIncome.isHidden = false
+    }
+    
+    @IBAction func backDate(_ sender: UIButton) {
+    }
+    
+    @IBAction func nextDate(_ sender: UIButton) {
+    }
+    
+    @IBAction func fromDate(_ sender: UIButton) {
+    }
+    
+    @IBAction func toDate(_ sender: UIButton) {
+    }
+    
+    @IBAction func rangeDate(_ sender: UIButton) {
     }
 }
 
