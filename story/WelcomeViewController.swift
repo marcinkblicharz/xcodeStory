@@ -33,6 +33,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var tableCosts: UITableView!
     @IBOutlet weak var tableIncome: UITableView!
     @IBOutlet weak var welcomeLabel: UILabel!
+    @IBOutlet weak var fromDateButton: UIButton!
+    @IBOutlet weak var toDateButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +44,11 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
 //        tableCosts.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableIncome.delegate = self
         tableIncome.dataSource = self
+        
+        fromDateButton.setTitle("od", for: .normal)
+        fromDateButton.isHidden = true
+        toDateButton.setTitle("do", for: .normal)
+        toDateButton.isHidden = true
         
         welcomeLabel.text = "Hi \(login), welcome to App!"
         print("LinkCosts: " + linkCosts)
