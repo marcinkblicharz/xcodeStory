@@ -32,19 +32,19 @@ class ViewController: UIViewController {
         print("\nSize of login table is: " + String(restLogin.vm_logins.count))
         
         restLogin.getLogin(urlLink: "http://localhost:8080/rest/getLogin?name=" + loginText.text! + "&password=" + passwordText.text!){
-//            if self.loginText.text!.caseInsensitiveCompare(self.restLogin.vm_login.name) == .orderedSame && self.passwordText.text! == self.restLogin.vm_login.password {
-//                print("Get data from JSON, user: " + self.loginText.text! + ", password: " + self.passwordText.text! + " with success!")
+            if self.loginText.text!.caseInsensitiveCompare(self.restLogin.vm_login.name) == .orderedSame && self.passwordText.text! == self.restLogin.vm_login.password {
+                print("Get data from JSON, user: " + self.loginText.text! + ", password: " + self.passwordText.text! + " with success!")
                 self.performSegue(withIdentifier: "goToWelcome", sender: self)
                 self.isLogin = true
 //                self.linkText.text = self.costLink
                 print("link for current week costs is: '" + self.costLink! + "'")
                 print("link for current day incomes is: '" + self.incomeLink! + "'")
-//            } else {
-//                print("Get data from JSON, user: " + self.loginText.text! + ", password: " + self.passwordText.text! + " with error!")
-//                self.errorLabel.textColor = UIColor.red
-//                self.errorLabel.isHidden = false
-//                self.errorLabel.text = "Login or password is incorrect!"
-//            }
+            } else {
+                print("Get data from JSON, user: " + self.loginText.text! + ", password: " + self.passwordText.text! + " with error!")
+                self.errorLabel.textColor = UIColor.red
+                self.errorLabel.isHidden = false
+                self.errorLabel.text = "Login or password is incorrect!"
+            }
         }
         if restLogin.error == true {
             print("Could not connect to the server!")
@@ -91,7 +91,8 @@ class ViewController: UIViewController {
             pastMonday = (2 - dayOfWeek) * -1
             print("Monday was " + String(pastMonday) + "days ago")
         }
-        dateComponent.day = pastMonday * -1 //- 7
+        //change if week is empty
+        dateComponent.day = pastMonday * -1 - 7
         let lastMonday = Calendar.current.date(byAdding: dateComponent, to: currentDate)
         print("current week is: " + String(currentWeek) + "., day of week is: " + String(dayOfWeek) + "., day of month is: " + String(dayOfMonth) + "., first day of week: " + dateFormatterDay.string(from: lastMonday!))
         return dateFormatterDay.string(from: lastMonday!)

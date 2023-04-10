@@ -133,11 +133,13 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBAction func costButton(_ sender: UIButton) {
         tableCosts.isHidden = false
         tableIncome.isHidden = true
+        print("Show Costs and hide Incomes")
     }
     
     @IBAction func incomeButton(_ sender: UIButton) {
         tableCosts.isHidden = true
         tableIncome.isHidden = false
+        print("Show Incomes and hide Costs")
     }
     
     @IBAction func backDate(_ sender: UIButton) {
