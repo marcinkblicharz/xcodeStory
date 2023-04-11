@@ -92,7 +92,7 @@ class ViewController: UIViewController {
             print("Monday was " + String(pastMonday) + "days ago")
         }
         //change if week is empty
-        dateComponent.day = pastMonday * -1 - 7
+        dateComponent.day = pastMonday * -1 //- 7
         let lastMonday = Calendar.current.date(byAdding: dateComponent, to: currentDate)
         print("current week is: " + String(currentWeek) + "., day of week is: " + String(dayOfWeek) + "., day of month is: " + String(dayOfMonth) + "., first day of week: " + dateFormatterDay.string(from: lastMonday!))
         return dateFormatterDay.string(from: lastMonday!)
