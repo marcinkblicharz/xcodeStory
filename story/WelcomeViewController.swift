@@ -93,6 +93,9 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
         print("size of outside 'ailfj' is: " + String(self.ailfj.count))
+        
+        setPullDownButtonRange()
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -143,20 +146,32 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         print("Show Incomes and hide Costs")
     }
     
-    @IBAction func backDate(_ sender: UIButton) {
+    @IBAction func backDateToUpIn(_ sender: UIButton) {
+        print("back date")
     }
     
-    @IBAction func nextDate(_ sender: UIButton) {
+    @IBAction func nextDateToUpIn(_ sender: UIButton) {
+        print("next date")
     }
     
-//    @IBAction func fromDate(_ sender: UIButton) {
-//    }
-//
-//    @IBAction func toDate(_ sender: UIButton) {
-//    }
+    @IBAction func rangeDateToUpIn(_ sender: UIButton) {
+        print("set range date")
+    }
     
     @IBAction func rangeDate(_ sender: UIButton) {
-        
+        print("set ranges")
+    }
+    
+    func setPullDownButtonRange(){
+        let optionClosure = {(action: UIAction) in
+            print("change date range to: " + action.title)
+        }
+        rangeButton.menu = UIMenu(children : [
+            UIAction(title: "week", state: .on, handler: optionClosure),
+            UIAction(title: "2-weeks", handler: optionClosure),
+            UIAction(title: "month", handler: optionClosure)])
+        rangeButton.showsMenuAsPrimaryAction = true
+        rangeButton.changesSelectionAsPrimaryAction = true
     }
 }
 

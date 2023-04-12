@@ -111,6 +111,9 @@
                                                         </constraints>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="&lt;"/>
+                                                        <connections>
+                                                            <action selector="backDateToUpIn:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="UzK-be-QSQ"/>
+                                                        </connections>
                                                     </button>
                                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="hh7-eG-Sjn">
                                                         <rect key="frame" x="34.333333333333343" y="0.0" width="120" height="45"/>
@@ -130,6 +133,9 @@
                                                             </children>
                                                         </menu>
                                                         <state key="normal" title="range"/>
+                                                        <connections>
+                                                            <action selector="rangeDateToUpIn:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="fkR-GZ-dDz"/>
+                                                        </connections>
                                                     </button>
                                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="YPg-Kl-YV2">
                                                         <rect key="frame" x="235" y="0.0" width="120" height="45"/>
@@ -148,6 +154,9 @@
                                                         </constraints>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="&gt;"/>
+                                                        <connections>
+                                                            <action selector="nextDateToUpIn:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="Y6Z-nV-f9p"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
