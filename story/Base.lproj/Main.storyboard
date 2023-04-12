@@ -243,6 +243,8 @@
                     <navigationItem key="navigationItem" id="xxN-5F-glB"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="dateFrom" destination="hh7-eG-Sjn" id="QkH-pd-ocN"/>
+                        <outlet property="dateTo" destination="YPg-Kl-YV2" id="H7q-0x-hh5"/>
                         <outlet property="rangeButton" destination="MMS-LU-XT6" id="Gi7-Ku-74C"/>
                         <outlet property="tableCosts" destination="uQA-x7-FXA" id="Vs6-mg-Sq5"/>
                         <outlet property="tableIncome" destination="Qmj-ge-SOD" id="aiY-SL-bSe"/>

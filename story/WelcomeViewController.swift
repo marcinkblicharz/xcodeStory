@@ -20,6 +20,14 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     var listCosts_size : Int = 0
     var listIncomes_size : Int = 0
     var tableViewData = [String]()
+    var dateFromCosts : Date?
+    var dateToCosts : Date?
+    var dateFromIncomes : Date?
+    var dateToIncomes : Date?
+//    var currentDate : Date?
+//    var dateComponent : DateComponents?
+    var calendar : Calendar = Calendar.current
+    
     
     private let dateFormatter: DateFormatter = {
         let df = DateFormatter()
@@ -34,8 +42,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var tableIncome: UITableView!
     @IBOutlet weak var welcomeLabel: UILabel!
     @IBOutlet weak var rangeButton: UIButton!
-//    @IBOutlet weak var fromDateButton: UIButton!
-//    @IBOutlet weak var toDateButton: UIButton!
+    @IBOutlet weak var dateFrom: UIDatePicker!
+    @IBOutlet weak var dateTo: UIDatePicker!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,11 +53,6 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
 //        tableCosts.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableIncome.delegate = self
         tableIncome.dataSource = self
-        
-//        fromDateButton.setTitle("od", for: .normal)
-//        fromDateButton.isHidden = true
-//        toDateButton.setTitle("do", for: .normal)
-//        toDateButton.isHidden = true
         
         welcomeLabel.text = "Hi \(login), welcome to App!"
         print("LinkCosts: " + linkCosts)
@@ -95,6 +98,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         print("size of outside 'ailfj' is: " + String(self.ailfj.count))
         
         setPullDownButtonRange()
+        setDefaultDateRange()
         
     }
     
@@ -172,6 +176,22 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             UIAction(title: "month", handler: optionClosure)])
         rangeButton.showsMenuAsPrimaryAction = true
         rangeButton.changesSelectionAsPrimaryAction = true
+    }
+    
+    func setDefaultDateRange(){
+//        let dateFormatterDay = DateFormatter()
+//        dateFormatterDay.dateFormat = "YYYY-MM-dd"
+        var currentDate = Date()
+        var dateComponent = DateComponents()
+        dateComponent.day = -7
+        dateFromCosts = Calendar.current.date(byAdding: dateComponent, to: currentDate)
+        print("dateFromCosts: " , dateFormatter.string(from: dateFromCosts!))
+        dateFrom.setDate(dateFromCosts!, animated: true)
+        dateFrom.isSelected = true
+        let dayOfMonth = calendar.component(.day, from: currentDate)
+        dateComponent.day = (dayOfMonth - 1) * -1
+        dateFromIncomes = Calendar.current.date(byAdding: dateComponent, to: currentDate)
+        print("dateFromIncomes: " , dateFormatter.string(from: dateFromIncomes!))
     }
 }
 
