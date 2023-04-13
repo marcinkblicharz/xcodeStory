@@ -1,0 +1,60 @@
+
+/* Class = "UIButton"; configuration.title = "Incomes"; ObjectID = "1FM-R7-nwL"; */
+"1FM-R7-nwL.configuration.title" = "Incomes";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "1FM-R7-nwL"; */
+"1FM-R7-nwL.normalTitle" = "Button";
+
+/* Class = "UICommand"; title = "2-weeks"; ObjectID = "4UK-bh-io1"; */
+"4UK-bh-io1.title" = "2-weeks";
+
+/* Class = "UIButton"; configuration.title = ">"; ObjectID = "5F4-Z4-mWA"; */
+"5F4-Z4-mWA.configuration.title" = ">";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "5F4-Z4-mWA"; */
+"5F4-Z4-mWA.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "range"; ObjectID = "MMS-LU-XT6"; */
+"MMS-LU-XT6.normalTitle" = "range";
+
+/* Class = "UIButton"; configuration.title = "sign in"; ObjectID = "Q0m-tM-6Ln"; */
+"Q0m-tM-6Ln.configuration.title" = "sign in";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Q0m-tM-6Ln"; */
+"Q0m-tM-6Ln.normalTitle" = "Button";
+
+/* Class = "UICommand"; title = "week"; ObjectID = "RH0-dJ-6Hj"; */
+"RH0-dJ-6Hj.title" = "week";
+
+/* Class = "UILabel"; text = "Hi ___, welcome to App"; ObjectID = "Uk4-uS-vrc"; */
+"Uk4-uS-vrc.text" = "Hi ___, welcome to App";
+
+/* Class = "UIButton"; configuration.title = "<"; ObjectID = "VC3-8e-j3c"; */
+"VC3-8e-j3c.configuration.title" = "<";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "VC3-8e-j3c"; */
+"VC3-8e-j3c.normalTitle" = "Button";
+
+/* Class = "UIButton"; configuration.title = "Costs"; ObjectID = "ViB-i6-jgV"; */
+"ViB-i6-jgV.configuration.title" = "Costs";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "ViB-i6-jgV"; */
+"ViB-i6-jgV.normalTitle" = "Button";
+
+/* Class = "UITextField"; placeholder = "login"; ObjectID = "Y4k-KH-k1h"; */
+"Y4k-KH-k1h.placeholder" = "login";
+
+/* Class = "UITextField"; text = "Marcin"; ObjectID = "Y4k-KH-k1h"; */
+"Y4k-KH-k1h.text" = "Marcin";
+
+/* Class = "UICommand"; title = "month"; ObjectID = "fb6-zB-rmu"; */
+"fb6-zB-rmu.title" = "month";
+
+/* Class = "UITextField"; placeholder = "password"; ObjectID = "i1l-9h-aLF"; */
+"i1l-9h-aLF.placeholder" = "password";
+
+/* Class = "UITextField"; text = "pass"; ObjectID = "i1l-9h-aLF"; */
+"i1l-9h-aLF.text" = "pass";
+
+/* Class = "UILabel"; text = "Welcome to financeTrackerMobile"; ObjectID = "vdZ-1L-hxd"; */
+"vdZ-1L-hxd.text" = "Welcome to financeTrackerMobile";

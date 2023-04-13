@@ -28,11 +28,11 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
 //    var dateComponent : DateComponents?
     var calendar : Calendar = Calendar.current
     
-    
     private let dateFormatter: DateFormatter = {
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd"
-        df.locale = Locale(identifier: "en_US_POSIX")
+        df.timeZone = TimeZone(identifier: "Europe/Amsterdam")
+//        df.locale = Locale(identifier: "en_US_POSIX")
         return df
     }()
     
@@ -53,6 +53,11 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
 //        tableCosts.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableIncome.delegate = self
         tableIncome.dataSource = self
+        
+        dateFrom.timeZone = TimeZone.init(identifier: "Europe/Amsterdam")
+        dateTo.timeZone = TimeZone.init(identifier: "Europe/Amsterdam")
+        print("default datePicker is, from: ", dateFrom.date, ", to: ", dateTo.date)
+//        dateFrom.
         
         welcomeLabel.text = "Hi \(login), welcome to App!"
         print("LinkCosts: " + linkCosts)
@@ -152,10 +157,44 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func backDateToUpIn(_ sender: UIButton) {
         print("back date")
+        if tableCosts.isHidden == false {
+            print("dateFromCosts: ", dateFromCosts?.debugDescription)
+        }
+        let tmpDateFrom = dateFrom.date
+        var dateComponent = DateComponents()
+        print("range is: ", rangeButton.currentTitle)
+        if rangeButton.currentTitle == "week" {
+            dateComponent.day = -7
+        } else if rangeButton.currentTitle == "2-weeks" {
+            dateComponent.day = -14
+        } else if rangeButton.currentTitle == "month" {
+            dateComponent.month = -1
+        }
+        dateFrom.date = Calendar.current.date(byAdding: dateComponent, to: tmpDateFrom) ?? Date()
+        if tableIncome.isHidden == false {
+            print("dateFromIncomes: ", dateFromIncomes?.debugDescription)
+        }
     }
     
     @IBAction func nextDateToUpIn(_ sender: UIButton) {
         print("next date")
+        if tableCosts.isHidden == false {
+            print("dateToCosts: ", dateToCosts?.debugDescription)
+        }
+        let tmpDateTo = dateTo.date
+        var dateComponent = DateComponents()
+        print("range is: ", rangeButton.currentTitle)
+        if rangeButton.currentTitle == "week" {
+            dateComponent.day = 7
+        } else if rangeButton.currentTitle == "2-weeks" {
+            dateComponent.day = 14
+        } else if rangeButton.currentTitle == "month" {
+            dateComponent.month = 1
+        }
+        dateTo.date = Calendar.current.date(byAdding: dateComponent, to: tmpDateTo) ?? Date()
+        if tableIncome.isHidden == false {
+            print("dateToIncomes: ", dateToIncomes?.debugDescription)
+        }
     }
     
     @IBAction func rangeDateToUpIn(_ sender: UIButton) {
@@ -178,9 +217,17 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         rangeButton.changesSelectionAsPrimaryAction = true
     }
     
+    @IBAction func changeDateFrom(_ sender: UIDatePicker) {
+        if tableCosts.isHidden == false {
+            print("dateFromCosts: ", dateFromCosts?.debugDescription)
+        }
+        if tableIncome.isHidden == false {
+            print("dateFromIncomes: ", dateFromIncomes?.debugDescription)
+        }
+        print("dateFrom: ", dateFrom.date)
+    }
+    
     func setDefaultDateRange(){
-//        let dateFormatterDay = DateFormatter()
-//        dateFormatterDay.dateFormat = "YYYY-MM-dd"
         var currentDate = Date()
         var dateComponent = DateComponents()
         dateComponent.day = -7

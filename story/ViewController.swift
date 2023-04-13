@@ -19,6 +19,13 @@ class ViewController: UIViewController {
     var costLink : String! = ""
     var incomeLink : String! = ""
     
+    private let dateFormatterDay: DateFormatter = {
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd"
+        df.locale = Locale(identifier: "en_US_POSIX")
+        return df
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -27,8 +34,10 @@ class ViewController: UIViewController {
         
         isLogin = false
         errorLabel.isHidden = true
-        costLink = "http://localhost:8080/rest/getCosts?from=" + getLastMonday()
-        incomeLink = "http://localhost:8080/rest/getIncomes?from=" + getFirstDayOfMonth()
+//        costLink = "http://localhost:8080/rest/getCosts?from=" + getLastMonday()
+        
+        costLink = "http://localhost:8080/rest/getCosts?from=" + dateFormatterDay.string(from: getLastMonday())
+        incomeLink = "http://localhost:8080/rest/getIncomes?from=" + dateFormatterDay.string(from: getFirstDayOfMonth())
         print("\nSize of login table is: " + String(restLogin.vm_logins.count))
         
         restLogin.getLogin(urlLink: "http://localhost:8080/rest/getLogin?name=" + loginText.text! + "&password=" + passwordText.text!){
@@ -69,12 +78,10 @@ class ViewController: UIViewController {
         }
     }
     
-    func getLastMonday() -> String {
+    func getLastMonday() -> Date {
         var pastMonday : Int = 0
         let dateFormatterFull = DateFormatter()
         dateFormatterFull.dateFormat = "YYYY/MM/dd HH:mm:ss"
-        let dateFormatterDay = DateFormatter()
-        dateFormatterDay.dateFormat = "YYYY-MM-dd"
         var calendar = Calendar.current
         calendar.firstWeekday = 2
         let currentDate = Date()
@@ -95,12 +102,10 @@ class ViewController: UIViewController {
         dateComponent.day = pastMonday * -1 //- 7
         let lastMonday = Calendar.current.date(byAdding: dateComponent, to: currentDate)
         print("current week is: " + String(currentWeek) + "., day of week is: " + String(dayOfWeek) + "., day of month is: " + String(dayOfMonth) + "., first day of week: " + dateFormatterDay.string(from: lastMonday!))
-        return dateFormatterDay.string(from: lastMonday!)
+        return lastMonday!
     }
     
-    func getFirstDayOfMonth() -> String {
-        let dateFormatterDay = DateFormatter()
-        dateFormatterDay.dateFormat = "YYYY-MM-dd"
+    func getFirstDayOfMonth() -> Date {
         var calendar = Calendar.current
         let currentDate = Date()
         var dateComponent = DateComponents()
@@ -108,7 +113,7 @@ class ViewController: UIViewController {
         dateComponent.day = (dayOfMonth - 1) * -1 //- 7
         let firstDay = Calendar.current.date(byAdding: dateComponent, to: currentDate)
         print("current day of month is: " + String(dayOfMonth) + "., first day of month: " + dateFormatterDay.string(from: firstDay!))
-        return dateFormatterDay.string(from: firstDay!)
+        return firstDay!
     }
 }
 
