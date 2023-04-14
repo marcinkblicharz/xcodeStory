@@ -67,6 +67,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         
         dateFromCosts = getLastMonday()
         dateFrom.date = dateFromCosts!
+        dateFromIncomes = getFirstDayOfMonth()
         print("after set initial datePicker is, from: ", dateFrom.date, ", to: ", dateTo.date)
         getCostsList(dateFrom: dateFormatter.string(from: dateFromCosts!), dateTo: "")
         getIncomesList(dateFrom: "", dateTo: "")
@@ -115,12 +116,14 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBAction func costButton(_ sender: UIButton) {
         tableCosts.isHidden = false
         tableIncome.isHidden = true
+        dateFrom.date = dateFromCosts!
         print("Show Costs and hide Incomes")
     }
     
     @IBAction func incomeButton(_ sender: UIButton) {
         tableCosts.isHidden = true
         tableIncome.isHidden = false
+        dateFrom.date = dateFromIncomes!
         print("Show Incomes and hide Costs")
     }
     
@@ -238,8 +241,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         dateComponent.day = -7
         dateFromCosts = Calendar.current.date(byAdding: dateComponent, to: currentDate)
         print("dateFromCosts: " , dateFormatter.string(from: dateFromCosts!))
-        dateFrom.setDate(dateFromCosts!, animated: true)
-        dateFrom.isSelected = true
+//        dateFrom.setDate(dateFromCosts!, animated: true)
+//        dateFrom.isSelected = true
         let dayOfMonth = calendar.component(.day, from: currentDate)
         dateComponent.day = (dayOfMonth - 1) * -1
         dateFromIncomes = Calendar.current.date(byAdding: dateComponent, to: currentDate)
@@ -267,9 +270,6 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             print("Size of aclfj is: " + String(self.listCosts_size))
             if self.listCosts_size > 0 {
                 print("aclfj[0] (date): ", self.aclfj[0].date, ", (value): ", String(self.aclfj[0].value), ", (name): ", self.aclfj[0].name, ", (type): ", self.aclfj[0].type, ", (color): ", self.aclfj[0].color + "ff")
-//                for element in 0...self.aclfj.count-1 {
-//                    self.tableViewData.append(self.aclfj[element].date + " - " + String(self.aclfj[element].value) + " - " + self.aclfj[element].name + " - " + self.aclfj[element].type)
-//                }
                 self.tableViewData.append("aaaa_cost")
                 self.tableCosts.register(UITableViewCell.self, forCellReuseIdentifier: "TableCostsCell")
                 self.tableCosts.dataSource = self
@@ -290,9 +290,6 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             print("Size of ailfj is: " + String(self.listIncomes_size))
             if self.listIncomes_size > 0 {
                 print("ailfj[0] (date): ", self.ailfj[0].date, ", (value): ", String(self.ailfj[0].value), ", (name): ", self.ailfj[0].name, ", (type): ", self.ailfj[0].type, ", (color): ", self.ailfj[0].color + "ff")
-//                for element in 0...self.ailfj.count-1 {
-//                    self.tableViewData.append(self.ailfj[element].date + " - " + String(self.ailfj[element].value) + " - " + self.ailfj[element].name + " - " + self.ailfj[element].type)
-//                }
                 self.tableViewData.append("aaaa_income")
                 self.tableIncome.register(UITableViewCell.self, forCellReuseIdentifier: "TableIncomeCell")
                 self.tableIncome.dataSource = self

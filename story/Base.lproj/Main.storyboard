@@ -121,7 +121,7 @@
                                                             <constraint firstAttribute="width" constant="105" id="Dsw-26-8dD"/>
                                                             <constraint firstAttribute="height" constant="45" id="eVJ-FO-tlx"/>
                                                         </constraints>
-                                                        <locale key="locale" localeIdentifier="pl_PL"/>
+                                                        <locale key="locale" localeIdentifier="pl"/>
                                                         <connections>
                                                             <action selector="changeDateFrom:" destination="Qgj-zc-s0n" eventType="valueChanged" id="nRp-X2-pZK"/>
                                                         </connections>
@@ -170,7 +170,7 @@
                                                             <constraint firstAttribute="height" constant="45" id="LGk-h7-pcS"/>
                                                             <constraint firstAttribute="width" constant="105" id="wjK-PC-t5o"/>
                                                         </constraints>
-                                                        <locale key="locale" localeIdentifier="pl_PL"/>
+                                                        <locale key="locale" localeIdentifier="pl"/>
                                                     </datePicker>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5F4-Z4-mWA">
                                                         <rect key="frame" x="355" y="30" width="35" height="35"/>
