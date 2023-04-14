@@ -13,6 +13,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     var password : String = ""
     var restCosts = RestCosts()
     var restIncomes = RestIncomes()
+    var serverAddress : String = ""
+//    let urlCosts =
     var linkCosts : String =  ""
     var linkIncomes : String =  ""
     var aclfj = [ApiCosts]()
@@ -54,53 +56,20 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         tableIncome.delegate = self
         tableIncome.dataSource = self
         
+        linkCosts = "http://" + serverAddress + ":8080/rest/getCosts?"
+        
         dateFrom.timeZone = TimeZone.init(identifier: "Europe/Amsterdam")
         dateTo.timeZone = TimeZone.init(identifier: "Europe/Amsterdam")
         print("default datePicker is, from: ", dateFrom.date, ", to: ", dateTo.date)
 //        dateFrom.
         
         welcomeLabel.text = "Hi \(login), welcome to App!"
-        print("LinkCosts: " + linkCosts)
-        restCosts.getCostsInner(urlLink: linkCosts){
-            print("Get data CostsList from JSON with success!")
-            self.aclfj = self.restCosts.acl
-            print("size of inside 'aclfj' is: " + String(self.aclfj.count))
-            self.listCosts_size = self.aclfj.count
-            print("Size of aclfj is: " + String(self.listCosts_size))
-            if self.listCosts_size > 0 {
-                print("aclfj[0] (date): ", self.aclfj[0].date, ", (value): ", String(self.aclfj[0].value), ", (name): ", self.aclfj[0].name, ", (type): ", self.aclfj[0].type, ", (color): ", self.aclfj[0].color + "ff")
-//                for element in 0...self.aclfj.count-1 {
-//                    self.tableViewData.append(self.aclfj[element].date + " - " + String(self.aclfj[element].value) + " - " + self.aclfj[element].name + " - " + self.aclfj[element].type)
-//                }
-                self.tableViewData.append("aaaa_cost")
-                self.tableCosts.register(UITableViewCell.self, forCellReuseIdentifier: "TableCostsCell")
-                self.tableCosts.dataSource = self
-                self.tableCosts.reloadData()
-            } else {
-                print("aclfj 0 sized")
-            }
-        }
-        print("size of outside 'aclfj' is: " + String(self.aclfj.count))
-        restIncomes.getIncomes(urlLink: linkIncomes){
-            print("Get data IncomesList from JSON with success!")
-            self.ailfj = self.restIncomes.ail
-            print("size of inside 'ailfj' is: " + String(self.ailfj.count))
-            self.listIncomes_size = self.ailfj.count
-            print("Size of ailfj is: " + String(self.listIncomes_size))
-            if self.listIncomes_size > 0 {
-                print("ailfj[0] (date): ", self.ailfj[0].date, ", (value): ", String(self.ailfj[0].value), ", (name): ", self.ailfj[0].name, ", (type): ", self.ailfj[0].type, ", (color): ", self.ailfj[0].color + "ff")
-//                for element in 0...self.ailfj.count-1 {
-//                    self.tableViewData.append(self.ailfj[element].date + " - " + String(self.ailfj[element].value) + " - " + self.ailfj[element].name + " - " + self.ailfj[element].type)
-//                }
-                self.tableViewData.append("aaaa_income")
-                self.tableIncome.register(UITableViewCell.self, forCellReuseIdentifier: "TableIncomeCell")
-                self.tableIncome.dataSource = self
-                self.tableIncome.reloadData()
-            } else {
-                print("ailfj 0 sized")
-            }
-        }
-        print("size of outside 'ailfj' is: " + String(self.ailfj.count))
+        
+        dateFromCosts = getLastMonday()
+        dateFrom.date = dateFromCosts!
+        print("after set initial datePicker is, from: ", dateFrom.date, ", to: ", dateTo.date)
+        getCostsList(dateFrom: dateFormatter.string(from: dateFromCosts!), dateTo: "")
+        getIncomesList(dateFrom: "", dateTo: "")
         
         setPullDownButtonRange()
         setDefaultDateRange()
@@ -171,6 +140,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             dateComponent.month = -1
         }
         dateFrom.date = Calendar.current.date(byAdding: dateComponent, to: tmpDateFrom) ?? Date()
+        print("dateFrom: ", dateFrom.date)
         if tableIncome.isHidden == false {
             print("dateFromIncomes: ", dateFromIncomes?.debugDescription)
         }
@@ -192,9 +162,44 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             dateComponent.month = 1
         }
         dateTo.date = Calendar.current.date(byAdding: dateComponent, to: tmpDateTo) ?? Date()
+        print("dateTo: ", dateTo.date)
         if tableIncome.isHidden == false {
             print("dateToIncomes: ", dateToIncomes?.debugDescription)
         }
+    }
+    
+    @IBAction func moveBackDateToUpIn(_ sender: UIButton) {
+        let tmpDateFrom = dateFrom.date
+        let tmpDateTo = dateTo.date
+        var dateComponent = DateComponents()
+        if rangeButton.currentTitle == "week" {
+            dateComponent.day = -7
+        } else if rangeButton.currentTitle == "2-weeks" {
+            dateComponent.day = -14
+        } else if rangeButton.currentTitle == "month" {
+            dateComponent.month = -1
+        }
+        dateFrom.date = Calendar.current.date(byAdding: dateComponent, to: tmpDateFrom) ?? Date()
+        print("dateFrom: ", dateFrom.date)
+        dateTo.date = Calendar.current.date(byAdding: dateComponent, to: tmpDateTo) ?? Date()
+        print("dateTo: ", dateTo.date)
+    }
+    
+    @IBAction func moveForwardDateToUpIn(_ sender: UIButton) {
+        let tmpDateFrom = dateFrom.date
+        let tmpDateTo = dateTo.date
+        var dateComponent = DateComponents()
+        if rangeButton.currentTitle == "week" {
+            dateComponent.day = 7
+        } else if rangeButton.currentTitle == "2-weeks" {
+            dateComponent.day = 14
+        } else if rangeButton.currentTitle == "month" {
+            dateComponent.month = 1
+        }
+        dateFrom.date = Calendar.current.date(byAdding: dateComponent, to: tmpDateFrom) ?? Date()
+        print("dateFrom: ", dateFrom.date)
+        dateTo.date = Calendar.current.date(byAdding: dateComponent, to: tmpDateTo) ?? Date()
+        print("dateTo: ", dateTo.date)
     }
     
     @IBAction func rangeDateToUpIn(_ sender: UIButton) {
@@ -239,6 +244,102 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         dateComponent.day = (dayOfMonth - 1) * -1
         dateFromIncomes = Calendar.current.date(byAdding: dateComponent, to: currentDate)
         print("dateFromIncomes: " , dateFormatter.string(from: dateFromIncomes!))
+    }
+    
+    func getCostsList(dateFrom : String, dateTo : String) {
+        print("getCostsList - dateFrom: " + dateFrom + ", dateTo: " + dateTo)
+        var addLink = ""
+        if dateFrom.count > 0 {
+            addLink = addLink + "from=" + dateFrom
+        }
+        if dateFrom.count > 0 && dateTo.count > 0 {
+            addLink = addLink + "&"
+        }
+        if dateTo.count > 0 {
+            addLink = addLink + "to=" + dateTo
+        }
+        print("LinkCosts: " + linkCosts + addLink)
+        restCosts.getCostsInner(urlLink: linkCosts + addLink){
+            print("Get data CostsList from JSON with success!")
+            self.aclfj = self.restCosts.acl
+            print("size of inside 'aclfj' is: " + String(self.aclfj.count))
+            self.listCosts_size = self.aclfj.count
+            print("Size of aclfj is: " + String(self.listCosts_size))
+            if self.listCosts_size > 0 {
+                print("aclfj[0] (date): ", self.aclfj[0].date, ", (value): ", String(self.aclfj[0].value), ", (name): ", self.aclfj[0].name, ", (type): ", self.aclfj[0].type, ", (color): ", self.aclfj[0].color + "ff")
+//                for element in 0...self.aclfj.count-1 {
+//                    self.tableViewData.append(self.aclfj[element].date + " - " + String(self.aclfj[element].value) + " - " + self.aclfj[element].name + " - " + self.aclfj[element].type)
+//                }
+                self.tableViewData.append("aaaa_cost")
+                self.tableCosts.register(UITableViewCell.self, forCellReuseIdentifier: "TableCostsCell")
+                self.tableCosts.dataSource = self
+                self.tableCosts.reloadData()
+            } else {
+                print("aclfj 0 sized")
+            }
+        }
+        print("size of outside 'aclfj' is: " + String(self.aclfj.count))
+    }
+    
+    func getIncomesList(dateFrom : String, dateTo : String) {
+        restIncomes.getIncomes(urlLink: linkIncomes){
+            print("Get data IncomesList from JSON with success!")
+            self.ailfj = self.restIncomes.ail
+            print("size of inside 'ailfj' is: " + String(self.ailfj.count))
+            self.listIncomes_size = self.ailfj.count
+            print("Size of ailfj is: " + String(self.listIncomes_size))
+            if self.listIncomes_size > 0 {
+                print("ailfj[0] (date): ", self.ailfj[0].date, ", (value): ", String(self.ailfj[0].value), ", (name): ", self.ailfj[0].name, ", (type): ", self.ailfj[0].type, ", (color): ", self.ailfj[0].color + "ff")
+//                for element in 0...self.ailfj.count-1 {
+//                    self.tableViewData.append(self.ailfj[element].date + " - " + String(self.ailfj[element].value) + " - " + self.ailfj[element].name + " - " + self.ailfj[element].type)
+//                }
+                self.tableViewData.append("aaaa_income")
+                self.tableIncome.register(UITableViewCell.self, forCellReuseIdentifier: "TableIncomeCell")
+                self.tableIncome.dataSource = self
+                self.tableIncome.reloadData()
+            } else {
+                print("ailfj 0 sized")
+            }
+        }
+        print("size of outside 'ailfj' is: " + String(self.ailfj.count))
+    }
+    
+    func getLastMonday() -> Date {
+        var pastMonday : Int = 0
+        let dateFormatterFull = DateFormatter()
+        dateFormatterFull.dateFormat = "YYYY/MM/dd HH:mm:ss"
+        var calendar = Calendar.current
+        calendar.firstWeekday = 2
+        let currentDate = Date()
+        var dateComponent = DateComponents()
+        let currentWeek = calendar.component(.weekOfYear, from: currentDate)
+        let dayOfWeek = calendar.component(.weekday, from: currentDate)
+        let dayOfMonth = calendar.component(.day, from: currentDate)
+        if dayOfWeek == 2 {
+            print("Today is Monday")
+        } else if dayOfWeek < 2 {
+            pastMonday = (2 - (7 + 1)) * -1
+            print("Monday was " + String(pastMonday) + "days ago")
+        } else {
+            pastMonday = (2 - dayOfWeek) * -1
+            print("Monday was " + String(pastMonday) + "days ago")
+        }
+        //change if week is empty
+        dateComponent.day = pastMonday * -1 //- 7
+        let lastMonday = Calendar.current.date(byAdding: dateComponent, to: currentDate)
+        print("current week is: " + String(currentWeek) + "., day of week is: " + String(dayOfWeek) + "., day of month is: " + String(dayOfMonth) + "., first day of week: " + dateFormatter.string(from: lastMonday!))
+        return lastMonday!
+    }
+    
+    func getFirstDayOfMonth() -> Date {
+        var calendar = Calendar.current
+        let currentDate = Date()
+        var dateComponent = DateComponents()
+        let dayOfMonth = calendar.component(.day, from: currentDate)
+        dateComponent.day = (dayOfMonth - 1) * -1 //- 7
+        let firstDay = Calendar.current.date(byAdding: dateComponent, to: currentDate)
+        print("current day of month is: " + String(dayOfMonth) + "., first day of month: " + dateFormatter.string(from: firstDay!))
+        return firstDay!
     }
 }
 

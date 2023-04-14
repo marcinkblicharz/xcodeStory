@@ -116,9 +116,9 @@
                                                         </connections>
                                                     </button>
                                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="hh7-eG-Sjn">
-                                                        <rect key="frame" x="34.333333333333343" y="25" width="120" height="45"/>
+                                                        <rect key="frame" x="34.333333333333343" y="25" width="105" height="45"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="120" id="Dsw-26-8dD"/>
+                                                            <constraint firstAttribute="width" constant="105" id="Dsw-26-8dD"/>
                                                             <constraint firstAttribute="height" constant="45" id="eVJ-FO-tlx"/>
                                                         </constraints>
                                                         <locale key="locale" localeIdentifier="pl_PL"/>
@@ -126,8 +126,19 @@
                                                             <action selector="changeDateFrom:" destination="Qgj-zc-s0n" eventType="valueChanged" id="nRp-X2-pZK"/>
                                                         </connections>
                                                     </datePicker>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sDp-tK-J05">
+                                                        <rect key="frame" x="139.33333333333334" y="30" width="34.333333333333343" height="35"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="35" id="Uiw-X2-SBd"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="&lt;"/>
+                                                        <connections>
+                                                            <action selector="moveBackDateToUpIn:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="laN-sA-KZS"/>
+                                                        </connections>
+                                                    </button>
                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MMS-LU-XT6">
-                                                        <rect key="frame" x="154.33333333333334" y="32.666666666666671" width="80.666666666666657" height="30"/>
+                                                        <rect key="frame" x="173.66666666666666" y="32.666666666666671" width="41.333333333333343" height="30"/>
                                                         <menu key="menu" id="doo-ci-SJK">
                                                             <children>
                                                                 <command title="week" id="RH0-dJ-6Hj" userLabel="week"/>
@@ -140,11 +151,24 @@
                                                             <action selector="rangeDateToUpIn:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="fkR-GZ-dDz"/>
                                                         </connections>
                                                     </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b3a-a1-Ock">
+                                                        <rect key="frame" x="215" y="30" width="35" height="35"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="35" id="FWS-LW-ITL"/>
+                                                            <constraint firstAttribute="width" constant="35" id="eEV-eK-l1I"/>
+                                                            <constraint firstAttribute="width" secondItem="b3a-a1-Ock" secondAttribute="height" multiplier="1:1" id="qvB-0t-rC8"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="&gt;"/>
+                                                        <connections>
+                                                            <action selector="moveForwardDateToUpIn:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="QOT-u8-buO"/>
+                                                        </connections>
+                                                    </button>
                                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="YPg-Kl-YV2">
-                                                        <rect key="frame" x="235" y="25" width="120" height="45"/>
+                                                        <rect key="frame" x="250" y="25" width="105" height="45"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="45" id="LGk-h7-pcS"/>
-                                                            <constraint firstAttribute="width" constant="120" id="wjK-PC-t5o"/>
+                                                            <constraint firstAttribute="width" constant="105" id="wjK-PC-t5o"/>
                                                         </constraints>
                                                         <locale key="locale" localeIdentifier="pl_PL"/>
                                                     </datePicker>
@@ -163,6 +187,7 @@
                                                     </button>
                                                 </subviews>
                                                 <constraints>
+                                                    <constraint firstItem="b3a-a1-Ock" firstAttribute="width" secondItem="b3a-a1-Ock" secondAttribute="height" multiplier="1:1" id="4Vp-2C-Kmk"/>
                                                     <constraint firstAttribute="trailing" secondItem="5F4-Z4-mWA" secondAttribute="trailing" id="Upm-iE-xLe"/>
                                                 </constraints>
                                             </stackView>

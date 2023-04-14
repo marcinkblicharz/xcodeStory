@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     var restCost = RestCosts()
     var costLink : String! = ""
     var incomeLink : String! = ""
+    var serverAddress : String! = ""
     
     private let dateFormatterDay: DateFormatter = {
         let df = DateFormatter()
@@ -36,8 +37,10 @@ class ViewController: UIViewController {
         errorLabel.isHidden = true
 //        costLink = "http://localhost:8080/rest/getCosts?from=" + getLastMonday()
         
-        costLink = "http://localhost:8080/rest/getCosts?from=" + dateFormatterDay.string(from: getLastMonday())
-        incomeLink = "http://localhost:8080/rest/getIncomes?from=" + dateFormatterDay.string(from: getFirstDayOfMonth())
+        serverAddress = "localhost"
+        
+        costLink = "http://" + serverAddress + ":8080/rest/getCosts?from=" + dateFormatterDay.string(from: getLastMonday())
+        incomeLink = "http://" + serverAddress + ":8080/rest/getIncomes?from=" + dateFormatterDay.string(from: getFirstDayOfMonth())
         print("\nSize of login table is: " + String(restLogin.vm_logins.count))
         
         restLogin.getLogin(urlLink: "http://localhost:8080/rest/getLogin?name=" + loginText.text! + "&password=" + passwordText.text!){
@@ -69,11 +72,14 @@ class ViewController: UIViewController {
             if let password = passwordText.text {
                 destinationVC?.password = password
             }
-            if let linkCosts = self.costLink {
-                destinationVC?.linkCosts = linkCosts
-            }
+//            if let linkCosts = self.costLink {
+//                destinationVC?.linkCosts = linkCosts
+//            }
             if let linkIncomes = self.incomeLink {
                 destinationVC?.linkIncomes = linkIncomes
+            }
+            if let serverAddress = self.serverAddress {
+                destinationVC?.serverAddress = serverAddress
             }
         }
     }
