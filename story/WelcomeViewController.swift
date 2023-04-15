@@ -46,6 +46,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var rangeButton: UIButton!
     @IBOutlet weak var dateFrom: UIDatePicker!
     @IBOutlet weak var dateTo: UIDatePicker!
+    @IBOutlet weak var buttonCosts: UIButton!
+    @IBOutlet weak var buttonIncomes: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,13 +100,27 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         let sortedIncomes = ailfj.sorted{$0.date < $1.date}
         var cell : UITableViewCell?
         if tableView == self.tableCosts {
-            cell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath)
-            cell!.textLabel!.text = sortedCosts[indexPath.row].date + " - " + String(sortedCosts[indexPath.row].value) + " - " + sortedCosts[indexPath.row].name + " - " + sortedCosts[indexPath.row].type
-            return cell!
+            print("tableView_sortedCosts: " + String(sortedCosts.count))
+            if sortedCosts.count > 0 {
+                cell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath)
+                cell!.textLabel!.text = sortedCosts[indexPath.row].date + " - " + String(sortedCosts[indexPath.row].value) + " - " + sortedCosts[indexPath.row].name + " - " + sortedCosts[indexPath.row].type
+                return cell!
+            } else {
+                cell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath)
+                cell!.textLabel!.text = ""
+                self.tableCosts.deleteRows(at: [indexPath], with: .automatic)
+            }
         } else if tableView == self.tableIncome {
-            cell = tableIncome.dequeueReusableCell(withIdentifier: "TableIncomeCell", for: indexPath)
-            cell!.textLabel!.text = sortedIncomes[indexPath.row].date + " - " + String(sortedIncomes[indexPath.row].value) + " - " + sortedIncomes[indexPath.row].name + " - " + sortedIncomes[indexPath.row].type
-            return cell!
+            print("tableView_sortedIncomes: " + String(sortedIncomes.count))
+            if sortedIncomes.count > 0 {
+                cell = tableIncome.dequeueReusableCell(withIdentifier: "TableIncomeCell", for: indexPath)
+                cell!.textLabel!.text = sortedIncomes[indexPath.row].date + " - " + String(sortedIncomes[indexPath.row].value) + " - " + sortedIncomes[indexPath.row].name + " - " + sortedIncomes[indexPath.row].type
+                return cell!
+            } else {
+                cell = tableIncome.dequeueReusableCell(withIdentifier: "TableIncomeCell", for: indexPath)
+                cell!.textLabel!.text = ""
+                self.tableIncome.deleteRows(at: [indexPath], with: .automatic)
+            }
         }
         return cell!
     }
@@ -117,6 +133,9 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         tableCosts.isHidden = false
         tableIncome.isHidden = true
         dateFrom.date = dateFromCosts
+        dateTo.date = dateToCosts
+        buttonCosts.backgroundColor = UIColor.systemGray2
+        buttonIncomes.backgroundColor = UIColor.systemGray2.withAlphaComponent(0.0)
         print("Show Costs and hide Incomes")
     }
     
@@ -124,6 +143,9 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         tableCosts.isHidden = true
         tableIncome.isHidden = false
         dateFrom.date = dateFromIncomes
+        dateTo.date = dateToIncomes
+        buttonCosts.backgroundColor = UIColor.systemGray2.withAlphaComponent(0.0)
+        buttonIncomes.backgroundColor = UIColor.systemGray2
         print("Show Incomes and hide Costs")
     }
     
@@ -194,6 +216,18 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         print("dateFrom: ", dateFrom.date)
         dateTo.date = Calendar.current.date(byAdding: dateComponent, to: tmpDateTo) ?? Date()
         print("dateTo: ", dateTo.date)
+        if tableCosts.isHidden == false {
+            dateFromCosts = dateFrom.date
+            dateToCosts = dateTo.date
+            print("dateFromCosts: ", dateFromCosts.debugDescription, "dateToCosts: ", dateToCosts.debugDescription)
+            getCostsList(dateFrom: dateFormatter.string(from: dateFrom.date), dateTo: dateFormatter.string(from: dateTo.date))
+        }
+        if tableIncome.isHidden == false {
+            dateFromIncomes = dateFrom.date
+            dateToIncomes = dateTo.date
+            print("dateToIncomes: ", dateToIncomes.debugDescription)
+            getIncomesList(dateFrom: dateFormatter.string(from: dateFrom.date), dateTo: dateFormatter.string(from: dateTo.date))
+        }
     }
     
     @IBAction func moveForwardDateToUpIn(_ sender: UIButton) {
@@ -258,6 +292,10 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func getCostsList(dateFrom : String, dateTo : String) {
+        aclfj.removeAll()
+        self.aclfj.removeAll()
+//        let count = self.tableCosts.tab
+//        self.tableCosts.deleteRows(at: (0..<count).map({ (i) in IndexPath(row: i, section: 0)}), with: .automatic)
         print("getCostsList - dateFrom: " + dateFrom + ", dateTo: " + dateTo)
         var addLink = ""
         if dateFrom.count > 0 {
@@ -271,6 +309,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         print("LinkCosts: " + linkCosts + addLink)
         restCosts.getCostsInner(urlLink: linkCosts + addLink){
+//            aclfj.removeAll()
+            self.aclfj.removeAll()
             print("Get data CostsList from JSON with success!")
             self.aclfj = self.restCosts.acl
             print("size of inside 'aclfj' is: " + String(self.aclfj.count))
@@ -278,7 +318,6 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             print("Size of aclfj is: " + String(self.listCosts_size))
             if self.listCosts_size > 0 {
                 print("aclfj[0] (date): ", self.aclfj[0].date, ", (value): ", String(self.aclfj[0].value), ", (name): ", self.aclfj[0].name, ", (type): ", self.aclfj[0].type, ", (color): ", self.aclfj[0].color + "ff")
-                self.tableViewData.append("aaaa_cost")
                 self.tableCosts.register(UITableViewCell.self, forCellReuseIdentifier: "TableCostsCell")
                 self.tableCosts.dataSource = self
                 self.tableCosts.reloadData()
@@ -290,6 +329,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func getIncomesList(dateFrom : String, dateTo : String) {
+        ailfj.removeAll()
+        self.ailfj.removeAll()
         print("getIncomesList - dateFrom: " + dateFrom + ", dateTo: " + dateTo)
         var addLink = ""
         if dateFrom.count > 0 {
@@ -303,6 +344,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         print("linkIncomes: " + linkIncomes + addLink)
         restIncomes.getIncomes(urlLink: linkIncomes + addLink){
+//            ailfj.removeAll()
+            self.ailfj.removeAll()
             print("Get data IncomesList from JSON with success!")
             self.ailfj = self.restIncomes.ail
             print("size of inside 'ailfj' is: " + String(self.ailfj.count))
@@ -310,7 +353,6 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             print("Size of ailfj is: " + String(self.listIncomes_size))
             if self.listIncomes_size > 0 {
                 print("ailfj[0] (date): ", self.ailfj[0].date, ", (value): ", String(self.ailfj[0].value), ", (name): ", self.ailfj[0].name, ", (type): ", self.ailfj[0].type, ", (color): ", self.ailfj[0].color + "ff")
-                self.tableViewData.append("aaaa_income")
                 self.tableIncome.register(UITableViewCell.self, forCellReuseIdentifier: "TableIncomeCell")
                 self.tableIncome.dataSource = self
                 self.tableIncome.reloadData()
