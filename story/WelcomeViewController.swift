@@ -22,10 +22,10 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     var listCosts_size : Int = 0
     var listIncomes_size : Int = 0
     var tableViewData = [String]()
-    var dateFromCosts : Date?
-    var dateToCosts : Date?
-    var dateFromIncomes : Date?
-    var dateToIncomes : Date?
+    var dateFromCosts : Date = Date()
+    var dateToCosts : Date = Date()
+    var dateFromIncomes : Date = Date()
+    var dateToIncomes : Date = Date()
 //    var currentDate : Date?
 //    var dateComponent : DateComponents?
     var calendar : Calendar = Calendar.current
@@ -57,6 +57,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         tableIncome.dataSource = self
         
         linkCosts = "http://" + serverAddress + ":8080/rest/getCosts?"
+        linkIncomes = "http://" + serverAddress + ":8080/rest/getIncomes?"
         
         dateFrom.timeZone = TimeZone.init(identifier: "Europe/Amsterdam")
         dateTo.timeZone = TimeZone.init(identifier: "Europe/Amsterdam")
@@ -66,11 +67,13 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         welcomeLabel.text = "Hi \(login), welcome to App!"
         
         dateFromCosts = getLastMonday()
-        dateFrom.date = dateFromCosts!
+        dateToCosts = dateTo.date
+        dateFrom.date = dateFromCosts
         dateFromIncomes = getFirstDayOfMonth()
+        dateToIncomes = dateTo.date
         print("after set initial datePicker is, from: ", dateFrom.date, ", to: ", dateTo.date)
-        getCostsList(dateFrom: dateFormatter.string(from: dateFromCosts!), dateTo: "")
-        getIncomesList(dateFrom: "", dateTo: "")
+        getCostsList(dateFrom: dateFormatter.string(from: dateFromCosts), dateTo: dateFormatter.string(from: dateToCosts))
+        getIncomesList(dateFrom: dateFormatter.string(from: dateFromIncomes), dateTo: dateFormatter.string(from: dateToIncomes))
         
         setPullDownButtonRange()
         setDefaultDateRange()
@@ -91,19 +94,16 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
-//        cell.textLabel?.text = self.tableViewData[indexPath.row]
-////        let color : String = self.aclfj[indexPath.row].color + "ff"
-////        cell.backgroundColor = UIColor(hex: color)
-//        return cell
+        let sortedCosts = aclfj.sorted{$0.date < $1.date}
+        let sortedIncomes = ailfj.sorted{$0.date < $1.date}
         var cell : UITableViewCell?
         if tableView == self.tableCosts {
             cell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath)
-            cell!.textLabel!.text = self.aclfj[indexPath.row].date + " - " + String(self.aclfj[indexPath.row].value) + " - " + self.aclfj[indexPath.row].name + " - " + self.aclfj[indexPath.row].type
+            cell!.textLabel!.text = sortedCosts[indexPath.row].date + " - " + String(sortedCosts[indexPath.row].value) + " - " + sortedCosts[indexPath.row].name + " - " + sortedCosts[indexPath.row].type
             return cell!
         } else if tableView == self.tableIncome {
             cell = tableIncome.dequeueReusableCell(withIdentifier: "TableIncomeCell", for: indexPath)
-            cell!.textLabel!.text = self.ailfj[indexPath.row].date + " - " + String(self.ailfj[indexPath.row].value) + " - " + self.ailfj[indexPath.row].name + " - " + self.ailfj[indexPath.row].type
+            cell!.textLabel!.text = sortedIncomes[indexPath.row].date + " - " + String(sortedIncomes[indexPath.row].value) + " - " + sortedIncomes[indexPath.row].name + " - " + sortedIncomes[indexPath.row].type
             return cell!
         }
         return cell!
@@ -116,22 +116,19 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBAction func costButton(_ sender: UIButton) {
         tableCosts.isHidden = false
         tableIncome.isHidden = true
-        dateFrom.date = dateFromCosts!
+        dateFrom.date = dateFromCosts
         print("Show Costs and hide Incomes")
     }
     
     @IBAction func incomeButton(_ sender: UIButton) {
         tableCosts.isHidden = true
         tableIncome.isHidden = false
-        dateFrom.date = dateFromIncomes!
+        dateFrom.date = dateFromIncomes
         print("Show Incomes and hide Costs")
     }
     
     @IBAction func backDateToUpIn(_ sender: UIButton) {
         print("back date")
-        if tableCosts.isHidden == false {
-            print("dateFromCosts: ", dateFromCosts?.debugDescription)
-        }
         let tmpDateFrom = dateFrom.date
         var dateComponent = DateComponents()
         print("range is: ", rangeButton.currentTitle)
@@ -144,16 +141,20 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         dateFrom.date = Calendar.current.date(byAdding: dateComponent, to: tmpDateFrom) ?? Date()
         print("dateFrom: ", dateFrom.date)
+        if tableCosts.isHidden == false {
+            dateFromCosts = dateFrom.date
+            print("dateFromCosts: ", dateFromCosts.debugDescription)
+            getCostsList(dateFrom: dateFormatter.string(from: dateFromCosts), dateTo: dateFormatter.string(from: dateTo.date))
+        }
         if tableIncome.isHidden == false {
-            print("dateFromIncomes: ", dateFromIncomes?.debugDescription)
+            dateFromIncomes = dateFrom.date
+            print("dateFromIncomes: ", dateFromIncomes.debugDescription)
+            getIncomesList(dateFrom: dateFormatter.string(from: dateFromIncomes), dateTo: dateFormatter.string(from: dateTo.date))
         }
     }
     
     @IBAction func nextDateToUpIn(_ sender: UIButton) {
         print("next date")
-        if tableCosts.isHidden == false {
-            print("dateToCosts: ", dateToCosts?.debugDescription)
-        }
         let tmpDateTo = dateTo.date
         var dateComponent = DateComponents()
         print("range is: ", rangeButton.currentTitle)
@@ -166,8 +167,15 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         dateTo.date = Calendar.current.date(byAdding: dateComponent, to: tmpDateTo) ?? Date()
         print("dateTo: ", dateTo.date)
+        if tableCosts.isHidden == false {
+            dateToCosts = dateTo.date
+            print("dateToCosts: ", dateToCosts.debugDescription)
+            getCostsList(dateFrom: dateFormatter.string(from: dateFrom.date), dateTo: dateFormatter.string(from: dateToCosts))
+        }
         if tableIncome.isHidden == false {
-            print("dateToIncomes: ", dateToIncomes?.debugDescription)
+            dateToIncomes = dateTo.date
+            print("dateToIncomes: ", dateToIncomes.debugDescription)
+            getIncomesList(dateFrom: dateFormatter.string(from: dateFrom.date), dateTo: dateFormatter.string(from: dateToIncomes))
         }
     }
     
@@ -227,10 +235,10 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func changeDateFrom(_ sender: UIDatePicker) {
         if tableCosts.isHidden == false {
-            print("dateFromCosts: ", dateFromCosts?.debugDescription)
+            print("dateFromCosts: ", dateFromCosts.debugDescription)
         }
         if tableIncome.isHidden == false {
-            print("dateFromIncomes: ", dateFromIncomes?.debugDescription)
+            print("dateFromIncomes: ", dateFromIncomes.debugDescription)
         }
         print("dateFrom: ", dateFrom.date)
     }
@@ -239,14 +247,14 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         var currentDate = Date()
         var dateComponent = DateComponents()
         dateComponent.day = -7
-        dateFromCosts = Calendar.current.date(byAdding: dateComponent, to: currentDate)
-        print("dateFromCosts: " , dateFormatter.string(from: dateFromCosts!))
+//        dateFromCosts = Calendar.current.date(byAdding: dateComponent, to: currentDate)
+        print("dateFromCosts: " , dateFormatter.string(from: dateFromCosts))
 //        dateFrom.setDate(dateFromCosts!, animated: true)
 //        dateFrom.isSelected = true
         let dayOfMonth = calendar.component(.day, from: currentDate)
         dateComponent.day = (dayOfMonth - 1) * -1
-        dateFromIncomes = Calendar.current.date(byAdding: dateComponent, to: currentDate)
-        print("dateFromIncomes: " , dateFormatter.string(from: dateFromIncomes!))
+//        dateFromIncomes = Calendar.current.date(byAdding: dateComponent, to: currentDate)
+        print("dateFromIncomes: " , dateFormatter.string(from: dateFromIncomes))
     }
     
     func getCostsList(dateFrom : String, dateTo : String) {
@@ -282,7 +290,19 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func getIncomesList(dateFrom : String, dateTo : String) {
-        restIncomes.getIncomes(urlLink: linkIncomes){
+        print("getIncomesList - dateFrom: " + dateFrom + ", dateTo: " + dateTo)
+        var addLink = ""
+        if dateFrom.count > 0 {
+            addLink = addLink + "from=" + dateFrom
+        }
+        if dateFrom.count > 0 && dateTo.count > 0 {
+            addLink = addLink + "&"
+        }
+        if dateTo.count > 0 {
+            addLink = addLink + "to=" + dateTo
+        }
+        print("linkIncomes: " + linkIncomes + addLink)
+        restIncomes.getIncomes(urlLink: linkIncomes + addLink){
             print("Get data IncomesList from JSON with success!")
             self.ailfj = self.restIncomes.ail
             print("size of inside 'ailfj' is: " + String(self.ailfj.count))
