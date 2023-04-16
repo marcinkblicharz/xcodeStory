@@ -171,6 +171,9 @@
                                                             <constraint firstAttribute="width" constant="105" id="wjK-PC-t5o"/>
                                                         </constraints>
                                                         <locale key="locale" localeIdentifier="pl"/>
+                                                        <connections>
+                                                            <action selector="changeDateTo:" destination="Qgj-zc-s0n" eventType="valueChanged" id="3tF-AV-y1n"/>
+                                                        </connections>
                                                     </datePicker>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5F4-Z4-mWA">
                                                         <rect key="frame" x="355" y="30" width="35" height="35"/>

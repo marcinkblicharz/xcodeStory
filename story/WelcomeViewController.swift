@@ -270,11 +270,31 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBAction func changeDateFrom(_ sender: UIDatePicker) {
         if tableCosts.isHidden == false {
             print("dateFromCosts: ", dateFromCosts.debugDescription)
+            dateFromCosts = dateFrom.date
+            getCostsList(dateFrom: dateFormatter.string(from: dateFromCosts), dateTo: dateFormatter.string(from: dateTo.date))
         }
         if tableIncome.isHidden == false {
             print("dateFromIncomes: ", dateFromIncomes.debugDescription)
+            dateFromIncomes = dateFrom.date
+            getIncomesList(dateFrom: dateFormatter.string(from: dateFromIncomes), dateTo: dateFormatter.string(from: dateTo.date))
         }
         print("dateFrom: ", dateFrom.date)
+        presentedViewController?.dismiss(animated: true)
+    }
+    
+    @IBAction func changeDateTo(_ sender: UIDatePicker) {
+        if tableCosts.isHidden == false {
+            print("dateToCosts: ", dateToCosts.debugDescription)
+            dateToCosts = dateTo.date
+            getCostsList(dateFrom: dateFormatter.string(from: dateFrom.date), dateTo: dateFormatter.string(from: dateToCosts))
+        }
+        if tableIncome.isHidden == false {
+            print("dateToIncomes: ", dateToIncomes.debugDescription)
+            dateToIncomes = dateTo.date
+            getIncomesList(dateFrom: dateFormatter.string(from: dateFrom.date), dateTo: dateFormatter.string(from: dateToIncomes))
+        }
+        print("dateFrom: ", dateFrom.date)
+        presentedViewController?.dismiss(animated: true)
     }
     
     func setDefaultDateRange(){
