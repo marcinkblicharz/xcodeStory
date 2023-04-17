@@ -314,6 +314,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     func getCostsList(dateFrom : String, dateTo : String) {
         aclfj.removeAll()
         self.aclfj.removeAll()
+        self.tableCosts.reloadData()
 //        let count = self.tableCosts.tab
 //        self.tableCosts.deleteRows(at: (0..<count).map({ (i) in IndexPath(row: i, section: 0)}), with: .automatic)
         print("getCostsList - dateFrom: " + dateFrom + ", dateTo: " + dateTo)
@@ -351,6 +352,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     func getIncomesList(dateFrom : String, dateTo : String) {
         ailfj.removeAll()
         self.ailfj.removeAll()
+        self.tableIncome.reloadData()
         print("getIncomesList - dateFrom: " + dateFrom + ", dateTo: " + dateTo)
         var addLink = ""
         if dateFrom.count > 0 {
