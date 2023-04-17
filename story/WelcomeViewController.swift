@@ -245,6 +245,18 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         print("dateFrom: ", dateFrom.date)
         dateTo.date = Calendar.current.date(byAdding: dateComponent, to: tmpDateTo) ?? Date()
         print("dateTo: ", dateTo.date)
+        if tableCosts.isHidden == false {
+            dateFromCosts = dateFrom.date
+            dateToCosts = dateTo.date
+            print("dateFromCosts: ", dateFromCosts.debugDescription, "dateToCosts: ", dateToCosts.debugDescription)
+            getCostsList(dateFrom: dateFormatter.string(from: dateFrom.date), dateTo: dateFormatter.string(from: dateTo.date))
+        }
+        if tableIncome.isHidden == false {
+            dateFromIncomes = dateFrom.date
+            dateToIncomes = dateTo.date
+            print("dateToIncomes: ", dateToIncomes.debugDescription)
+            getIncomesList(dateFrom: dateFormatter.string(from: dateFrom.date), dateTo: dateFormatter.string(from: dateTo.date))
+        }
     }
     
     @IBAction func rangeDateToUpIn(_ sender: UIButton) {

@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var loginText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
+    @IBOutlet weak var setServerButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
     var restLogin = RestLogin()
     var isLogin : Bool = false
@@ -29,6 +30,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setPullDownServerButton()
     }
 
     @IBAction func signInButton(_ sender: UIButton) {
@@ -37,7 +39,12 @@ class ViewController: UIViewController {
         errorLabel.isHidden = true
 //        costLink = "http://localhost:8080/rest/getCosts?from=" + getLastMonday()
         
-        serverAddress = "localhost"
+        
+        if setServerButton.currentTitle == "local" {
+            serverAddress = "localhost"
+        } else if setServerButton.currentTitle == "remote" {
+            serverAddress = "192.168.1.69"
+        }
         
         costLink = "http://" + serverAddress + ":8080/rest/getCosts?from=" + dateFormatterDay.string(from: getLastMonday())
         incomeLink = "http://" + serverAddress + ":8080/rest/getIncomes?from=" + dateFormatterDay.string(from: getFirstDayOfMonth())
@@ -82,6 +89,17 @@ class ViewController: UIViewController {
                 destinationVC?.serverAddress = serverAddress
             }
         }
+    }
+    
+    func setPullDownServerButton(){
+        let optionClosure = {(action: UIAction) in
+            print("change server to: " + action.title)
+        }
+        setServerButton.menu = UIMenu(children : [
+            UIAction(title: "local", state: .on, handler: optionClosure),
+            UIAction(title: "remote", handler: optionClosure)])
+        setServerButton.showsMenuAsPrimaryAction = true
+        setServerButton.changesSelectionAsPrimaryAction = true
     }
     
     func getLastMonday() -> Date {
