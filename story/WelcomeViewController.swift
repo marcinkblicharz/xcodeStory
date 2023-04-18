@@ -48,6 +48,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var dateTo: UIDatePicker!
     @IBOutlet weak var buttonCosts: UIButton!
     @IBOutlet weak var buttonIncomes: UIButton!
+    @IBOutlet weak var todayButton: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -259,14 +260,6 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    @IBAction func rangeDateToUpIn(_ sender: UIButton) {
-        print("set range date")
-    }
-    
-    @IBAction func rangeDate(_ sender: UIButton) {
-        print("set ranges")
-    }
-    
     func setPullDownButtonRange(){
         let optionClosure = {(action: UIAction) in
             print("change date range to: " + action.title)
@@ -307,6 +300,17 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         print("dateFrom: ", dateFrom.date)
         presentedViewController?.dismiss(animated: true)
+        todayButton.isHidden = true
+    }
+    
+    @IBAction func todayButtonToIn(_ sender: UIButton) {
+        print("todayButtonToIn")
+        todayButton.isHidden = false
+    }
+    
+    @IBAction func toUpIn(_ sender: UIDatePicker) {
+        print("toUpIn")
+        todayButton.isHidden = false
     }
     
     func setDefaultDateRange(){
@@ -321,6 +325,11 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         dateComponent.day = (dayOfMonth - 1) * -1
 //        dateFromIncomes = Calendar.current.date(byAdding: dateComponent, to: currentDate)
         print("dateFromIncomes: " , dateFormatter.string(from: dateFromIncomes))
+    }
+    
+    @IBAction func draEnt(_ sender: UIDatePicker) {
+        print("draEnt")
+        todayButton.isHidden = false
     }
     
     func getCostsList(dateFrom : String, dateTo : String) {
@@ -355,6 +364,9 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
                 self.tableCosts.dataSource = self
                 self.tableCosts.reloadData()
             } else {
+                self.tableCosts.register(UITableViewCell.self, forCellReuseIdentifier: "TableCostsCell")
+                self.tableCosts.dataSource = self
+                self.tableCosts.reloadData()
                 print("aclfj 0 sized")
             }
         }
@@ -391,6 +403,9 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
                 self.tableIncome.dataSource = self
                 self.tableIncome.reloadData()
             } else {
+                self.tableIncome.register(UITableViewCell.self, forCellReuseIdentifier: "TableIncomeCell")
+                self.tableIncome.dataSource = self
+                self.tableIncome.reloadData()
                 print("ailfj 0 sized")
             }
         }
