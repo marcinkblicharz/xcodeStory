@@ -312,24 +312,56 @@
                                             <constraint firstItem="QXA-EA-gLh" firstAttribute="top" secondItem="RU9-qA-17E" secondAttribute="bottom" id="vBn-ro-y8F"/>
                                         </constraints>
                                     </stackView>
+                                    <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9oK-sJ-Y3F">
+                                        <rect key="frame" x="0.0" y="719" width="390" height="44"/>
+                                        <items>
+                                            <barButtonItem title="Set" id="hch-aO-lK3"/>
+                                            <barButtonItem systemItem="flexibleSpace" id="YzC-uz-IfF"/>
+                                            <barButtonItem title="Today" id="eyV-l1-rfc"/>
+                                            <barButtonItem systemItem="flexibleSpace" id="Ahy-j9-rcN"/>
+                                            <barButtonItem title="Cancel" id="q7G-jQ-2Ia"/>
+                                        </items>
+                                        <toolbarAppearance key="scrollEdgeAppearance">
+                                            <barButtonItemAppearance key="buttonAppearance">
+                                                <barButtonItemStateAppearance key="normal"/>
+                                                <barButtonItemStateAppearance key="highlighted"/>
+                                                <barButtonItemStateAppearance key="disabled"/>
+                                                <barButtonItemStateAppearance key="focused"/>
+                                            </barButtonItemAppearance>
+                                        </toolbarAppearance>
+                                    </toolbar>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="rBV-8L-xJJ" firstAttribute="centerX" secondItem="lFN-og-X9l" secondAttribute="centerX" id="0Fe-ws-SEB"/>
+                                    <constraint firstItem="9oK-sJ-Y3F" firstAttribute="leading" secondItem="lFN-og-X9l" secondAttribute="leading" id="8nT-3j-YzH"/>
                                     <constraint firstItem="rBV-8L-xJJ" firstAttribute="top" secondItem="lFN-og-X9l" secondAttribute="top" id="BRz-pc-lG3"/>
+                                    <constraint firstAttribute="bottom" secondItem="9oK-sJ-Y3F" secondAttribute="bottom" id="CbH-z5-rfP"/>
+                                    <constraint firstAttribute="trailing" secondItem="9oK-sJ-Y3F" secondAttribute="trailing" id="Ylr-xK-1Pn"/>
                                     <constraint firstAttribute="bottom" secondItem="rBV-8L-xJJ" secondAttribute="bottom" id="ZGe-9q-Tk2"/>
                                     <constraint firstItem="rBV-8L-xJJ" firstAttribute="leading" secondItem="lFN-og-X9l" secondAttribute="leading" id="iAg-Ds-lgw"/>
                                 </constraints>
                             </view>
+                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="7LF-dS-OvV">
+                                <rect key="frame" x="0.0" y="616" width="390" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="ovz-3Z-htv"/>
+                                </constraints>
+                                <locale key="locale" localeIdentifier="pl"/>
+                            </datePicker>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UMm-oD-yV3"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <constraints>
+                            <constraint firstItem="UMm-oD-yV3" firstAttribute="trailing" secondItem="7LF-dS-OvV" secondAttribute="trailing" id="4MJ-in-jhg"/>
                             <constraint firstItem="lFN-og-X9l" firstAttribute="bottom" secondItem="UMm-oD-yV3" secondAttribute="bottom" id="4qa-I0-WSe"/>
+                            <constraint firstItem="7LF-dS-OvV" firstAttribute="leading" secondItem="lFN-og-X9l" secondAttribute="leading" id="DDo-eD-KZf"/>
                             <constraint firstItem="UMm-oD-yV3" firstAttribute="bottom" secondItem="lFN-og-X9l" secondAttribute="bottom" id="MYs-65-Yiu"/>
                             <constraint firstItem="lFN-og-X9l" firstAttribute="top" secondItem="UMm-oD-yV3" secondAttribute="top" id="QBV-we-8s2"/>
                             <constraint firstItem="lFN-og-X9l" firstAttribute="top" secondItem="UMm-oD-yV3" secondAttribute="top" id="Vdr-oR-YKo"/>
                             <constraint firstItem="lFN-og-X9l" firstAttribute="trailing" secondItem="UMm-oD-yV3" secondAttribute="trailing" id="Wyj-Ap-exj"/>
+                            <constraint firstItem="7LF-dS-OvV" firstAttribute="leading" secondItem="UMm-oD-yV3" secondAttribute="leading" id="fSg-LR-3Ja"/>
+                            <constraint firstItem="9oK-sJ-Y3F" firstAttribute="top" secondItem="7LF-dS-OvV" secondAttribute="bottom" id="mwl-b8-JBj"/>
                             <constraint firstItem="lFN-og-X9l" firstAttribute="leading" secondItem="UMm-oD-yV3" secondAttribute="leading" id="u2C-Ct-VEp"/>
                         </constraints>
                     </view>
@@ -347,6 +379,8 @@
                         <outlet property="tableCosts" destination="uQA-x7-FXA" id="Vs6-mg-Sq5"/>
                         <outlet property="tableIncome" destination="Qmj-ge-SOD" id="aiY-SL-bSe"/>
                         <outlet property="todayButton" destination="M43-kX-vj3" id="aCY-hl-oen"/>
+                        <outlet property="toolbarBottom" destination="9oK-sJ-Y3F" id="Pk2-X6-jG8"/>
+                        <outlet property="toolbarDatepicker" destination="7LF-dS-OvV" id="GQ0-Hq-zVM"/>
                         <outlet property="welcomeLabel" destination="Uk4-uS-vrc" id="E6I-Bf-W4E"/>
                     </connections>
                 </viewController>

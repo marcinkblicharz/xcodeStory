@@ -56,6 +56,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var taDateFrom: UITextField!
     @IBOutlet weak var taDateTo: UITextField!
     @IBOutlet weak var stackViewScreen: UIStackView!
+    @IBOutlet weak var toolbarBottom: UIToolbar!
+    @IBOutlet weak var toolbarDatepicker: UIDatePicker!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -330,12 +332,20 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func todayButtonToIn(_ sender: UIButton) {
         print("todayButtonToIn")
-        todayButton.isHidden = false
-
-        gtoolbar.sizeToFit()
-
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
-        gtoolbar.setItems([doneButton], animated: true)
+        if toolbarBottom.isHidden == false {
+            toolbarBottom.isHidden = true
+            toolbarDatepicker.isHidden = true
+            
+        } else if toolbarBottom.isHidden == true {
+            toolbarBottom.isHidden = false
+            toolbarDatepicker.isHidden = false
+        }
+//        todayButton.isHidden = false
+//
+//        gtoolbar.sizeToFit()
+//
+//        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
+//        gtoolbar.setItems([doneButton], animated: true)
 //        self.view.addSubview(gtoolbar)
     }
     
