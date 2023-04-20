@@ -30,6 +30,10 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
 //    var dateComponent : DateComponents?
     var calendar : Calendar = Calendar.current
     
+    let dp = UIDatePicker()
+    
+    let gtoolbar = UIToolbar()
+    
     private let dateFormatter: DateFormatter = {
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd"
@@ -48,7 +52,10 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var dateTo: UIDatePicker!
     @IBOutlet weak var buttonCosts: UIButton!
     @IBOutlet weak var buttonIncomes: UIButton!
-    @IBOutlet weak var todayButton: UILabel!
+    @IBOutlet weak var todayButton: UIButton!
+    @IBOutlet weak var taDateFrom: UITextField!
+    @IBOutlet weak var taDateTo: UITextField!
+    @IBOutlet weak var stackViewScreen: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,22 +71,39 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         
         dateFrom.timeZone = TimeZone.init(identifier: "Europe/Amsterdam")
         dateTo.timeZone = TimeZone.init(identifier: "Europe/Amsterdam")
+        dateFrom.maximumDate = Date()
+        dateTo.maximumDate = Date()
         print("default datePicker is, from: ", dateFrom.date, ", to: ", dateTo.date)
 //        dateFrom.
         
         welcomeLabel.text = "Hi \(login), welcome to App!"
         
         dateFromCosts = getLastMonday()
-        dateToCosts = dateTo.date
+//        dateToCosts = dateTo.date
+        dateToCosts = Date()
         dateFrom.date = dateFromCosts
         dateFromIncomes = getFirstDayOfMonth()
-        dateToIncomes = dateTo.date
+//        dateToIncomes = dateTo.date
+        dateToIncomes = Date()
         print("after set initial datePicker is, from: ", dateFrom.date, ", to: ", dateTo.date)
         getCostsList(dateFrom: dateFormatter.string(from: dateFromCosts), dateTo: dateFormatter.string(from: dateToCosts))
         getIncomesList(dateFrom: dateFormatter.string(from: dateFromIncomes), dateTo: dateFormatter.string(from: dateToIncomes))
         
         setPullDownButtonRange()
-        setDefaultDateRange()
+//        setDefaultDateRange()
+        
+        taDateFrom.text = dateFormatter.string(from: dateFromCosts)
+        taDateTo.text = dateFormatter.string(from: dateToCosts)
+        
+        dp.timeZone = TimeZone.init(identifier: "Europe/Amsterdam")
+        dp.maximumDate = Date()
+        dp.preferredDatePickerStyle = .wheels
+        dp.datePickerMode = .date
+        taDateFrom.inputView = dp
+        taDateFrom.inputAccessoryView = fromDateToolbar()
+        
+//        taDateFrom.inputAccessoryView = setTAButFrom(false)
+//        taDateFrom.isUserInteractionEnabled = false
         
     }
     
@@ -285,6 +309,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         print("dateFrom: ", dateFrom.date)
         presentedViewController?.dismiss(animated: true)
+        todayButton.isHidden = true
     }
     
     @IBAction func changeDateTo(_ sender: UIDatePicker) {
@@ -298,7 +323,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             dateToIncomes = dateTo.date
             getIncomesList(dateFrom: dateFormatter.string(from: dateFrom.date), dateTo: dateFormatter.string(from: dateToIncomes))
         }
-        print("dateFrom: ", dateFrom.date)
+        print("dateTo: ", dateTo.date)
         presentedViewController?.dismiss(animated: true)
         todayButton.isHidden = true
     }
@@ -306,11 +331,16 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBAction func todayButtonToIn(_ sender: UIButton) {
         print("todayButtonToIn")
         todayButton.isHidden = false
+
+        gtoolbar.sizeToFit()
+
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
+        gtoolbar.setItems([doneButton], animated: true)
+//        self.view.addSubview(gtoolbar)
     }
     
-    @IBAction func toUpIn(_ sender: UIDatePicker) {
-        print("toUpIn")
-        todayButton.isHidden = false
+    func showDateFrom () {
+        
     }
     
     func setDefaultDateRange(){
@@ -327,16 +357,71 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         print("dateFromIncomes: " , dateFormatter.string(from: dateFromIncomes))
     }
     
-    @IBAction func draEnt(_ sender: UIDatePicker) {
-        print("draEnt")
-        todayButton.isHidden = false
+    @IBAction func taFromToUpIn(_ sender: UITextField) {
+        print("taFromToUpIn")
+    }
+    
+    @IBAction func taFromEdDiEn(_ sender: UITextField) {
+        print("taFromEdDiEn")
+    }
+    
+    func fromDateToolbar() -> UIToolbar {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Set", style: .done, target: nil, action: #selector(donePressed))
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(cancelPressed))
+        let todayB : UIButton = UIButton()
+        todayB.setTitle("Today", for: .normal)
+        let todayButton = UIBarButtonItem(title: "Today", style: .done, target: nil, action: #selector(todayPressed))
+//        todayButton.customView = todayB
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        cancelButton.tintColor = .gray
+        todayButton.tintColor = .black
+        toolbar.setItems([doneButton, flexibleSpace, todayButton, flexibleSpace, cancelButton], animated: true)
+        
+//        self.stackViewScreen.isUserInteractionEnabled = false
+        
+        return toolbar
+    }
+    
+    @objc func donePressed() {
+        self.taDateFrom.text = dateFormatter.string(from: dp.date)
+        self.view.endEditing(true)
+        self.taDateFrom.isEnabled = true
+    }
+    
+    @objc func cancelPressed() {
+        self.view.endEditing(true)
+        self.taDateFrom.isEnabled = true
+    }
+    
+    @objc func todayPressed() {
+        dp.date = Date()
+//        self.view.endEditing(true)
+        self.taDateFrom.isEnabled = true
+    }
+    
+    func setTAButFrom(active : Bool) {
+        self.taDateFrom.isEnabled = active
+    }
+    
+    @IBAction func qqq(_ sender: UITextField) {
+//        taDateFrom.inputView = dp
+//        let toolbar = UIToolbar()
+//        toolbar.sizeToFit()
+//
+//        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePressed))
+//        toolbar.setItems([doneButton], animated: true)
+//        sleep(1)
+//        self.taDateFrom.isEnabled = false
+        print("qqq")
     }
     
     func getCostsList(dateFrom : String, dateTo : String) {
         aclfj.removeAll()
         self.aclfj.removeAll()
-        self.tableCosts.reloadData()
-//        let count = self.tableCosts.tab
+	//        let count = self.tableCosts.tab
 //        self.tableCosts.deleteRows(at: (0..<count).map({ (i) in IndexPath(row: i, section: 0)}), with: .automatic)
         print("getCostsList - dateFrom: " + dateFrom + ", dateTo: " + dateTo)
         var addLink = ""

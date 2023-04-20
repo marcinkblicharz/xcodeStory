@@ -88,28 +88,28 @@
         <scene sceneID="sRF-9k-AWF">
             <objects>
                 <viewController storyboardIdentifier="WelcomeViewController" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Qgj-zc-s0n" customClass="WelcomeViewController" customModule="story" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="O32-9s-VA3">
+                    <view key="view" contentMode="scaleToFill" id="O32-9s-VA3" userLabel="ViewAll">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lFN-og-X9l">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lFN-og-X9l" userLabel="ViewScreen">
                                 <rect key="frame" x="0.0" y="47" width="390" height="763"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="center" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="rBV-8L-xJJ">
+                                    <stackView opaque="NO" contentMode="center" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="rBV-8L-xJJ" userLabel="VStackViewScreen">
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="763"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="RU9-qA-17E">
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="RU9-qA-17E" userLabel="HStackTopInfo">
                                                 <rect key="frame" x="0.0" y="0.0" width="390" height="20"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Hi ___, welcome to App" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uk4-uS-vrc">
-                                                        <rect key="frame" x="0.0" y="0.0" width="390" height="20"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="190" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                         <size key="shadowOffset" width="0.0" height="0.0"/>
                                                     </label>
-                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M43-kX-vj3">
-                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="20"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M43-kX-vj3">
+                                                        <rect key="frame" x="200" y="0.0" width="190" height="20"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="today"/>
                                                         <connections>
@@ -121,11 +121,11 @@
                                                     <constraint firstAttribute="height" constant="20" id="ZFv-D5-I85"/>
                                                 </constraints>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QXA-EA-gLh">
-                                                <rect key="frame" x="0.0" y="20" width="390" height="95"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QXA-EA-gLh" userLabel="HStackCalMove">
+                                                <rect key="frame" x="0.0" y="20" width="390" height="50"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VC3-8e-j3c">
-                                                        <rect key="frame" x="0.0" y="30" width="34.333333333333336" height="35"/>
+                                                        <rect key="frame" x="0.0" y="7.6666666666666714" width="34.333333333333336" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="rI1-zK-3tb"/>
                                                         </constraints>
@@ -135,8 +135,20 @@
                                                             <action selector="backDateToUpIn:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="UzK-be-QSQ"/>
                                                         </connections>
                                                     </button>
-                                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="hh7-eG-Sjn">
-                                                        <rect key="frame" x="34.333333333333343" y="25" width="105" height="45"/>
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="from" borderStyle="roundedRect" textAlignment="center" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="pYV-j0-uKS">
+                                                        <rect key="frame" x="34.333333333333343" y="2.6666666666666714" width="105" height="45"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="105" id="FJd-oQ-bwI"/>
+                                                            <constraint firstAttribute="height" constant="45" id="ce0-JZ-jPi"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="qqq:" destination="Qgj-zc-s0n" eventType="touchDown" id="olt-R8-lp9"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="hh7-eG-Sjn">
+                                                        <rect key="frame" x="139.33333333333334" y="2.6666666666666714" width="105" height="45"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="105" id="Dsw-26-8dD"/>
                                                             <constraint firstAttribute="height" constant="45" id="eVJ-FO-tlx"/>
@@ -144,11 +156,10 @@
                                                         <locale key="locale" localeIdentifier="pl"/>
                                                         <connections>
                                                             <action selector="changeDateFrom:" destination="Qgj-zc-s0n" eventType="valueChanged" id="nRp-X2-pZK"/>
-                                                            <action selector="toUpIn:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="ZDY-mL-amV"/>
                                                         </connections>
                                                     </datePicker>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sDp-tK-J05">
-                                                        <rect key="frame" x="139.33333333333334" y="30" width="34.333333333333343" height="35"/>
+                                                        <rect key="frame" x="139.33333333333334" y="7.6666666666666714" width="34.333333333333343" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="Uiw-X2-SBd"/>
                                                         </constraints>
@@ -159,7 +170,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MMS-LU-XT6">
-                                                        <rect key="frame" x="173.66666666666666" y="32.666666666666671" width="41.333333333333343" height="30"/>
+                                                        <rect key="frame" x="173.66666666666666" y="10" width="41.333333333333343" height="30"/>
                                                         <menu key="menu" id="doo-ci-SJK">
                                                             <children>
                                                                 <command title="week" id="RH0-dJ-6Hj" userLabel="week"/>
@@ -173,7 +184,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b3a-a1-Ock">
-                                                        <rect key="frame" x="215" y="30" width="35" height="35"/>
+                                                        <rect key="frame" x="215" y="7.6666666666666714" width="35" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="FWS-LW-ITL"/>
                                                             <constraint firstAttribute="width" constant="35" id="eEV-eK-l1I"/>
@@ -185,8 +196,8 @@
                                                             <action selector="moveForwardDateToUpIn:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="QOT-u8-buO"/>
                                                         </connections>
                                                     </button>
-                                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="YPg-Kl-YV2">
-                                                        <rect key="frame" x="250" y="25" width="105" height="45"/>
+                                                    <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="YPg-Kl-YV2">
+                                                        <rect key="frame" x="250" y="2.6666666666666714" width="105" height="45"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="45" id="LGk-h7-pcS"/>
                                                             <constraint firstAttribute="width" constant="105" id="wjK-PC-t5o"/>
@@ -196,8 +207,17 @@
                                                             <action selector="changeDateTo:" destination="Qgj-zc-s0n" eventType="valueChanged" id="3tF-AV-y1n"/>
                                                         </connections>
                                                     </datePicker>
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="to" borderStyle="roundedRect" textAlignment="center" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="5Qh-tu-QKY">
+                                                        <rect key="frame" x="250" y="2.6666666666666714" width="105" height="45"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="45" id="7Qc-ft-WRH"/>
+                                                            <constraint firstAttribute="width" constant="105" id="QOA-xc-eXF"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5F4-Z4-mWA">
-                                                        <rect key="frame" x="355" y="30" width="35" height="35"/>
+                                                        <rect key="frame" x="355" y="7.6666666666666714" width="35" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="CUU-iL-dQ8"/>
                                                             <constraint firstAttribute="width" constant="35" id="dWT-Fm-dX2"/>
@@ -212,14 +232,26 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="b3a-a1-Ock" firstAttribute="width" secondItem="b3a-a1-Ock" secondAttribute="height" multiplier="1:1" id="4Vp-2C-Kmk"/>
+                                                    <constraint firstAttribute="height" constant="50" id="ANH-OL-5M1"/>
                                                     <constraint firstAttribute="trailing" secondItem="5F4-Z4-mWA" secondAttribute="trailing" id="Upm-iE-xLe"/>
                                                 </constraints>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="xU6-hA-Kv1">
-                                                <rect key="frame" x="0.0" y="115" width="390" height="613"/>
+                                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="i8Z-g1-y0c" userLabel="VStackCalEdit">
+                                                <rect key="frame" x="0.0" y="70" width="390" height="0.0"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dq0-0B-KOX" userLabel="HStackCalEdit">
+                                                        <rect key="frame" x="0.0" y="0.0" width="390" height="0.0"/>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" id="hUc-Nl-4dU"/>
+                                                </constraints>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="xU6-hA-Kv1" userLabel="VStackTables">
+                                                <rect key="frame" x="0.0" y="70" width="390" height="658"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="uQA-x7-FXA">
-                                                        <rect key="frame" x="0.0" y="0.0" width="390" height="613"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="390" height="658"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     </tableView>
                                                     <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Qmj-ge-SOD">
@@ -227,56 +259,66 @@
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     </tableView>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="uQA-x7-FXA" firstAttribute="top" secondItem="Qmj-ge-SOD" secondAttribute="top" id="XhR-PB-hbT"/>
+                                                </constraints>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mbd-3D-nWj">
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ecz-Zz-vvl" userLabel="VStackButBottom">
                                                 <rect key="frame" x="0.0" y="728" width="390" height="35"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ViB-i6-jgV">
-                                                        <rect key="frame" x="0.0" y="0.0" width="195" height="35"/>
-                                                        <color key="backgroundColor" systemColor="systemGray2Color"/>
-                                                        <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title="Costs" cornerStyle="small"/>
-                                                        <connections>
-                                                            <action selector="costButton:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="Go0-LS-vUU"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1FM-R7-nwL">
-                                                        <rect key="frame" x="195" y="0.0" width="195" height="35"/>
-                                                        <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title="Incomes" cornerStyle="small"/>
-                                                        <connections>
-                                                            <action selector="incomeButton:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="Cn2-Rj-dGx"/>
-                                                        </connections>
-                                                    </button>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mbd-3D-nWj" userLabel="HStackButBottom">
+                                                        <rect key="frame" x="0.0" y="0.0" width="390" height="35"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ViB-i6-jgV">
+                                                                <rect key="frame" x="0.0" y="0.0" width="195" height="35"/>
+                                                                <color key="backgroundColor" systemColor="systemGray2Color"/>
+                                                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="Costs" cornerStyle="small"/>
+                                                                <connections>
+                                                                    <action selector="costButton:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="Go0-LS-vUU"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1FM-R7-nwL">
+                                                                <rect key="frame" x="195" y="0.0" width="195" height="35"/>
+                                                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="Incomes" cornerStyle="small"/>
+                                                                <connections>
+                                                                    <action selector="incomeButton:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="Cn2-Rj-dGx"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="35" id="x0V-by-Eow"/>
+                                                        </constraints>
+                                                    </stackView>
                                                 </subviews>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="35" id="x0V-by-Eow"/>
-                                                </constraints>
                                             </stackView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="mbd-3D-nWj" secondAttribute="trailing" id="EL2-84-I76"/>
                                             <constraint firstAttribute="trailing" secondItem="QXA-EA-gLh" secondAttribute="trailing" id="PZD-ym-Abo"/>
-                                            <constraint firstItem="mbd-3D-nWj" firstAttribute="leading" secondItem="rBV-8L-xJJ" secondAttribute="leading" id="SJ7-4c-uwR"/>
+                                            <constraint firstItem="i8Z-g1-y0c" firstAttribute="leading" secondItem="rBV-8L-xJJ" secondAttribute="leading" id="Rlm-Hc-Niy"/>
                                             <constraint firstItem="QXA-EA-gLh" firstAttribute="trailing" secondItem="rBV-8L-xJJ" secondAttribute="trailingMargin" id="Yg8-Me-nsz"/>
                                             <constraint firstItem="QXA-EA-gLh" firstAttribute="top" secondItem="RU9-qA-17E" secondAttribute="bottom" id="aF2-UC-NaA"/>
                                             <constraint firstItem="RU9-qA-17E" firstAttribute="leading" secondItem="rBV-8L-xJJ" secondAttribute="leading" id="eVs-2C-iJX"/>
+                                            <constraint firstAttribute="trailing" secondItem="i8Z-g1-y0c" secondAttribute="trailing" id="hcY-L0-Yol"/>
+                                            <constraint firstItem="i8Z-g1-y0c" firstAttribute="top" secondItem="QXA-EA-gLh" secondAttribute="bottom" id="jJL-ha-l4U"/>
                                             <constraint firstAttribute="trailing" secondItem="RU9-qA-17E" secondAttribute="trailing" id="jLV-2W-o1L"/>
                                             <constraint firstItem="QXA-EA-gLh" firstAttribute="leading" secondItem="rBV-8L-xJJ" secondAttribute="leading" id="nEz-Kp-KwT"/>
                                             <constraint firstItem="QXA-EA-gLh" firstAttribute="leading" secondItem="rBV-8L-xJJ" secondAttribute="leadingMargin" id="rMQ-ry-4ML"/>
                                             <constraint firstItem="RU9-qA-17E" firstAttribute="top" secondItem="rBV-8L-xJJ" secondAttribute="top" id="rOa-oy-iiV"/>
+                                            <constraint firstItem="xU6-hA-Kv1" firstAttribute="top" secondItem="i8Z-g1-y0c" secondAttribute="bottom" id="s7t-iC-6hu"/>
                                             <constraint firstItem="QXA-EA-gLh" firstAttribute="top" secondItem="RU9-qA-17E" secondAttribute="bottom" id="vBn-ro-y8F"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="rBV-8L-xJJ" firstAttribute="centerX" secondItem="lFN-og-X9l" secondAttribute="centerX" id="0Fe-ws-SEB"/>
                                     <constraint firstItem="rBV-8L-xJJ" firstAttribute="top" secondItem="lFN-og-X9l" secondAttribute="top" id="BRz-pc-lG3"/>
-                                    <constraint firstItem="rBV-8L-xJJ" firstAttribute="leading" secondItem="lFN-og-X9l" secondAttribute="leading" id="XX7-en-0by"/>
                                     <constraint firstAttribute="bottom" secondItem="rBV-8L-xJJ" secondAttribute="bottom" id="ZGe-9q-Tk2"/>
-                                    <constraint firstAttribute="trailing" secondItem="rBV-8L-xJJ" secondAttribute="trailing" id="mc8-T4-3QV"/>
+                                    <constraint firstItem="rBV-8L-xJJ" firstAttribute="leading" secondItem="lFN-og-X9l" secondAttribute="leading" id="iAg-Ds-lgw"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -284,8 +326,6 @@
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <constraints>
                             <constraint firstItem="lFN-og-X9l" firstAttribute="bottom" secondItem="UMm-oD-yV3" secondAttribute="bottom" id="4qa-I0-WSe"/>
-                            <constraint firstItem="UMm-oD-yV3" firstAttribute="trailing" secondItem="lFN-og-X9l" secondAttribute="trailing" id="8IF-hr-H8T"/>
-                            <constraint firstItem="lFN-og-X9l" firstAttribute="leading" secondItem="UMm-oD-yV3" secondAttribute="leading" id="9zk-w0-wBY"/>
                             <constraint firstItem="UMm-oD-yV3" firstAttribute="bottom" secondItem="lFN-og-X9l" secondAttribute="bottom" id="MYs-65-Yiu"/>
                             <constraint firstItem="lFN-og-X9l" firstAttribute="top" secondItem="UMm-oD-yV3" secondAttribute="top" id="QBV-we-8s2"/>
                             <constraint firstItem="lFN-og-X9l" firstAttribute="top" secondItem="UMm-oD-yV3" secondAttribute="top" id="Vdr-oR-YKo"/>
@@ -301,9 +341,12 @@
                         <outlet property="dateFrom" destination="hh7-eG-Sjn" id="QkH-pd-ocN"/>
                         <outlet property="dateTo" destination="YPg-Kl-YV2" id="H7q-0x-hh5"/>
                         <outlet property="rangeButton" destination="MMS-LU-XT6" id="Gi7-Ku-74C"/>
+                        <outlet property="stackViewScreen" destination="rBV-8L-xJJ" id="PcX-F8-F04"/>
+                        <outlet property="taDateFrom" destination="pYV-j0-uKS" id="sYf-zR-RbG"/>
+                        <outlet property="taDateTo" destination="5Qh-tu-QKY" id="Aw2-ql-cfo"/>
                         <outlet property="tableCosts" destination="uQA-x7-FXA" id="Vs6-mg-Sq5"/>
                         <outlet property="tableIncome" destination="Qmj-ge-SOD" id="aiY-SL-bSe"/>
-                        <outlet property="todayButton" destination="Uk4-uS-vrc" id="Xts-AI-Uvh"/>
+                        <outlet property="todayButton" destination="M43-kX-vj3" id="aCY-hl-oen"/>
                         <outlet property="welcomeLabel" destination="Uk4-uS-vrc" id="E6I-Bf-W4E"/>
                     </connections>
                 </viewController>
