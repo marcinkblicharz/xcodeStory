@@ -108,13 +108,12 @@
                                                         <nil key="highlightedColor"/>
                                                         <size key="shadowOffset" width="0.0" height="0.0"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M43-kX-vj3">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M43-kX-vj3">
                                                         <rect key="frame" x="200" y="0.0" width="190" height="20"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title="today"/>
-                                                        <connections>
-                                                            <action selector="todayButtonToIn:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="3ZR-DL-kym"/>
-                                                        </connections>
+                                                        <buttonConfiguration key="configuration" style="plain" title="today">
+                                                            <fontDescription key="titleFontDescription" type="system" pointSize="10"/>
+                                                        </buttonConfiguration>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -135,8 +134,22 @@
                                                             <action selector="backDateToUpIn:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="UzK-be-QSQ"/>
                                                         </connections>
                                                     </button>
-                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="from" borderStyle="roundedRect" textAlignment="center" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="pYV-j0-uKS">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Kw-3N-RKb">
                                                         <rect key="frame" x="34.333333333333343" y="2.6666666666666714" width="105" height="45"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="105" id="Gfe-xJ-Xsg"/>
+                                                            <constraint firstAttribute="height" constant="45" id="Htp-NP-eQN"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="today">
+                                                            <fontDescription key="titleFontDescription" type="system" pointSize="10"/>
+                                                        </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="dateFromButton:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="LL4-Lb-OX2"/>
+                                                        </connections>
+                                                    </button>
+                                                    <textField hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="from" borderStyle="roundedRect" textAlignment="center" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="pYV-j0-uKS">
+                                                        <rect key="frame" x="139.33333333333334" y="2.6666666666666714" width="105" height="45"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="105" id="FJd-oQ-bwI"/>
                                                             <constraint firstAttribute="height" constant="45" id="ce0-JZ-jPi"/>
@@ -188,7 +201,6 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="FWS-LW-ITL"/>
                                                             <constraint firstAttribute="width" constant="35" id="eEV-eK-l1I"/>
-                                                            <constraint firstAttribute="width" secondItem="b3a-a1-Ock" secondAttribute="height" multiplier="1:1" id="qvB-0t-rC8"/>
                                                         </constraints>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="&gt;"/>
@@ -207,7 +219,7 @@
                                                             <action selector="changeDateTo:" destination="Qgj-zc-s0n" eventType="valueChanged" id="3tF-AV-y1n"/>
                                                         </connections>
                                                     </datePicker>
-                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="to" borderStyle="roundedRect" textAlignment="center" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="5Qh-tu-QKY">
+                                                    <textField hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="to" borderStyle="roundedRect" textAlignment="center" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="5Qh-tu-QKY">
                                                         <rect key="frame" x="250" y="2.6666666666666714" width="105" height="45"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="45" id="7Qc-ft-WRH"/>
@@ -216,12 +228,23 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A1L-vN-xcv">
+                                                        <rect key="frame" x="250" y="2.6666666666666714" width="105" height="45"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="45" id="Fwc-IK-lZ5"/>
+                                                            <constraint firstAttribute="width" constant="105" id="twg-m9-RCh"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="today"/>
+                                                        <connections>
+                                                            <action selector="dateToButton:" destination="Qgj-zc-s0n" eventType="touchUpInside" id="yQd-6U-MCT"/>
+                                                        </connections>
+                                                    </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5F4-Z4-mWA">
                                                         <rect key="frame" x="355" y="7.6666666666666714" width="35" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="CUU-iL-dQ8"/>
                                                             <constraint firstAttribute="width" constant="35" id="dWT-Fm-dX2"/>
-                                                            <constraint firstAttribute="width" secondItem="5F4-Z4-mWA" secondAttribute="height" multiplier="1:1" id="wZs-CQ-pMD"/>
                                                         </constraints>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="&gt;"/>
@@ -231,9 +254,7 @@
                                                     </button>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="b3a-a1-Ock" firstAttribute="width" secondItem="b3a-a1-Ock" secondAttribute="height" multiplier="1:1" id="4Vp-2C-Kmk"/>
                                                     <constraint firstAttribute="height" constant="50" id="ANH-OL-5M1"/>
-                                                    <constraint firstAttribute="trailing" secondItem="5F4-Z4-mWA" secondAttribute="trailing" id="Upm-iE-xLe"/>
                                                 </constraints>
                                             </stackView>
                                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="i8Z-g1-y0c" userLabel="VStackCalEdit">
@@ -315,11 +336,23 @@
                                     <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9oK-sJ-Y3F">
                                         <rect key="frame" x="0.0" y="719" width="390" height="44"/>
                                         <items>
-                                            <barButtonItem title="Set" id="hch-aO-lK3"/>
+                                            <barButtonItem title="Set" id="hch-aO-lK3">
+                                                <connections>
+                                                    <action selector="addBtoolbarSet:" destination="Qgj-zc-s0n" id="IYu-8y-9m6"/>
+                                                </connections>
+                                            </barButtonItem>
                                             <barButtonItem systemItem="flexibleSpace" id="YzC-uz-IfF"/>
-                                            <barButtonItem title="Today" id="eyV-l1-rfc"/>
+                                            <barButtonItem title="Today" id="eyV-l1-rfc">
+                                                <connections>
+                                                    <action selector="addBtoolbarToday:" destination="Qgj-zc-s0n" id="0jS-VO-npO"/>
+                                                </connections>
+                                            </barButtonItem>
                                             <barButtonItem systemItem="flexibleSpace" id="Ahy-j9-rcN"/>
-                                            <barButtonItem title="Cancel" id="q7G-jQ-2Ia"/>
+                                            <barButtonItem title="Cancel" id="q7G-jQ-2Ia">
+                                                <connections>
+                                                    <action selector="addBtoolbarCancel:" destination="Qgj-zc-s0n" id="gvv-JC-gyo"/>
+                                                </connections>
+                                            </barButtonItem>
                                         </items>
                                         <toolbarAppearance key="scrollEdgeAppearance">
                                             <barButtonItemAppearance key="buttonAppearance">
@@ -369,7 +402,9 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="buttonCosts" destination="ViB-i6-jgV" id="gyg-H6-23d"/>
+                        <outlet property="buttonFrom" destination="5Kw-3N-RKb" id="OEi-Gg-tjU"/>
                         <outlet property="buttonIncomes" destination="1FM-R7-nwL" id="ZOM-yn-RQV"/>
+                        <outlet property="buttonTo" destination="A1L-vN-xcv" id="b5r-Qy-P3D"/>
                         <outlet property="dateFrom" destination="hh7-eG-Sjn" id="QkH-pd-ocN"/>
                         <outlet property="dateTo" destination="YPg-Kl-YV2" id="H7q-0x-hh5"/>
                         <outlet property="rangeButton" destination="MMS-LU-XT6" id="Gi7-Ku-74C"/>

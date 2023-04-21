@@ -58,6 +58,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var stackViewScreen: UIStackView!
     @IBOutlet weak var toolbarBottom: UIToolbar!
     @IBOutlet weak var toolbarDatepicker: UIDatePicker!
+    @IBOutlet weak var buttonFrom: UIButton!
+    @IBOutlet weak var buttonTo: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,6 +108,14 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         
 //        taDateFrom.inputAccessoryView = setTAButFrom(false)
 //        taDateFrom.isUserInteractionEnabled = false
+        
+        toolbarDatepicker.maximumDate = Date()
+        buttonFrom.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        buttonTo.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        buttonFrom.titleLabel?.text = dateFormatter.string(from: dateFromCosts)
+        buttonTo.titleLabel?.text = dateFormatter.string(from: dateToCosts)
+//        buttonFrom.setTitle(dateFormatter.string(from: dateFromCosts), for: .normal)
+//        buttonTo.setTitle(dateFormatter.string(from: dateToCosts), for: .normal)
         
     }
     
@@ -330,23 +340,46 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         todayButton.isHidden = true
     }
     
-    @IBAction func todayButtonToIn(_ sender: UIButton) {
-        print("todayButtonToIn")
+    @IBAction func dateFromButton(_ sender: UIButton) {
+        print("dateFromButton")
         if toolbarBottom.isHidden == false {
             toolbarBottom.isHidden = true
             toolbarDatepicker.isHidden = true
-            
         } else if toolbarBottom.isHidden == true {
             toolbarBottom.isHidden = false
             toolbarDatepicker.isHidden = false
         }
-//        todayButton.isHidden = false
-//
-//        gtoolbar.sizeToFit()
-//
-//        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
-//        gtoolbar.setItems([doneButton], animated: true)
-//        self.view.addSubview(gtoolbar)
+        buttonFrom.titleLabel?.text = dateFormatter.string(from: dateFromCosts)
+    }
+    
+    @IBAction func dateToButton(_ sender: UIButton) {
+        print("dateToButton")
+        if toolbarBottom.isHidden == false {
+            toolbarBottom.isHidden = true
+            toolbarDatepicker.isHidden = true
+        } else if toolbarBottom.isHidden == true {
+            toolbarBottom.isHidden = false
+            toolbarDatepicker.isHidden = false
+        }
+        buttonFrom.titleLabel?.text = dateFormatter.string(from: dateFromCosts)
+    }
+    
+    @IBAction func addBtoolbarSet(_ sender: UIBarButtonItem) {
+        print("addBtoolbarSet")
+        todayButton.setTitle(dateFormatter.string(from: toolbarDatepicker.date), for: .normal)
+        toolbarBottom.isHidden = true
+        toolbarDatepicker.isHidden = true
+    }
+    
+    @IBAction func addBtoolbarToday(_ sender: UIBarButtonItem) {
+        print("addBtoolbarToday")
+        toolbarDatepicker.date = Date()
+    }
+    
+    @IBAction func addBtoolbarCancel(_ sender: UIBarButtonItem) {
+        print("addBtoolbarCancel")
+        toolbarBottom.isHidden = true
+        toolbarDatepicker.isHidden = true
     }
     
     func showDateFrom () {
