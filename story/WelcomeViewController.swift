@@ -29,6 +29,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
 //    var currentDate : Date?
 //    var dateComponent : DateComponents?
     var calendar : Calendar = Calendar.current
+    var activePanel : String = "listCosts"
     
     let dp = UIDatePicker()
     
@@ -52,14 +53,16 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var dateTo: UIDatePicker!
     @IBOutlet weak var buttonCosts: UIButton!
     @IBOutlet weak var buttonIncomes: UIButton!
-    @IBOutlet weak var todayButton: UIButton!
     @IBOutlet weak var taDateFrom: UITextField!
     @IBOutlet weak var taDateTo: UITextField!
     @IBOutlet weak var stackViewScreen: UIStackView!
     @IBOutlet weak var toolbarBottom: UIToolbar!
-    @IBOutlet weak var toolbarDatepicker: UIDatePicker!
+    @IBOutlet weak var toolbarFromDatepicker: UIDatePicker!
+    @IBOutlet weak var toolbarToDatepicker: UIDatePicker!
     @IBOutlet weak var buttonFrom: UIButton!
     @IBOutlet weak var buttonTo: UIButton!
+    @IBOutlet weak var labelDateFrom: UILabel!
+    @IBOutlet weak var labelDateTo: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +72,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
 //        tableCosts.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableIncome.delegate = self
         tableIncome.dataSource = self
+        
+        activePanel = "listCosts"
         
         linkCosts = "http://" + serverAddress + ":8080/rest/getCosts?"
         linkIncomes = "http://" + serverAddress + ":8080/rest/getIncomes?"
@@ -109,14 +114,27 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
 //        taDateFrom.inputAccessoryView = setTAButFrom(false)
 //        taDateFrom.isUserInteractionEnabled = false
         
-        toolbarDatepicker.maximumDate = Date()
-        buttonFrom.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        buttonTo.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        buttonFrom.titleLabel?.text = dateFormatter.string(from: dateFromCosts)
-        buttonTo.titleLabel?.text = dateFormatter.string(from: dateToCosts)
-//        buttonFrom.setTitle(dateFormatter.string(from: dateFromCosts), for: .normal)
-//        buttonTo.setTitle(dateFormatter.string(from: dateToCosts), for: .normal)
+        toolbarFromDatepicker.maximumDate = Date()
+        toolbarToDatepicker.maximumDate = Date()
+        let myFont = UIFont.init(name: "AmericanTypewriter", size: 14)
+        buttonFrom.titleLabel!.font = myFont
+//        buttonTo.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+//        buttonFrom.titleLabel?.text = dateFormatter.string(from: dateFromCosts)
+//        buttonTo.titleLabel?.text = dateFormatter.string(from: dateToCosts)
+//        buttonFrom.
+        buttonFrom.setTitle(dateFormatter.string(from: dateFromCosts), for: .normal)
+        buttonTo.setTitle(dateFormatter.string(from: dateToCosts), for: .normal)
         
+        labelDateFrom.text = dateFormatter.string(from: dateFromCosts)
+        labelDateFrom.textColor = .systemBlue
+        labelDateTo.text = dateFormatter.string(from: Date())
+        labelDateTo.textColor = .systemBlue
+        let dateFromClick = UITapGestureRecognizer(target: self, action: #selector(laDaFrAction))
+        labelDateFrom.isUserInteractionEnabled = true
+        labelDateFrom.addGestureRecognizer(dateFromClick)
+        let dateToClick = UITapGestureRecognizer(target: self, action: #selector(laDaToAction))
+        labelDateTo.isUserInteractionEnabled = true
+        labelDateTo.addGestureRecognizer(dateToClick)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -321,7 +339,6 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         print("dateFrom: ", dateFrom.date)
         presentedViewController?.dismiss(animated: true)
-        todayButton.isHidden = true
     }
     
     @IBAction func changeDateTo(_ sender: UIDatePicker) {
@@ -337,18 +354,19 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         print("dateTo: ", dateTo.date)
         presentedViewController?.dismiss(animated: true)
-        todayButton.isHidden = true
     }
     
     @IBAction func dateFromButton(_ sender: UIButton) {
         print("dateFromButton")
         if toolbarBottom.isHidden == false {
             toolbarBottom.isHidden = true
-            toolbarDatepicker.isHidden = true
+            toolbarFromDatepicker.isHidden = true
         } else if toolbarBottom.isHidden == true {
             toolbarBottom.isHidden = false
-            toolbarDatepicker.isHidden = false
+            toolbarFromDatepicker.isHidden = false
         }
+        print("date: " + dateFormatter.string(from: dateFromCosts))
+        buttonFrom.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         buttonFrom.titleLabel?.text = dateFormatter.string(from: dateFromCosts)
     }
     
@@ -356,30 +374,33 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         print("dateToButton")
         if toolbarBottom.isHidden == false {
             toolbarBottom.isHidden = true
-            toolbarDatepicker.isHidden = true
+            toolbarFromDatepicker.isHidden = true
         } else if toolbarBottom.isHidden == true {
             toolbarBottom.isHidden = false
-            toolbarDatepicker.isHidden = false
+            toolbarFromDatepicker.isHidden = false
         }
-        buttonFrom.titleLabel?.text = dateFormatter.string(from: dateFromCosts)
+        print("date: " + dateFormatter.string(from: dateFromCosts))
+        buttonTo.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        buttonTo.titleLabel?.text = dateFormatter.string(from: dateToCosts)
     }
     
     @IBAction func addBtoolbarSet(_ sender: UIBarButtonItem) {
         print("addBtoolbarSet")
-        todayButton.setTitle(dateFormatter.string(from: toolbarDatepicker.date), for: .normal)
-        toolbarBottom.isHidden = true
-        toolbarDatepicker.isHidden = true
+//        todayButton.setTitle(dateFormatter.string(from: toolbarDatepicker.date), for: .normal)
+        
+//        toolbarBottom.isHidden = true
+//        toolbarDatepicker.isHidden = true
     }
     
     @IBAction func addBtoolbarToday(_ sender: UIBarButtonItem) {
         print("addBtoolbarToday")
-        toolbarDatepicker.date = Date()
+//        toolbarDatepicker.date = Date()
     }
     
     @IBAction func addBtoolbarCancel(_ sender: UIBarButtonItem) {
         print("addBtoolbarCancel")
-        toolbarBottom.isHidden = true
-        toolbarDatepicker.isHidden = true
+//        toolbarBottom.isHidden = true
+//        toolbarDatepicker.isHidden = true
     }
     
     func showDateFrom () {
@@ -443,6 +464,30 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         dp.date = Date()
 //        self.view.endEditing(true)
         self.taDateFrom.isEnabled = true
+    }
+    
+    @objc func laDaFrAction(){
+        print("laDaFrAction")
+        toolbarToDatepicker.isHidden = true
+        if toolbarBottom.isHidden == false {
+            toolbarBottom.isHidden = true
+            toolbarFromDatepicker.isHidden = true
+        } else if toolbarBottom.isHidden == true {
+            toolbarBottom.isHidden = false
+            toolbarFromDatepicker.isHidden = false
+        }
+    }
+    
+    @objc func laDaToAction(){
+        print("laDaToAction")
+        toolbarFromDatepicker.isHidden = true
+        if toolbarBottom.isHidden == false {
+            toolbarBottom.isHidden = true
+            toolbarToDatepicker.isHidden = true
+        } else if toolbarBottom.isHidden == true {
+            toolbarBottom.isHidden = false
+            toolbarToDatepicker.isHidden = false
+        }
     }
     
     func setTAButFrom(active : Bool) {

@@ -67,6 +67,9 @@ class ViewController: UIViewController {
         }
         if restLogin.error == true {
             print("Could not connect to the server!")
+//            self.errorLabel.textColor = UIColor.red
+//            self.errorLabel.isHidden = false
+//            self.errorLabel.text = "Could not connect to the server!"
         }
     }
     
