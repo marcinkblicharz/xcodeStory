@@ -63,6 +63,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var buttonTo: UIButton!
     @IBOutlet weak var labelDateFrom: UILabel!
     @IBOutlet weak var labelDateTo: UILabel!
+    @IBOutlet weak var labelDatepicker: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,6 +126,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         buttonFrom.setTitle(dateFormatter.string(from: dateFromCosts), for: .normal)
         buttonTo.setTitle(dateFormatter.string(from: dateToCosts), for: .normal)
         
+        labelDatepicker.text = "Costs"
         labelDateFrom.text = dateFormatter.string(from: dateFromCosts)
         labelDateFrom.textColor = .systemBlue
         labelDateTo.text = dateFormatter.string(from: Date())
@@ -188,9 +190,12 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         tableCosts.isHidden = false
         tableIncome.isHidden = true
         dateFrom.date = dateFromCosts
+        labelDateFrom.text = dateFormatter.string(from: dateFromCosts)
         dateTo.date = dateToCosts
+        labelDateTo.text = dateFormatter.string(from: dateToCosts)
         buttonCosts.backgroundColor = UIColor.systemGray2
         buttonIncomes.backgroundColor = UIColor.systemGray2.withAlphaComponent(0.0)
+        activePanel = "listCosts"
         print("Show Costs and hide Incomes")
     }
     
@@ -198,9 +203,12 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         tableCosts.isHidden = true
         tableIncome.isHidden = false
         dateFrom.date = dateFromIncomes
+        labelDateFrom.text = dateFormatter.string(from: dateFromIncomes)
         dateTo.date = dateToIncomes
+        labelDateTo.text = dateFormatter.string(from: dateToIncomes)
         buttonCosts.backgroundColor = UIColor.systemGray2.withAlphaComponent(0.0)
         buttonIncomes.backgroundColor = UIColor.systemGray2
+        activePanel = "listIncomes"
         print("Show Incomes and hide Costs")
     }
     
@@ -384,25 +392,6 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         buttonTo.titleLabel?.text = dateFormatter.string(from: dateToCosts)
     }
     
-    @IBAction func addBtoolbarSet(_ sender: UIBarButtonItem) {
-        print("addBtoolbarSet")
-//        todayButton.setTitle(dateFormatter.string(from: toolbarDatepicker.date), for: .normal)
-        
-//        toolbarBottom.isHidden = true
-//        toolbarDatepicker.isHidden = true
-    }
-    
-    @IBAction func addBtoolbarToday(_ sender: UIBarButtonItem) {
-        print("addBtoolbarToday")
-//        toolbarDatepicker.date = Date()
-    }
-    
-    @IBAction func addBtoolbarCancel(_ sender: UIBarButtonItem) {
-        print("addBtoolbarCancel")
-//        toolbarBottom.isHidden = true
-//        toolbarDatepicker.isHidden = true
-    }
-    
     func showDateFrom () {
         
     }
@@ -469,25 +458,101 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @objc func laDaFrAction(){
         print("laDaFrAction")
         toolbarToDatepicker.isHidden = true
+        if activePanel == "listCosts" {
+            labelDatepicker.text = "Costs"
+        } else if activePanel == "listIncomes" {
+            labelDatepicker.text = "Incomes"
+        }
         if toolbarBottom.isHidden == false {
             toolbarBottom.isHidden = true
             toolbarFromDatepicker.isHidden = true
+            labelDatepicker.isHidden = true
+            labelDateFrom.isEnabled = true
         } else if toolbarBottom.isHidden == true {
             toolbarBottom.isHidden = false
             toolbarFromDatepicker.isHidden = false
+            labelDatepicker.isHidden = false
+            labelDateFrom.isEnabled = false
         }
+//        labelDateFrom.isEnabled = false
     }
     
     @objc func laDaToAction(){
         print("laDaToAction")
         toolbarFromDatepicker.isHidden = true
+        if activePanel == "listCosts" {
+            labelDatepicker.text = "Costs"
+        } else if activePanel == "listIncomes" {
+            labelDatepicker.text = "Incomes"
+        }
         if toolbarBottom.isHidden == false {
             toolbarBottom.isHidden = true
             toolbarToDatepicker.isHidden = true
+            labelDatepicker.isHidden = true
+            labelDateTo.isEnabled = true
         } else if toolbarBottom.isHidden == true {
             toolbarBottom.isHidden = false
             toolbarToDatepicker.isHidden = false
+            labelDatepicker.isHidden = false
+            labelDateTo.isEnabled = false
         }
+//        labelDateTo.isEnabled = false
+    }
+    
+    @IBAction func addBtoolbarSet(_ sender: UIBarButtonItem) {
+        print("addBtoolbarSet")
+        if activePanel == "listCosts" {
+            if toolbarFromDatepicker.isHidden == false {
+                dateFromCosts = toolbarFromDatepicker.date
+                labelDateFrom.text = dateFormatter.string(from: dateFromCosts)
+                labelDateFrom.isEnabled = true
+            } else if toolbarToDatepicker.isHidden == false {
+                dateToCosts = toolbarToDatepicker.date
+                labelDateTo.text = dateFormatter.string(from: dateToCosts)
+                labelDateTo.isEnabled = true
+            }
+        } else if activePanel == "listIncomes" {
+            if toolbarFromDatepicker.isHidden == false {
+                dateFromIncomes = toolbarFromDatepicker.date
+                labelDateFrom.text = dateFormatter.string(from: dateFromIncomes)
+                labelDateFrom.isEnabled = true
+            } else if toolbarToDatepicker.isHidden == false {
+                dateToIncomes = toolbarToDatepicker.date
+                labelDateTo.text = dateFormatter.string(from: dateToIncomes)
+                labelDateTo.isEnabled = true
+            }
+        }
+        
+//        todayButton.setTitle(dateFormatter.string(from: toolbarDatepicker.date), for: .normal)
+        
+        toolbarBottom.isHidden = true
+        toolbarFromDatepicker.isHidden = true
+        toolbarToDatepicker.isHidden = true
+        labelDatepicker.isHidden = true
+    }
+    
+    @IBAction func addBtoolbarToday(_ sender: UIBarButtonItem) {
+        print("addBtoolbarToday")
+        if toolbarFromDatepicker.isHidden == false {
+            toolbarFromDatepicker.date = Date()
+        } else if toolbarToDatepicker.isHidden == false {
+            toolbarToDatepicker.date = Date()
+        }
+//        toolbarDatepicker.date = Date()
+    }
+    
+    @IBAction func addBtoolbarCancel(_ sender: UIBarButtonItem) {
+        print("addBtoolbarCancel")
+        if toolbarFromDatepicker.isHidden == false {
+            toolbarFromDatepicker.isHidden = true
+            labelDateFrom.isEnabled = true
+        } else if toolbarToDatepicker.isHidden == false {
+            toolbarToDatepicker.isHidden = true
+            labelDateTo.isEnabled = true
+        }
+        labelDatepicker.isHidden = true
+        toolbarBottom.isHidden = true
+//        toolbarDatepicker.isHidden = true
     }
     
     func setTAButFrom(active : Bool) {
