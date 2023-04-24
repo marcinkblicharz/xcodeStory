@@ -458,10 +458,15 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @objc func laDaFrAction(){
         print("laDaFrAction")
         toolbarToDatepicker.isHidden = true
+        if labelDateTo.isEnabled == false {
+            labelDateTo.isEnabled = true
+        }
         if activePanel == "listCosts" {
-            labelDatepicker.text = "Costs"
+            labelDatepicker.text = "Costs - from"
+            toolbarFromDatepicker.date = dateFromCosts
         } else if activePanel == "listIncomes" {
-            labelDatepicker.text = "Incomes"
+            labelDatepicker.text = "Incomes - from"
+            toolbarFromDatepicker.date = dateFromIncomes
         }
         if toolbarBottom.isHidden == false {
             toolbarBottom.isHidden = true
@@ -480,10 +485,15 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @objc func laDaToAction(){
         print("laDaToAction")
         toolbarFromDatepicker.isHidden = true
+        if labelDateFrom.isEnabled == false {
+            labelDateFrom.isEnabled = true
+        }
         if activePanel == "listCosts" {
-            labelDatepicker.text = "Costs"
+            labelDatepicker.text = "Costs - to"
+            toolbarToDatepicker.date = dateToCosts
         } else if activePanel == "listIncomes" {
-            labelDatepicker.text = "Incomes"
+            labelDatepicker.text = "Incomes - to"
+            toolbarToDatepicker.date = dateToIncomes
         }
         if toolbarBottom.isHidden == false {
             toolbarBottom.isHidden = true
@@ -511,6 +521,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
                 labelDateTo.text = dateFormatter.string(from: dateToCosts)
                 labelDateTo.isEnabled = true
             }
+            getCostsList(dateFrom: dateFormatter.string(from: dateFromCosts), dateTo: dateFormatter.string(from: dateToCosts))
         } else if activePanel == "listIncomes" {
             if toolbarFromDatepicker.isHidden == false {
                 dateFromIncomes = toolbarFromDatepicker.date
@@ -521,6 +532,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
                 labelDateTo.text = dateFormatter.string(from: dateToIncomes)
                 labelDateTo.isEnabled = true
             }
+            getIncomesList(dateFrom: dateFormatter.string(from: dateFromIncomes), dateTo: dateFormatter.string(from: dateToIncomes))
         }
         
 //        todayButton.setTitle(dateFormatter.string(from: toolbarDatepicker.date), for: .normal)
