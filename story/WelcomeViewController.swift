@@ -157,7 +157,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         let sortedIncomes = ailfj.sorted{$0.date < $1.date}
         var cell : UITableViewCell?
         if tableView == self.tableCosts {
-            print("tableView_sortedCosts: " + String(sortedCosts.count))
+//            print("tableView_sortedCosts: " + String(sortedCosts.count))
             if sortedCosts.count > 0 {
                 cell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath)
                 cell!.textLabel!.text = sortedCosts[indexPath.row].date + " - " + String(sortedCosts[indexPath.row].value) + " - " + sortedCosts[indexPath.row].name + " - " + sortedCosts[indexPath.row].type
@@ -168,7 +168,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
                 self.tableCosts.deleteRows(at: [indexPath], with: .automatic)
             }
         } else if tableView == self.tableIncome {
-            print("tableView_sortedIncomes: " + String(sortedIncomes.count))
+//            print("tableView_sortedIncomes: " + String(sortedIncomes.count))
             if sortedIncomes.count > 0 {
                 cell = tableIncome.dequeueReusableCell(withIdentifier: "TableIncomeCell", for: indexPath)
                 cell!.textLabel!.text = sortedIncomes[indexPath.row].date + " - " + String(sortedIncomes[indexPath.row].value) + " - " + sortedIncomes[indexPath.row].name + " - " + sortedIncomes[indexPath.row].type
@@ -214,7 +214,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func backDateToUpIn(_ sender: UIButton) {
         print("back date")
-        let tmpDateFrom = dateFrom.date
+        let tmpDateFrom = dateFormatter.date(from: labelDateFrom.text!)
         var dateComponent = DateComponents()
         print("range is: ", rangeButton.currentTitle)
         if rangeButton.currentTitle == "week" {
@@ -224,23 +224,24 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         } else if rangeButton.currentTitle == "month" {
             dateComponent.month = -1
         }
-        dateFrom.date = Calendar.current.date(byAdding: dateComponent, to: tmpDateFrom) ?? Date()
-        print("dateFrom: ", dateFrom.date)
+        let finDateFrom = Calendar.current.date(byAdding: dateComponent, to: tmpDateFrom!) ?? Date()
+        labelDateFrom.text = dateFormatter.string(from: finDateFrom)
+        print("dateFrom: ", finDateFrom)
         if tableCosts.isHidden == false {
-            dateFromCosts = dateFrom.date
+            dateFromCosts = finDateFrom
             print("dateFromCosts: ", dateFromCosts.debugDescription)
-            getCostsList(dateFrom: dateFormatter.string(from: dateFromCosts), dateTo: dateFormatter.string(from: dateTo.date))
+            getCostsList(dateFrom: dateFormatter.string(from: dateFromCosts), dateTo: dateFormatter.string(from: dateToCosts))
         }
         if tableIncome.isHidden == false {
-            dateFromIncomes = dateFrom.date
+            dateFromIncomes = finDateFrom
             print("dateFromIncomes: ", dateFromIncomes.debugDescription)
-            getIncomesList(dateFrom: dateFormatter.string(from: dateFromIncomes), dateTo: dateFormatter.string(from: dateTo.date))
+            getIncomesList(dateFrom: dateFormatter.string(from: dateFromIncomes), dateTo: dateFormatter.string(from: dateToIncomes))
         }
     }
     
     @IBAction func nextDateToUpIn(_ sender: UIButton) {
         print("next date")
-        let tmpDateTo = dateTo.date
+        let tmpDateTo = dateFormatter.date(from: labelDateTo.text!)
         var dateComponent = DateComponents()
         print("range is: ", rangeButton.currentTitle)
         if rangeButton.currentTitle == "week" {
@@ -250,23 +251,24 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         } else if rangeButton.currentTitle == "month" {
             dateComponent.month = 1
         }
-        dateTo.date = Calendar.current.date(byAdding: dateComponent, to: tmpDateTo) ?? Date()
-        print("dateTo: ", dateTo.date)
+        let finDateTo = Calendar.current.date(byAdding: dateComponent, to: tmpDateTo!) ?? Date()
+        labelDateTo.text = dateFormatter.string(from: finDateTo)
+        print("dateTo: ", finDateTo)
         if tableCosts.isHidden == false {
-            dateToCosts = dateTo.date
+            dateToCosts = finDateTo
             print("dateToCosts: ", dateToCosts.debugDescription)
-            getCostsList(dateFrom: dateFormatter.string(from: dateFrom.date), dateTo: dateFormatter.string(from: dateToCosts))
+            getCostsList(dateFrom: dateFormatter.string(from: dateFromCosts), dateTo: dateFormatter.string(from: dateToCosts))
         }
         if tableIncome.isHidden == false {
-            dateToIncomes = dateTo.date
+            dateToIncomes = finDateTo
             print("dateToIncomes: ", dateToIncomes.debugDescription)
-            getIncomesList(dateFrom: dateFormatter.string(from: dateFrom.date), dateTo: dateFormatter.string(from: dateToIncomes))
+            getIncomesList(dateFrom: dateFormatter.string(from: dateFromIncomes), dateTo: dateFormatter.string(from: dateToIncomes))
         }
     }
     
     @IBAction func moveBackDateToUpIn(_ sender: UIButton) {
-        let tmpDateFrom = dateFrom.date
-        let tmpDateTo = dateTo.date
+        let tmpDateFrom = dateFormatter.date(from: labelDateFrom.text!)
+        let tmpDateTo = dateFormatter.date(from: labelDateTo.text!)
         var dateComponent = DateComponents()
         if rangeButton.currentTitle == "week" {
             dateComponent.day = -7
@@ -275,27 +277,29 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         } else if rangeButton.currentTitle == "month" {
             dateComponent.month = -1
         }
-        dateFrom.date = Calendar.current.date(byAdding: dateComponent, to: tmpDateFrom) ?? Date()
-        print("dateFrom: ", dateFrom.date)
-        dateTo.date = Calendar.current.date(byAdding: dateComponent, to: tmpDateTo) ?? Date()
-        print("dateTo: ", dateTo.date)
+        let finDateFrom = Calendar.current.date(byAdding: dateComponent, to: tmpDateFrom!) ?? Date()
+        let finDateTo = Calendar.current.date(byAdding: dateComponent, to: tmpDateTo!) ?? Date()
+        labelDateFrom.text = dateFormatter.string(from: finDateFrom)
+        print("dateFrom: ", finDateFrom)
+        labelDateTo.text = dateFormatter.string(from: finDateTo)
+        print("dateTo: ", finDateTo)
         if tableCosts.isHidden == false {
-            dateFromCosts = dateFrom.date
-            dateToCosts = dateTo.date
+            dateFromCosts = finDateFrom
+            dateToCosts = finDateTo
             print("dateFromCosts: ", dateFromCosts.debugDescription, "dateToCosts: ", dateToCosts.debugDescription)
-            getCostsList(dateFrom: dateFormatter.string(from: dateFrom.date), dateTo: dateFormatter.string(from: dateTo.date))
+            getCostsList(dateFrom: dateFormatter.string(from: dateFromCosts), dateTo: dateFormatter.string(from: dateToCosts))
         }
         if tableIncome.isHidden == false {
-            dateFromIncomes = dateFrom.date
-            dateToIncomes = dateTo.date
+            dateFromIncomes = finDateFrom
+            dateToIncomes = finDateTo
             print("dateToIncomes: ", dateToIncomes.debugDescription)
-            getIncomesList(dateFrom: dateFormatter.string(from: dateFrom.date), dateTo: dateFormatter.string(from: dateTo.date))
+            getIncomesList(dateFrom: dateFormatter.string(from: dateFromIncomes), dateTo: dateFormatter.string(from: dateToIncomes))
         }
     }
     
     @IBAction func moveForwardDateToUpIn(_ sender: UIButton) {
-        let tmpDateFrom = dateFrom.date
-        let tmpDateTo = dateTo.date
+        let tmpDateFrom = dateFormatter.date(from: labelDateFrom.text!)
+        let tmpDateTo = dateFormatter.date(from: labelDateTo.text!)
         var dateComponent = DateComponents()
         if rangeButton.currentTitle == "week" {
             dateComponent.day = 7
@@ -304,21 +308,23 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         } else if rangeButton.currentTitle == "month" {
             dateComponent.month = 1
         }
-        dateFrom.date = Calendar.current.date(byAdding: dateComponent, to: tmpDateFrom) ?? Date()
-        print("dateFrom: ", dateFrom.date)
-        dateTo.date = Calendar.current.date(byAdding: dateComponent, to: tmpDateTo) ?? Date()
-        print("dateTo: ", dateTo.date)
+        let finDateFrom = Calendar.current.date(byAdding: dateComponent, to: tmpDateFrom!) ?? Date()
+        let finDateTo = Calendar.current.date(byAdding: dateComponent, to: tmpDateTo!) ?? Date()
+        labelDateFrom.text = dateFormatter.string(from: finDateFrom)
+        print("dateFrom: ", finDateFrom)
+        labelDateTo.text = dateFormatter.string(from: finDateTo)
+        print("dateTo: ", finDateTo)
         if tableCosts.isHidden == false {
-            dateFromCosts = dateFrom.date
-            dateToCosts = dateTo.date
+            dateFromCosts = finDateFrom
+            dateToCosts = finDateTo
             print("dateFromCosts: ", dateFromCosts.debugDescription, "dateToCosts: ", dateToCosts.debugDescription)
-            getCostsList(dateFrom: dateFormatter.string(from: dateFrom.date), dateTo: dateFormatter.string(from: dateTo.date))
+            getCostsList(dateFrom: dateFormatter.string(from: dateFromCosts), dateTo: dateFormatter.string(from: dateToCosts))
         }
         if tableIncome.isHidden == false {
-            dateFromIncomes = dateFrom.date
-            dateToIncomes = dateTo.date
+            dateFromIncomes = finDateFrom
+            dateToIncomes = finDateTo
             print("dateToIncomes: ", dateToIncomes.debugDescription)
-            getIncomesList(dateFrom: dateFormatter.string(from: dateFrom.date), dateTo: dateFormatter.string(from: dateTo.date))
+            getIncomesList(dateFrom: dateFormatter.string(from: dateFromIncomes), dateTo: dateFormatter.string(from: dateToIncomes))
         }
     }
     
