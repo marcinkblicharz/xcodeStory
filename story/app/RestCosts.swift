@@ -13,7 +13,7 @@ class RestCosts : ObservableObject {
     @Published var vm_costss : [ApiCosts] = []
     private var dataTask : URLSessionDataTask?
     @Published var acl : [ApiCosts] = []
-    @Published var ac : ApiCosts = ApiCosts()
+    @Published var ac : ApiCost = ApiCost()
     
     private let dateFormatter: DateFormatter = {
         let df = DateFormatter()
@@ -124,7 +124,7 @@ class RestCosts : ObservableObject {
         URLSession.shared.dataTask(with : url!) { data, response, error in
             if error == nil {
                 do {
-                    self.ac = try JSONDecoder().decode(ApiCosts.self, from: data!)
+                    self.ac = try JSONDecoder().decode(ApiCost.self, from: data!)
                 } catch {
                     print("error get data from api")
                 }
@@ -149,16 +149,22 @@ struct ApiCosts : Decodable {
     var type : String
     var subtype : String
     var color : String
+}
+
+struct ApiCost : Decodable {
+    var id : Int
+    var fkcosttype : Int
+    var date: String   //must be Date
+    var value : Double
+    var name : String
+    var info : String
     
     init(){
-        self.cid = 0
+        self.id = 0
+        self.fkcosttype = 0
         self.date = ""
         self.value = 0.0
         self.name = ""
         self.info = ""
-        self.ctid = 0
-        self.type = ""
-        self.subtype = ""
-        self.color = ""
     }
 }
