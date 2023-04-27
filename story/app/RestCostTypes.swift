@@ -1,26 +1,26 @@
 //
-//  RestIncomes.swift
+//  RestCostTypes.swift
 //  story
 //
-//  Created by Marcin Blicharz on 06/04/2023.
+//  Created by Marcin Blicharz on 27/04/2023.
 //
 
 import Foundation
 
-class RestIncomes : ObservableObject {
+class RestCostTypes : ObservableObject {
     
     private var dataTask : URLSessionDataTask?
-    @Published var ail : [ApiIncomes] = []
-    @Published var ai : ApiIncomes = ApiIncomes()
+    @Published var actl : [ApiCostTypes] = []
+    @Published var act : ApiCostTypes = ApiCostTypes()
     
-    func getIncomes(urlLink : String, completed: @escaping () -> ()){
+    func getCostTypes(urlLink : String, completed: @escaping () -> ()){
         
         let url = URL(string: urlLink)
         
         URLSession.shared.dataTask(with : url!) { data, response, error in
             if error == nil {
                 do {
-                    self.ail = try JSONDecoder().decode([ApiIncomes].self, from: data!)
+                    self.actl = try JSONDecoder().decode([ApiCostTypes].self, from: data!)
                 } catch {
                     print("error get data from api")
                 }
@@ -32,14 +32,14 @@ class RestIncomes : ObservableObject {
         }.resume()
     }
     
-    func getIncome(urlLink : String, completed: @escaping () -> ()){
+    func getCostType(urlLink : String, completed: @escaping () -> ()){
         
         let url = URL(string: urlLink)
         
         URLSession.shared.dataTask(with : url!) { data, response, error in
             if error == nil {
                 do {
-                    self.ai = try JSONDecoder().decode(ApiIncomes.self, from: data!)
+                    self.act = try JSONDecoder().decode(ApiCostTypes.self, from: data!)
                 } catch {
                     print("error get data from api")
                 }
@@ -52,26 +52,16 @@ class RestIncomes : ObservableObject {
     }
 }
 
-struct ApiIncomes : Decodable {
-    var iid : Int
-    var date: String   //must be Date
-    var value : Double
-    var name : String
-    var info : String
-    var itid : Int
+struct ApiCostTypes : Decodable {
+    var id : Int
     var type : String
-    var source : String
+    var subtype : String
     var color : String
     
     init(){
-        self.iid = 0
-        self.date = ""
-        self.value = 0.0
-        self.name = ""
-        self.info = ""
-        self.itid = 0
+        self.id = 0
         self.type = ""
-        self.source = ""
+        self.subtype = ""
         self.color = ""
     }
 }

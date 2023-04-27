@@ -155,6 +155,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let sortedCosts = aclfj.sorted{$0.date < $1.date}
         let sortedIncomes = ailfj.sorted{$0.date < $1.date}
+        aclfj = sortedCosts
+        ailfj = sortedIncomes
         var cell : UITableViewCell?
         if tableView == self.tableCosts {
 //            print("tableView_sortedCosts: " + String(sortedCosts.count))
@@ -180,6 +182,23 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
         return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var tableType : String = ""
+        var cellText : String = ""
+        var cell : UITableViewCell?
+        if tableView == self.tableCosts {
+            tableType = "Costs"
+            cell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath)
+            cellText = String(aclfj[indexPath.row].cid) + " - " + aclfj[indexPath.row].date + " - " + String(aclfj[indexPath.row].value) + " - " + aclfj[indexPath.row].name + " - " + aclfj[indexPath.row].type
+        } else if tableView == self.tableIncome {
+            tableType = "Incomes"
+            cell = tableIncome.dequeueReusableCell(withIdentifier: "TableIncomeCell", for: indexPath)
+            cellText = String(ailfj[indexPath.row].iid) + " - " + ailfj[indexPath.row].date + " - " + String(ailfj[indexPath.row].value) + " - " + ailfj[indexPath.row].name + " - " + ailfj[indexPath.row].type
+        }
+        print("Table: ", tableType, " element: ", "[", indexPath, "]", cell?.textLabel?.text, " | from tab: ", cellText
+        )
     }
     
     func updateTable (add : String) {

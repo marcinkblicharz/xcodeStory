@@ -13,6 +13,7 @@ class RestCosts : ObservableObject {
     @Published var vm_costss : [ApiCosts] = []
     private var dataTask : URLSessionDataTask?
     @Published var acl : [ApiCosts] = []
+    @Published var ac : ApiCosts = ApiCosts()
     
     private let dateFormatter: DateFormatter = {
         let df = DateFormatter()
@@ -116,6 +117,25 @@ class RestCosts : ObservableObject {
         }.resume()
     }
     
+    func getCost(urlLink : String, completed: @escaping () -> ()){
+        
+        let url = URL(string: urlLink)
+        
+        URLSession.shared.dataTask(with : url!) { data, response, error in
+            if error == nil {
+                do {
+                    self.ac = try JSONDecoder().decode(ApiCosts.self, from: data!)
+                } catch {
+                    print("error get data from api")
+                }
+                
+                DispatchQueue.main.async {
+                    completed()
+                }
+            }
+        }.resume()
+    }
+    
     
 }
 
@@ -129,4 +149,16 @@ struct ApiCosts : Decodable {
     var type : String
     var subtype : String
     var color : String
+    
+    init(){
+        self.cid = 0
+        self.date = ""
+        self.value = 0.0
+        self.name = ""
+        self.info = ""
+        self.ctid = 0
+        self.type = ""
+        self.subtype = ""
+        self.color = ""
+    }
 }

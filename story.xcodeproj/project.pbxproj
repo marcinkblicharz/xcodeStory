@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC8F745F29FA861500A8BD71 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8F745E29FA861500A8BD71 /* DetailViewController.swift */; };
+		BC8F746129FA87CB00A8BD71 /* RestIncomeTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8F746029FA87CB00A8BD71 /* RestIncomeTypes.swift */; };
+		BC8F746329FA884000A8BD71 /* RestCostTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8F746229FA884000A8BD71 /* RestCostTypes.swift */; };
 		BC90DBC329DEE3DE0094D452 /* RestIncomes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC90DBC229DEE3DE0094D452 /* RestIncomes.swift */; };
 		BC9742AB2991771A0049EB0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9742AA2991771A0049EB0D /* AppDelegate.swift */; };
 		BC9742AD2991771A0049EB0D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9742AC2991771A0049EB0D /* SceneDelegate.swift */; };
@@ -41,6 +44,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BC8F745E29FA861500A8BD71 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		BC8F746029FA87CB00A8BD71 /* RestIncomeTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestIncomeTypes.swift; sourceTree = "<group>"; };
+		BC8F746229FA884000A8BD71 /* RestCostTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestCostTypes.swift; sourceTree = "<group>"; };
 		BC90DBC229DEE3DE0094D452 /* RestIncomes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestIncomes.swift; sourceTree = "<group>"; };
 		BC9742A72991771A0049EB0D /* story.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = story.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC9742AA2991771A0049EB0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +121,7 @@
 				BC9742AC2991771A0049EB0D /* SceneDelegate.swift */,
 				BC9742AE2991771A0049EB0D /* ViewController.swift */,
 				BC9742B02991771A0049EB0D /* Main.storyboard */,
+				BC8F745E29FA861500A8BD71 /* DetailViewController.swift */,
 				BC9742B32991771B0049EB0D /* Assets.xcassets */,
 				BC9742B52991771B0049EB0D /* LaunchScreen.storyboard */,
 				BC9742B82991771B0049EB0D /* Info.plist */,
@@ -146,6 +153,8 @@
 				BCF659B929B0B9F700213F54 /* RestLogin.swift */,
 				BCF659BB29BCE2FC00213F54 /* RestCosts.swift */,
 				BC90DBC229DEE3DE0094D452 /* RestIncomes.swift */,
+				BC8F746029FA87CB00A8BD71 /* RestIncomeTypes.swift */,
+				BC8F746229FA884000A8BD71 /* RestCostTypes.swift */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -281,9 +290,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC8F745F29FA861500A8BD71 /* DetailViewController.swift in Sources */,
 				BC90DBC329DEE3DE0094D452 /* RestIncomes.swift in Sources */,
 				BCC312D329D49EEF001C702C /* CostViewModel.swift in Sources */,
+				BC8F746329FA884000A8BD71 /* RestCostTypes.swift in Sources */,
 				BC9742AF2991771A0049EB0D /* ViewController.swift in Sources */,
+				BC8F746129FA87CB00A8BD71 /* RestIncomeTypes.swift in Sources */,
 				BCF43EB32992C3C300DEFEB7 /* WelcomeViewController.swift in Sources */,
 				BC9742AB2991771A0049EB0D /* AppDelegate.swift in Sources */,
 				BC9742AD2991771A0049EB0D /* SceneDelegate.swift in Sources */,
