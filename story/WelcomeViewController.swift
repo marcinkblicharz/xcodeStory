@@ -161,9 +161,13 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         if tableView == self.tableCosts {
 //            print("tableView_sortedCosts: " + String(sortedCosts.count))
             if sortedCosts.count > 0 {
-                cell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath)
-                cell!.textLabel!.text = sortedCosts[indexPath.row].date + " - " + String(sortedCosts[indexPath.row].value) + " - " + sortedCosts[indexPath.row].name + " - " + sortedCosts[indexPath.row].type
-                return cell!
+//                cell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath)
+//                cell!.textLabel!.text = sortedCosts[indexPath.row].date + " - " + String(sortedCosts[indexPath.row].value) + " - " + sortedCosts[indexPath.row].name + " - " + sortedCosts[indexPath.row].type
+                let ccell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath) as! CustomTableViewCell
+                ccell.button.titleLabel?.text = ""
+//                sortedCosts[indexPath.row].date + " - " + String(sortedCosts[indexPath.row].value) + " - " + sortedCosts[indexPath.row].name + " - " + sortedCosts[indexPath.row].type
+//                return cell!
+                return ccell
             } else {
                 cell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath)
                 cell!.textLabel!.text = ""
