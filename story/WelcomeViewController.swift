@@ -70,7 +70,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         
         tableCosts.dataSource = self
         tableCosts.delegate = self
-//        tableCosts.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableCosts.register(CustomTableViewCell.self, forCellReuseIdentifier: "TableCostsCell")
         tableIncome.delegate = self
         tableIncome.dataSource = self
         
@@ -161,13 +161,15 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         if tableView == self.tableCosts {
 //            print("tableView_sortedCosts: " + String(sortedCosts.count))
             if sortedCosts.count > 0 {
-//                cell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath)
-//                cell!.textLabel!.text = sortedCosts[indexPath.row].date + " - " + String(sortedCosts[indexPath.row].value) + " - " + sortedCosts[indexPath.row].name + " - " + sortedCosts[indexPath.row].type
-                let ccell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath) as! CustomTableViewCell
-                ccell.button.titleLabel?.text = ""
+                cell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath)
+                cell!.textLabel!.text = sortedCosts[indexPath.row].date + " - " + String(sortedCosts[indexPath.row].value) + " - " + sortedCosts[indexPath.row].name + " - " + sortedCosts[indexPath.row].type
+//                print("trying create ccell")
+//                let ccell : CustomTableViewCell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath) as! CustomTableViewCell
+//                let ccell : CustomTableViewCell = tableCosts.dequeueReusableCell(withIdentifier: "CustomTableViewCell") as! CustomTableViewCell
+//                ccell.button.titleLabel?.text = ""
 //                sortedCosts[indexPath.row].date + " - " + String(sortedCosts[indexPath.row].value) + " - " + sortedCosts[indexPath.row].name + " - " + sortedCosts[indexPath.row].type
-//                return cell!
-                return ccell
+                return cell!
+//                return ccell
             } else {
                 cell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath)
                 cell!.textLabel!.text = ""
@@ -494,6 +496,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             toolbarFromDatepicker.date = dateFromIncomes
         }
         if labelDateFrom.isEnabled == true {
+            tableCosts.alpha = 0.05
+            tableIncome.alpha = 0.05
             if labelDateTo.isEnabled == false {
                 labelDateTo.isEnabled = true
                 labelDateFrom.isEnabled = false
@@ -506,6 +510,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
                 toolbarBottom.isHidden = false
             }
         } else if labelDateFrom.isEnabled == false {
+            tableCosts.alpha = 1
+            tableIncome.alpha = 1
             labelDateFrom.isEnabled = true
             labelDatepicker.isHidden = true
             toolbarFromDatepicker.isHidden = true
@@ -523,6 +529,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             toolbarToDatepicker.date = dateToIncomes
         }
         if labelDateTo.isEnabled == true {
+            tableCosts.alpha = 0.05
+            tableIncome.alpha = 0.05
             if labelDateFrom.isEnabled == false {
                 labelDateFrom.isEnabled = true
                 labelDateTo.isEnabled = false
@@ -535,6 +543,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
                 toolbarBottom.isHidden = false
             }
         } else if labelDateTo.isEnabled == false {
+            tableCosts.alpha = 1
+            tableIncome.alpha = 1
             labelDateTo.isEnabled = true
             labelDatepicker.isHidden = true
             toolbarToDatepicker.isHidden = true
@@ -574,6 +584,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         toolbarFromDatepicker.isHidden = true
         toolbarToDatepicker.isHidden = true
         labelDatepicker.isHidden = true
+        tableCosts.alpha = 1
+        tableIncome.alpha = 1
     }
     
     @IBAction func addBtoolbarToday(_ sender: UIBarButtonItem) {
@@ -597,6 +609,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         labelDatepicker.isHidden = true
         toolbarBottom.isHidden = true
+        tableCosts.alpha = 1
+        tableIncome.alpha = 1
 //        toolbarDatepicker.isHidden = true
     }
     
