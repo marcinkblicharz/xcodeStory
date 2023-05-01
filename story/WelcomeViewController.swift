@@ -30,6 +30,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
 //    var dateComponent : DateComponents?
     var calendar : Calendar = Calendar.current
     var activePanel : String = "listCosts"
+    var stypeOfElement : String! = "Cost"
     
     let dp = UIDatePicker()
     
@@ -205,6 +206,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         print("Table: ", tableType, " element: ", "[", indexPath, "]", cell?.textLabel?.text, " | from tab: ", cellText
         )
+        self.performSegue(withIdentifier: "goToDetail", sender: self)
     }
     
     func updateTable (add : String) {
@@ -222,8 +224,10 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         buttonIncomes.backgroundColor = UIColor.systemGray2.withAlphaComponent(0.0)
         activePanel = "listCosts"
         print("Show Costs and hide Incomes")
-        let storyboard = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
-        self.navigationController?.pushViewController(storyboard, animated: true)
+//        let storyboard = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+//        self.navigationController?.pushViewController(storyboard, animated: true)
+//        self.performSegue(withIdentifier: "goToDetail", sender: self)
+        stypeOfElement = "Cost"
     }
     
     @IBAction func incomeButton(_ sender: UIButton) {
@@ -237,6 +241,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         buttonIncomes.backgroundColor = UIColor.systemGray2
         activePanel = "listIncomes"
         print("Show Incomes and hide Costs")
+        stypeOfElement = "Income"
     }
     
     @IBAction func backDateToUpIn(_ sender: UIButton) {
@@ -747,6 +752,27 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         let firstDay = Calendar.current.date(byAdding: dateComponent, to: currentDate)
         print("current day of month is: " + String(dayOfMonth) + "., first day of month: " + dateFormatter.string(from: firstDay!))
         return firstDay!
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToDetail" {
+            let destinationVC = segue.destination as? DetailViewController
+            if let stypeOfElement = self.stypeOfElement {
+                destinationVC?.typeOfElement = stypeOfElement
+            }
+//            if let password = passwordText.text {
+//                destinationVC?.password = password
+//            }
+////            if let linkCosts = self.costLink {
+////                destinationVC?.linkCosts = linkCosts
+////            }
+//            if let linkIncomes = self.incomeLink {
+//                destinationVC?.linkIncomes = linkIncomes
+//            }
+//            if let serverAddress = self.serverAddress {
+//                destinationVC?.serverAddress = serverAddress
+//            }
+        }
     }
 }
 

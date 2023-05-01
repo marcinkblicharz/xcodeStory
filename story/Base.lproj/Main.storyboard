@@ -470,7 +470,7 @@
                         <outlet property="toolbarFromDatepicker" destination="7LF-dS-OvV" id="JVt-2C-KFW"/>
                         <outlet property="toolbarToDatepicker" destination="oOE-ce-tBG" id="T8m-lT-bV9"/>
                         <outlet property="welcomeLabel" destination="Uk4-uS-vrc" id="E6I-Bf-W4E"/>
-                        <segue destination="MAf-hK-WSU" kind="show" id="k6N-QP-FA2"/>
+                        <segue destination="MAf-hK-WSU" kind="show" identifier="goToDetail" id="k6N-QP-FA2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MVg-N1-O7V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -499,16 +499,30 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bin-GR-j9N">
+                                <rect key="frame" x="164.66666666666666" y="726" width="61" height="34.333333333333371"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Save"/>
+                                <connections>
+                                    <action selector="saveButton:" destination="MAf-hK-WSU" eventType="touchUpInside" id="CAy-3J-mmc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="KV0-tI-JrY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="KV0-tI-JrY" firstAttribute="bottom" secondItem="bin-GR-j9N" secondAttribute="bottom" constant="26.666666666666629" id="5iV-Vl-mcR"/>
                             <constraint firstItem="KV0-tI-JrY" firstAttribute="trailing" secondItem="js6-RQ-Hqt" secondAttribute="trailing" id="MQX-t5-kjC"/>
                             <constraint firstItem="js6-RQ-Hqt" firstAttribute="top" secondItem="KV0-tI-JrY" secondAttribute="top" id="arx-MF-Fir"/>
                             <constraint firstItem="js6-RQ-Hqt" firstAttribute="leading" secondItem="KV0-tI-JrY" secondAttribute="leading" id="l4Q-Gf-rNr"/>
+                            <constraint firstItem="bin-GR-j9N" firstAttribute="centerX" secondItem="fq8-6X-gPv" secondAttribute="centerX" id="tDQ-ap-nkg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="8nO-mR-eA3"/>
+                    <connections>
+                        <outlet property="Save" destination="bin-GR-j9N" id="arU-lY-J0z"/>
+                        <outlet property="titleLabel" destination="4Ne-Ud-g90" id="bVb-aX-x3y"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3fS-Pv-jaV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
