@@ -163,7 +163,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             if sortedCosts.count > 0 {
                 cell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath)
                 cell!.textLabel!.text = sortedCosts[indexPath.row].date + " - " + String(sortedCosts[indexPath.row].value) + " - " + sortedCosts[indexPath.row].name + " - " + sortedCosts[indexPath.row].type
-//                print("trying create ccell")
+                print("trying create ccell")
 //                let ccell : CustomTableViewCell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath) as! CustomTableViewCell
 //                let ccell : CustomTableViewCell = tableCosts.dequeueReusableCell(withIdentifier: "CustomTableViewCell") as! CustomTableViewCell
 //                ccell.button.titleLabel?.text = ""
@@ -222,6 +222,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         buttonIncomes.backgroundColor = UIColor.systemGray2.withAlphaComponent(0.0)
         activePanel = "listCosts"
         print("Show Costs and hide Incomes")
+        let storyboard = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        self.navigationController?.pushViewController(storyboard, animated: true)
     }
     
     @IBAction func incomeButton(_ sender: UIButton) {
