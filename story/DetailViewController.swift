@@ -37,6 +37,8 @@ class DetailViewController: UIViewController {
         print("DetailViewController - viewDidLoad, typeOfElement: ", typeOfElement)
         titleLabel.text = typeOfElement.uppercased()
         
+        infoTextView.layer.borderWidth = 0.25
+        
         if typeOfElement == "Cost" || typeOfElement == "Income" {
             dateLabel.isHidden = false
             dateLabel.text = "Date"
