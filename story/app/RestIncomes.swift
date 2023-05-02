@@ -62,11 +62,23 @@ struct ApiIncomes : Decodable {
     var type : String
     var source : String
     var color : String
+    
+    init(){
+        self.iid = 0
+        self.date = ""
+        self.value = 0.0
+        self.name = ""
+        self.info = ""
+        self.itid = 0
+        self.type = ""
+        self.source = ""
+        self.color = ""
+    }
 }
 
 struct ApiIncome : Decodable {
     var id : Int
-    var fkincometype : Int
+    var fkIncomeType : Int
     var date: String   //must be Date
     var value : Double
     var name : String
@@ -74,7 +86,7 @@ struct ApiIncome : Decodable {
     
     init(){
         self.id = 0
-        self.fkincometype = 0
+        self.fkIncomeType = 0
         self.date = ""
         self.value = 0.0
         self.name = ""

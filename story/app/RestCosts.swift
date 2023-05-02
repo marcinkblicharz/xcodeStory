@@ -120,7 +120,7 @@ class RestCosts : ObservableObject {
     func getCost(urlLink : String, completed: @escaping () -> ()){
         
         let url = URL(string: urlLink)
-        
+        print("getCost - urlLink: ", urlLink)
         URLSession.shared.dataTask(with : url!) { data, response, error in
             if error == nil {
                 do {
@@ -149,11 +149,23 @@ struct ApiCosts : Decodable {
     var type : String
     var subtype : String
     var color : String
+    
+    init(){
+        self.cid = 0
+        self.date = ""
+        self.value = 0.0
+        self.name = ""
+        self.info = ""
+        self.ctid = 0
+        self.type = ""
+        self.subtype = ""
+        self.color = ""
+    }
 }
 
 struct ApiCost : Decodable {
     var id : Int
-    var fkcosttype : Int
+    var fkCostType : Int
     var date: String   //must be Date
     var value : Double
     var name : String
@@ -161,7 +173,7 @@ struct ApiCost : Decodable {
     
     init(){
         self.id = 0
-        self.fkcosttype = 0
+        self.fkCostType = 0
         self.date = ""
         self.value = 0.0
         self.name = ""
