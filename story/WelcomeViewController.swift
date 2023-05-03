@@ -200,12 +200,12 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             tableType = "Costs"
             cell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath)
             cellText = String(aclfj[indexPath.row].cid) + " - " + aclfj[indexPath.row].date + " - " + String(aclfj[indexPath.row].value) + " - " + aclfj[indexPath.row].name + " - " + aclfj[indexPath.row].type
-            slinkToRest = "http://" + serverAddress + ":8080/rest/getCost/" + String(aclfj[indexPath.row].cid)
+            slinkToRest = "http://" + serverAddress + ":8080/rest/getvCost/" + String(aclfj[indexPath.row].cid)
         } else if tableView == self.tableIncome {
             tableType = "Incomes"
             cell = tableIncome.dequeueReusableCell(withIdentifier: "TableIncomeCell", for: indexPath)
             cellText = String(ailfj[indexPath.row].iid) + " - " + ailfj[indexPath.row].date + " - " + String(ailfj[indexPath.row].value) + " - " + ailfj[indexPath.row].name + " - " + ailfj[indexPath.row].type
-            slinkToRest = "http://" + serverAddress + ":8080/rest/getIncome/" + String(ailfj[indexPath.row].iid)
+            slinkToRest = "http://" + serverAddress + ":8080/rest/getvIncome/" + String(ailfj[indexPath.row].iid)
         }
         print("Table: ", tableType, " element: ", "[", indexPath, "]", cell?.textLabel?.text, " | from tab: ", cellText)
         print("Link to REST is: ", slinkToRest)

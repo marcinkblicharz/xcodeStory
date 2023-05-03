@@ -11,6 +11,7 @@ class RestIncomes : ObservableObject {
     
     private var dataTask : URLSessionDataTask?
     @Published var ail : [ApiIncomes] = []
+    @Published var aiv : ApiIncomes = ApiIncomes()
     @Published var ai : ApiIncome = ApiIncome()
     
     func getIncomes(urlLink : String, completed: @escaping () -> ()){
@@ -21,6 +22,25 @@ class RestIncomes : ObservableObject {
             if error == nil {
                 do {
                     self.ail = try JSONDecoder().decode([ApiIncomes].self, from: data!)
+                } catch {
+                    print("error get data from api")
+                }
+                
+                DispatchQueue.main.async {
+                    completed()
+                }
+            }
+        }.resume()
+    }
+    
+    func getvIncome(urlLink : String, completed: @escaping () -> ()){
+        
+        let url = URL(string: urlLink)
+        
+        URLSession.shared.dataTask(with : url!) { data, response, error in
+            if error == nil {
+                do {
+                    self.aiv = try JSONDecoder().decode(ApiIncomes.self, from: data!)
                 } catch {
                     print("error get data from api")
                 }

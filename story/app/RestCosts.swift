@@ -13,6 +13,7 @@ class RestCosts : ObservableObject {
     @Published var vm_costss : [ApiCosts] = []
     private var dataTask : URLSessionDataTask?
     @Published var acl : [ApiCosts] = []
+    @Published var acv : ApiCosts = ApiCosts()
     @Published var ac : ApiCost = ApiCost()
     
     private let dateFormatter: DateFormatter = {
@@ -117,10 +118,29 @@ class RestCosts : ObservableObject {
         }.resume()
     }
     
+    func getvCost(urlLink : String, completed: @escaping () -> ()){
+        
+        let url = URL(string: urlLink)
+        
+        URLSession.shared.dataTask(with : url!) { data, response, error in
+            if error == nil {
+                do {
+                    self.acv = try JSONDecoder().decode(ApiCosts.self, from: data!)
+                } catch {
+                    print("error get data from api")
+                }
+                
+                DispatchQueue.main.async {
+                    completed()
+                }
+            }
+        }.resume()
+    }
+    
     func getCost(urlLink : String, completed: @escaping () -> ()){
         
         let url = URL(string: urlLink)
-        print("getCost - urlLink: ", urlLink)
+        
         URLSession.shared.dataTask(with : url!) { data, response, error in
             if error == nil {
                 do {
