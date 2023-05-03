@@ -695,20 +695,20 @@
                         <outlet property="Save" destination="bin-GR-j9N" id="arU-lY-J0z"/>
                         <outlet property="dateLabel" destination="wqp-uh-Vcu" id="Y5F-m3-eF5"/>
                         <outlet property="dateText" destination="bwb-UR-0He" id="kUe-pw-xpt"/>
-                        <outlet property="dateTextView" destination="Cos-aV-9uX" id="Ta7-nE-iW7"/>
+                        <outlet property="dateTextView" destination="Cos-aV-9uX" id="H3U-KN-IDU"/>
                         <outlet property="infoLabel" destination="yHF-3U-CXE" id="Fuz-dh-CBY"/>
                         <outlet property="infoText" destination="MbF-qj-NQB" id="8DW-c7-UPr"/>
-                        <outlet property="infoTextView" destination="v5Y-ip-ToQ" id="f3W-t9-By2"/>
+                        <outlet property="infoTextView" destination="6AH-mK-8yK" id="g94-Px-UNM"/>
                         <outlet property="nameLabel" destination="Uya-rq-xvO" id="9E0-DY-kpw"/>
                         <outlet property="nameText" destination="wA1-UK-PbG" id="HxZ-tK-mo4"/>
-                        <outlet property="nameTextView" destination="Cos-aV-9uX" id="ZIJ-3d-GSM"/>
+                        <outlet property="nameTextView" destination="v5Y-ip-ToQ" id="3ev-hZ-0fL"/>
                         <outlet property="titleLabel" destination="4Ne-Ud-g90" id="bVb-aX-x3y"/>
                         <outlet property="typeLabel" destination="iwc-dK-AFv" id="m83-LF-hYl"/>
                         <outlet property="typeText" destination="xwF-11-sCF" id="slG-aJ-s79"/>
-                        <outlet property="typeTextView" destination="25i-Rr-28W" id="CNV-ih-Ie7"/>
+                        <outlet property="typeTextView" destination="25i-Rr-28W" id="dSo-HJ-Q2R"/>
                         <outlet property="valueLabel" destination="WaG-xZ-AJp" id="WVx-dh-pFD"/>
                         <outlet property="valueText" destination="CEh-GY-eb9" id="eWi-yM-b3P"/>
-                        <outlet property="valueTextView" destination="c3j-8f-IDY" id="MIo-lT-Bes"/>
+                        <outlet property="valueTextView" destination="c3j-8f-IDY" id="naI-aj-l9W"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3fS-Pv-jaV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
