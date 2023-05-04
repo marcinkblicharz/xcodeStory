@@ -19,6 +19,12 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     var linkIncomes : String =  ""
     var aclfj = [ApiCosts]()
     var ailfj = [ApiIncomes]()
+    var restCostType = RestCostTypes()
+    var actlfj = [ApiCostTypes]()
+    var linkCostTypes : String =  ""
+    var restIncomeType = RestIncomeTypes()
+    var aitlfj = [ApiIncomeTypes]()
+    var linkIncomeTypes : String =  ""
     var listCosts_size : Int = 0
     var listIncomes_size : Int = 0
     var tableViewData = [String]()
@@ -66,6 +72,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var labelDateFrom: UILabel!
     @IBOutlet weak var labelDateTo: UILabel!
     @IBOutlet weak var labelDatepicker: UILabel!
+    @IBOutlet weak var addButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,6 +87,9 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         
         linkCosts = "http://" + serverAddress + ":8080/rest/getCosts?"
         linkIncomes = "http://" + serverAddress + ":8080/rest/getIncomes?"
+        linkCostTypes = "http://" + serverAddress + ":8080/rest/getCostTypes"
+        linkIncomeTypes = "http://" + serverAddress + ":8080/rest/getIncomeTypes"
+        
         
         dateFrom.timeZone = TimeZone.init(identifier: "Europe/Amsterdam")
         dateTo.timeZone = TimeZone.init(identifier: "Europe/Amsterdam")
@@ -139,6 +149,9 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         let dateToClick = UITapGestureRecognizer(target: self, action: #selector(laDaToAction))
         labelDateTo.isUserInteractionEnabled = true
         labelDateTo.addGestureRecognizer(dateToClick)
+        
+        getCostTypes()
+        getIncomeTypes()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -508,6 +521,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         if labelDateFrom.isEnabled == true {
             tableCosts.alpha = 0.05
             tableIncome.alpha = 0.05
+            addButton.isHidden = true
             if labelDateTo.isEnabled == false {
                 labelDateTo.isEnabled = true
                 labelDateFrom.isEnabled = false
@@ -522,6 +536,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         } else if labelDateFrom.isEnabled == false {
             tableCosts.alpha = 1
             tableIncome.alpha = 1
+            addButton.isHidden = false
             labelDateFrom.isEnabled = true
             labelDatepicker.isHidden = true
             toolbarFromDatepicker.isHidden = true
@@ -541,6 +556,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         if labelDateTo.isEnabled == true {
             tableCosts.alpha = 0.05
             tableIncome.alpha = 0.05
+            addButton.isHidden = true
             if labelDateFrom.isEnabled == false {
                 labelDateFrom.isEnabled = true
                 labelDateTo.isEnabled = false
@@ -555,6 +571,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         } else if labelDateTo.isEnabled == false {
             tableCosts.alpha = 1
             tableIncome.alpha = 1
+            addButton.isHidden = false
             labelDateTo.isEnabled = true
             labelDatepicker.isHidden = true
             toolbarToDatepicker.isHidden = true
@@ -626,6 +643,14 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func setTAButFrom(active : Bool) {
         self.taDateFrom.isEnabled = active
+    }
+    
+    @IBAction func addButtonAction(_ sender: UIButton) {
+            if activePanel == "listCosts" {
+                print("addButtonAction for Costs")
+            } else if activePanel == "listIncomes" {
+                print("addButtonAction for Incomes")
+            }
     }
     
     @IBAction func qqq(_ sender: UITextField) {
@@ -719,6 +744,21 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         print("size of outside 'ailfj' is: " + String(self.ailfj.count))
     }
     
+    func getCostTypes() {
+        restCostType.getCostTypes(urlLink: linkCostTypes){
+            self.actlfj.removeAll()
+            print("Get data CostTypesList from JSON with success!")
+            self.actlfj = self.restCostType.actl
+            print("size of inside 'actlfj' is: " + String(self.actlfj.count))
+        }
+        let sortedCostTypes = actlfj.sorted{$0.type < $1.type}
+        actlfj = sortedCostTypes
+    }
+    
+    func getIncomeTypes() {
+        
+    }
+    
     func getLastMonday() -> Date {
         var pastMonday : Int = 0
         let dateFormatterFull = DateFormatter()
@@ -765,6 +805,9 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             }
             if let slinkToRest = self.slinkToRest {
                 destinationVC?.linkToRest = slinkToRest
+            }
+            if let costTypesList = self.actlfj as? [ApiCostTypes]{
+                destinationVC?.costTypesList = costTypesList
             }
 //            if let password = passwordText.text {
 //                destinationVC?.password = password
