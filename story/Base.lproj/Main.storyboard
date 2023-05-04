@@ -681,12 +681,18 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xvj-Uk-Nyt">
-                                <rect key="frame" x="115" y="172" width="120" height="25"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            </pickerView>
+                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="ndv-de-OFZ">
+                                <rect key="frame" x="0.0" y="587" width="390" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="EZX-P5-06R"/>
+                                </constraints>
+                                <locale key="locale" localeIdentifier="pl"/>
+                            </datePicker>
                             <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MDR-Un-dEW">
-                                <rect key="frame" x="0.0" y="682" width="390" height="44"/>
+                                <rect key="frame" x="0.0" y="737" width="390" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="PLJ-O7-1oq"/>
+                                </constraints>
                                 <items>
                                     <barButtonItem title="Set" id="0Tk-GG-uRQ">
                                         <connections>
@@ -707,13 +713,33 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="ndv-de-OFZ">
-                                <rect key="frame" x="0.0" y="532" width="390" height="150"/>
+                            <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jOL-yv-0cg">
+                                <rect key="frame" x="0.0" y="737" width="390" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="EZX-P5-06R"/>
+                                    <constraint firstAttribute="height" constant="50" id="aUB-G1-okc"/>
                                 </constraints>
-                                <locale key="locale" localeIdentifier="pl"/>
-                            </datePicker>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="A88-2N-aW5"/>
+                                    <barButtonItem title="Set" id="zG2-lK-Cz9">
+                                        <connections>
+                                            <action selector="setType:" destination="MAf-hK-WSU" id="HkC-zu-Wsz"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="P6S-hh-ZnR"/>
+                                    <barButtonItem title="Cancel" id="uX4-8b-LXP">
+                                        <connections>
+                                            <action selector="cancelType:" destination="MAf-hK-WSU" id="BKO-Yu-AzX"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ev0-pe-wmV"/>
+                                </items>
+                            </toolbar>
+                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xvj-Uk-Nyt">
+                                <rect key="frame" x="0.0" y="587" width="390" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="Vdo-fU-thO"/>
+                                </constraints>
+                            </pickerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="KV0-tI-JrY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -722,6 +748,7 @@
                             <constraint firstItem="Cos-aV-9uX" firstAttribute="bottom" secondItem="bwb-UR-0He" secondAttribute="bottom" id="1Jn-MX-2uh"/>
                             <constraint firstItem="6AH-mK-8yK" firstAttribute="leading" secondItem="KV0-tI-JrY" secondAttribute="leading" constant="115" id="1eD-cd-zQY"/>
                             <constraint firstItem="6AH-mK-8yK" firstAttribute="top" secondItem="wA1-UK-PbG" secondAttribute="bottom" constant="20" id="1mx-am-dwU"/>
+                            <constraint firstItem="KV0-tI-JrY" firstAttribute="bottom" secondItem="jOL-yv-0cg" secondAttribute="bottom" id="358-2l-dRi"/>
                             <constraint firstItem="c3j-8f-IDY" firstAttribute="trailing" secondItem="CEh-GY-eb9" secondAttribute="trailing" id="4Vv-P6-E0X"/>
                             <constraint firstItem="BUA-oY-xcp" firstAttribute="baseline" secondItem="bin-GR-j9N" secondAttribute="baseline" id="5wK-zc-LhY"/>
                             <constraint firstItem="Cos-aV-9uX" firstAttribute="top" secondItem="js6-RQ-Hqt" secondAttribute="bottom" constant="30" id="7gd-Bd-vmr"/>
@@ -737,6 +764,7 @@
                             <constraint firstItem="WaG-xZ-AJp" firstAttribute="top" secondItem="wqp-uh-Vcu" secondAttribute="bottom" constant="20" id="GfH-w8-F8P"/>
                             <constraint firstItem="wA1-UK-PbG" firstAttribute="top" secondItem="xwF-11-sCF" secondAttribute="bottom" constant="20" id="GoS-wf-t3b"/>
                             <constraint firstItem="yHF-3U-CXE" firstAttribute="top" secondItem="Uya-rq-xvO" secondAttribute="bottom" constant="20" id="Hb2-AV-rHw"/>
+                            <constraint firstItem="KV0-tI-JrY" firstAttribute="trailing" secondItem="Xvj-Uk-Nyt" secondAttribute="trailing" id="IMr-B8-2rr"/>
                             <constraint firstItem="bin-GR-j9N" firstAttribute="centerX" secondItem="js6-RQ-Hqt" secondAttribute="centerX" id="Iai-pw-IFc"/>
                             <constraint firstItem="BUA-oY-xcp" firstAttribute="baseline" secondItem="94D-Nl-2Ob" secondAttribute="baseline" id="KQa-uK-gIZ"/>
                             <constraint firstItem="iwc-dK-AFv" firstAttribute="leading" secondItem="KV0-tI-JrY" secondAttribute="leading" constant="20" id="M8g-M9-s4h"/>
@@ -754,10 +782,11 @@
                             <constraint firstItem="js6-RQ-Hqt" firstAttribute="top" secondItem="KV0-tI-JrY" secondAttribute="top" id="arx-MF-Fir"/>
                             <constraint firstItem="KV0-tI-JrY" firstAttribute="bottom" secondItem="MDR-Un-dEW" secondAttribute="bottom" id="cI0-l3-Acy"/>
                             <constraint firstItem="bwb-UR-0He" firstAttribute="top" secondItem="js6-RQ-Hqt" secondAttribute="bottom" constant="30" id="d6i-Tj-bXZ"/>
+                            <constraint firstItem="MDR-Un-dEW" firstAttribute="top" secondItem="Xvj-Uk-Nyt" secondAttribute="bottom" id="dRE-cB-VHm"/>
                             <constraint firstItem="WaG-xZ-AJp" firstAttribute="leading" secondItem="KV0-tI-JrY" secondAttribute="leading" constant="20" id="eN7-yG-HyL"/>
                             <constraint firstItem="wA1-UK-PbG" firstAttribute="leading" secondItem="Uya-rq-xvO" secondAttribute="trailing" constant="30" id="eOb-Uy-Awv"/>
+                            <constraint firstItem="Xvj-Uk-Nyt" firstAttribute="leading" secondItem="KV0-tI-JrY" secondAttribute="leading" id="eVB-iI-vXx"/>
                             <constraint firstItem="ndv-de-OFZ" firstAttribute="leading" secondItem="KV0-tI-JrY" secondAttribute="leading" id="eWS-2v-KUv"/>
-                            <constraint firstAttribute="bottom" secondItem="ndv-de-OFZ" secondAttribute="bottom" constant="105" id="gpg-rl-5PN"/>
                             <constraint firstItem="c3j-8f-IDY" firstAttribute="bottom" secondItem="CEh-GY-eb9" secondAttribute="bottom" id="hEV-f0-c7D"/>
                             <constraint firstItem="25i-Rr-28W" firstAttribute="leading" secondItem="iwc-dK-AFv" secondAttribute="trailing" constant="30" id="hRr-nR-iS1"/>
                             <constraint firstItem="Cos-aV-9uX" firstAttribute="leading" secondItem="wqp-uh-Vcu" secondAttribute="trailing" constant="30" id="jqG-DB-ljq"/>
@@ -765,8 +794,10 @@
                             <constraint firstItem="BUA-oY-xcp" firstAttribute="leading" secondItem="KV0-tI-JrY" secondAttribute="leading" constant="75" id="lax-Au-aLB"/>
                             <constraint firstItem="v5Y-ip-ToQ" firstAttribute="top" secondItem="xwF-11-sCF" secondAttribute="bottom" constant="20" id="lru-gb-uSy"/>
                             <constraint firstItem="94D-Nl-2Ob" firstAttribute="leading" secondItem="BUA-oY-xcp" secondAttribute="trailing" constant="78" id="nYA-uY-DWf"/>
+                            <constraint firstItem="jOL-yv-0cg" firstAttribute="leading" secondItem="KV0-tI-JrY" secondAttribute="leading" id="o0t-ZB-8Tv"/>
                             <constraint firstItem="25i-Rr-28W" firstAttribute="top" secondItem="CEh-GY-eb9" secondAttribute="bottom" constant="20" id="pAB-W1-iU5"/>
                             <constraint firstItem="ndv-de-OFZ" firstAttribute="bottom" secondItem="MDR-Un-dEW" secondAttribute="top" id="pyw-RE-Lvd"/>
+                            <constraint firstItem="jOL-yv-0cg" firstAttribute="trailing" secondItem="KV0-tI-JrY" secondAttribute="trailing" id="sfh-Am-VKG"/>
                             <constraint firstItem="bin-GR-j9N" firstAttribute="top" secondItem="6AH-mK-8yK" secondAttribute="bottom" constant="50" id="sgF-Z3-QMP"/>
                             <constraint firstItem="bwb-UR-0He" firstAttribute="leading" secondItem="wqp-uh-Vcu" secondAttribute="trailing" constant="30" id="v4S-Xi-FzW"/>
                             <constraint firstItem="iwc-dK-AFv" firstAttribute="top" secondItem="WaG-xZ-AJp" secondAttribute="bottom" constant="20" id="v9M-Um-D03"/>
@@ -795,6 +826,7 @@
                         <outlet property="typePicker" destination="Xvj-Uk-Nyt" id="qhE-D5-BMy"/>
                         <outlet property="typeText" destination="xwF-11-sCF" id="slG-aJ-s79"/>
                         <outlet property="typeTextView" destination="25i-Rr-28W" id="dSo-HJ-Q2R"/>
+                        <outlet property="typeToolbar" destination="jOL-yv-0cg" id="IcL-bP-Tqo"/>
                         <outlet property="updateButton" destination="bin-GR-j9N" id="03W-a5-lFa"/>
                         <outlet property="valueLabel" destination="WaG-xZ-AJp" id="WVx-dh-pFD"/>
                         <outlet property="valueText" destination="CEh-GY-eb9" id="eWi-yM-b3P"/>

@@ -49,6 +49,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var typePicker: UIPickerView!
     @IBOutlet weak var dateToolbar: UIToolbar!
+    @IBOutlet weak var typeToolbar: UIToolbar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +66,9 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         let dateClick = UITapGestureRecognizer(target: self, action: #selector(laDaAction))
         dateTextView.isUserInteractionEnabled = true
         dateTextView.addGestureRecognizer(dateClick)
+        let typeClick = UITapGestureRecognizer(target: self, action: #selector(laTyAction))
+        typeTextView.isUserInteractionEnabled = true
+        typeTextView.addGestureRecognizer(typeClick)
         
         datePicker.maximumDate = Date()
         
@@ -108,6 +112,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             saveButton.isHidden = true
             cancelButton.isHidden = true
             dateToolbar.isHidden = true
+            typeToolbar.isHidden = true
             if typeOfElement == "Cost" {
                 restCost.getvCost(urlLink: linkToRest){
                     print("get data from restCost")
@@ -169,6 +174,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             saveButton.isHidden = true
             cancelButton.isHidden = true
             dateToolbar.isHidden = true
+            typeToolbar.isHidden = true
         } else {
             dateLabel.isHidden = false
             dateLabel.text = "Date"
@@ -206,6 +212,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             saveButton.isHidden = true
             cancelButton.isHidden = true
             dateToolbar.isHidden = true
+            typeToolbar.isHidden = true
         }
     }
     
@@ -215,7 +222,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         cancelButton.isHidden = false
         dateTextView.isHidden = false
         valueTextView.isHidden = true
-        typeTextView.isHidden = true
+        typeTextView.isHidden = false
         typeText.isHidden = true
         nameTextView.isHidden = true
         infoTextView.isHidden = true
@@ -224,7 +231,6 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         dateToolbar.isHidden = true
         
         if typeOfElement == "Cost" || typeOfElement == "Income" {
-            typePicker.isHidden = false
             nameText.isHidden = false
             infoText.isHidden = false
         } else if typeOfElement == "CostType" || typeOfElement == "IncomeType" {
@@ -245,11 +251,28 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         if(saveButton.isHidden == false){
             print("laDaAction")
             if datePicker.isHidden == true && dateToolbar.isHidden == true {
+                typePicker.isHidden = true
+                typeToolbar.isHidden = true
                 dateToolbar.isHidden = false
                 datePicker.isHidden = false
             } else {
                 dateToolbar.isHidden = true
                 datePicker.isHidden = true
+            }
+        }
+    }
+    
+    @objc func laTyAction(){
+        if(saveButton.isHidden == false){
+            print("laTyAction")
+            if typePicker.isHidden == true {
+                dateToolbar.isHidden = true
+                datePicker.isHidden = true
+                typePicker.isHidden = false
+                typeToolbar.isHidden = false
+            } else {
+                typePicker.isHidden = true
+                typeToolbar.isHidden = true
             }
         }
     }
@@ -267,6 +290,14 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBAction func cancelDate(_ sender: UIBarButtonItem) {
         dateToolbar.isHidden = true
         datePicker.isHidden = true
+    }
+    
+    @IBAction func setType(_ sender: UIBarButtonItem) {
+    }
+    
+    @IBAction func cancelType(_ sender: UIBarButtonItem) {
+        typePicker.isHidden = true
+        typeToolbar.isHidden = true
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
