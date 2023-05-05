@@ -756,7 +756,14 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func getIncomeTypes() {
-        
+        restIncomeType.getIncomeTypes(urlLink: linkIncomeTypes){
+            self.aitlfj.removeAll()
+            print("Get data getIncomeTypes from JSON with success!")
+            self.aitlfj = self.restIncomeType.aitl
+            print("size of inside 'aitlfj' is: " + String(self.aitlfj.count))
+        }
+        let sortedIncomeTypes = aitlfj.sorted{$0.type < $1.type}
+        aitlfj = sortedIncomeTypes
     }
     
     func getLastMonday() -> Date {
@@ -808,6 +815,9 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             }
             if let costTypesList = self.actlfj as? [ApiCostTypes]{
                 destinationVC?.costTypesList = costTypesList
+            }
+            if let incomeTypesList = self.aitlfj as? [ApiIncomeTypes]{
+                destinationVC?.incomeTypesList = incomeTypesList
             }
 //            if let password = passwordText.text {
 //                destinationVC?.password = password

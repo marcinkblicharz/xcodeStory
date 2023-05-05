@@ -668,7 +668,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="25i-Rr-28W">
-                                <rect key="frame" x="115" y="217" width="120" height="25"/>
+                                <rect key="frame" x="115" y="217" width="240" height="25"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -803,7 +803,7 @@
                             <constraint firstItem="iwc-dK-AFv" firstAttribute="top" secondItem="WaG-xZ-AJp" secondAttribute="bottom" constant="20" id="v9M-Um-D03"/>
                             <constraint firstItem="yHF-3U-CXE" firstAttribute="leading" secondItem="KV0-tI-JrY" secondAttribute="leading" constant="20" id="wf9-OU-04u"/>
                             <constraint firstItem="v5Y-ip-ToQ" firstAttribute="bottom" secondItem="wA1-UK-PbG" secondAttribute="bottom" id="xME-9j-8kQ"/>
-                            <constraint firstItem="25i-Rr-28W" firstAttribute="trailing" secondItem="xwF-11-sCF" secondAttribute="trailing" id="ytt-3f-Tfc"/>
+                            <constraint firstItem="25i-Rr-28W" firstAttribute="trailing" secondItem="xwF-11-sCF" secondAttribute="trailing" constant="120" id="ytt-3f-Tfc"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="8nO-mR-eA3"/>

@@ -18,6 +18,11 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     var restCostType : RestCostTypes = RestCostTypes()
     var restIncomeType : RestIncomeTypes = RestIncomeTypes()
     var costTypesList = [ApiCostTypes]()
+    var incomeTypesList = [ApiIncomeTypes]()
+    var cid : Int = 0
+    var ctid : Int = 0
+    var iid : Int = 0
+    var itid : Int = 0
     
     private let dateFormatter: DateFormatter = {
         let df = DateFormatter()
@@ -125,9 +130,15 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                     self.infoText.text! = self.restCost.acv.info
                     self.dateTextView.text! = self.restCost.acv.date
                     self.valueTextView.text! = String(self.restCost.acv.value)
-                    self.typeTextView.text! = String(self.restCost.acv.type)
+                    if self.restCost.acv.subtype.count > 0 {
+                        self.typeTextView.text! = String(self.restCost.acv.type) + " - " + String(self.restCost.acv.subtype)
+                    } else {
+                        self.typeTextView.text! = String(self.restCost.acv.type)
+                    }
                     self.nameTextView.text! = self.restCost.acv.name
                     self.infoTextView.text! = self.restCost.acv.info
+                    self.cid = self.restCost.acv.cid
+                    self.ctid = self.restCost.acv.ctid
                 }
             } else if typeOfElement == "Income" {
                 restIncome.getvIncome(urlLink: linkToRest){
@@ -141,9 +152,15 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                     self.infoText.text! = self.restIncome.aiv.info
                     self.dateTextView.text! = self.restIncome.aiv.date
                     self.valueTextView.text! = String(self.restIncome.aiv.value)
-                    self.typeTextView.text! = String(self.restIncome.aiv.type)
+                    if self.restIncome.aiv.source.count > 0 {
+                        self.typeTextView.text! = String(self.restIncome.aiv.type) + " - " + String(self.restIncome.aiv.source)
+                    } else {
+                        self.typeTextView.text! = String(self.restIncome.aiv.type)
+                    }
                     self.nameTextView.text! = self.restIncome.aiv.name
                     self.infoTextView.text! = self.restIncome.aiv.info
+                    self.iid = self.restIncome.aiv.iid
+                    self.itid = self.restIncome.aiv.itid
                 }
             }
         } else if typeOfElement == "CostType" || typeOfElement == "IncomeType" {
@@ -241,6 +258,23 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     @IBAction func saveButton(_ sender: UIButton) {
+        let type : String = "saveButton - ACTION"
+        if typeOfElement == "Cost" {
+            print(type + " for Cost with ID: " + String(cid))
+            print("\tDATE: ", dateTextView?.text)
+            print("\tAMOUNT: ", valueText?.text)
+            print("\tTYPE: ", typeTextView?.text, ", ctid: ", String(ctid))
+            print("\tNAME: ", nameText?.text)
+            print("\tINFO: ", infoText?.text)
+        } else if typeOfElement == "Income" {
+            print(type + " for Income with ID: " + String(iid))
+            print("\tDATE: ", dateTextView?.text)
+            print("\tAMOUNT: ", valueText?.text)
+            print("\tTYPE: ", typeTextView?.text, ", itid: ", String(itid))
+            print("\tNAME: ", nameText?.text)
+            print("\tINFO: ", infoText?.text)
+        }
+        self.dismiss(animated: true)
     }
     
     @IBAction func cancelButton(_ sender: UIButton) {
@@ -263,6 +297,26 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     @objc func laTyAction(){
+//        typeTextView.isUserInteractionEnabled = false
+//        typeTextView.isEditable = false
+//        typeTextView.isSelectable = false
+        if typeOfElement == "Cost" {
+            var selectId : Int = -1
+            for i in 0...costTypesList.count-1 {
+                if costTypesList[i].id == self.restCost.acv.ctid {
+                    selectId = i
+                }
+            }
+            typePicker.selectRow(selectId, inComponent: 0, animated: false)
+        } else if typeOfElement == "Income" {
+            var selectId : Int = -1
+            for i in 0...incomeTypesList.count-1 {
+                if incomeTypesList[i].id == self.restIncome.aiv.itid {
+                    selectId = i
+                }
+            }
+            typePicker.selectRow(selectId, inComponent: 0, animated: false)
+        }
         if(saveButton.isHidden == false){
             print("laTyAction")
             if typePicker.isHidden == true {
@@ -293,6 +347,33 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     @IBAction func setType(_ sender: UIBarButtonItem) {
+        if typeOfElement == "Cost" {
+            let type = costTypesList[typePicker.selectedRow(inComponent: 0)].type
+            let subtype = costTypesList[typePicker.selectedRow(inComponent: 0)].subtype
+            ctid = costTypesList[typePicker.selectedRow(inComponent: 0)].id
+            var name : String = ""
+            if subtype.count > 0 {
+                name = type + " - " + subtype
+            } else {
+                name = type
+            }
+            typeTextView.text = name
+            print("type of Cost: " + name)
+        } else if typeOfElement == "Income" {
+            let type = incomeTypesList[typePicker.selectedRow(inComponent: 0)].type
+            let source = incomeTypesList[typePicker.selectedRow(inComponent: 0)].source
+            itid = incomeTypesList[typePicker.selectedRow(inComponent: 0)].id
+            var name : String = ""
+            if source.count > 0 {
+                name = type + " - " + source
+            } else {
+                name = type
+            }
+            typeTextView.text = name
+            print("type of Income: " + name)
+        }
+        typePicker.isHidden = true
+        typeToolbar.isHidden = true
     }
     
     @IBAction func cancelType(_ sender: UIBarButtonItem) {
@@ -305,7 +386,41 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return costTypesList.count
+        if typeOfElement == "Cost" {
+            return costTypesList.count
+        } else if typeOfElement == "Income" {
+            return incomeTypesList.count
+        } else {
+            return costTypesList.count
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if typeOfElement == "Cost" {
+            let sortedCostTypes = costTypesList.sorted{$0.type < $1.type}
+            costTypesList = sortedCostTypes
+            if costTypesList[row].subtype.count > 0 {
+                return costTypesList[row].type + " - " + costTypesList[row].subtype
+            } else {
+                return costTypesList[row].type
+            }
+        } else if typeOfElement == "Income" {
+            let sortedIncomeTypes = incomeTypesList.sorted{$0.type < $1.type}
+            incomeTypesList = sortedIncomeTypes
+            if incomeTypesList[row].source.count > 0 {
+                return incomeTypesList[row].type + " - " + incomeTypesList[row].source
+            } else {
+                return incomeTypesList[row].type
+            }
+        } else {
+            let sortedCostTypes = costTypesList.sorted{$0.type < $1.type}
+            costTypesList = sortedCostTypes
+            if costTypesList[row].subtype.count > 0 {
+                return costTypesList[row].type + " - " + costTypesList[row].subtype
+            } else {
+                return costTypesList[row].type
+            }
+        }
     }
     
     func UIPickerViewDataSource () {
