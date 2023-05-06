@@ -293,6 +293,14 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             print("\tNAME: ", nameText?.text)
             print("\tINFO: ", infoText?.text)
             print("link to send: '" + linkSend + "putIncome/" + String(iid) + "'")
+            let json: [String: Any] = ["fkIncomeType": String(itid),
+                                       "date":  (dateTextView?.text!)!,
+                                       "value": String(Double((valueText?.text)!)!),
+                                       "name": (nameText?.text)!,
+                                       "info": (infoText?.text)!]
+            restIncome.putIncome(urlLink: linkSend + "putIncome/" + String(iid), jsonSend: json){
+                
+            }
         }
         self.dismiss(animated: true)
     }
