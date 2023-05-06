@@ -280,8 +280,8 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             let json: [String: Any] = ["fkCostType": String(ctid),
                                        "date":  (dateTextView?.text!)!,
                                        "value": String(Double((valueText?.text)!)!),
-                                       "name": "\"" + (nameText?.text)! + "\"",
-                                       "info": "\"" + (infoText?.text)! + "\""]
+                                       "name": (nameText?.text)!,
+                                       "info": (infoText?.text)!]
 //            restCost.putCost(urlLink: linkSend + "putCost/" + String(cid), jsonSend: jsonSend) {
             restCost.putCost(urlLink: linkSend + "putCost/" + String(cid), jsonSend: json) {
             }
