@@ -819,6 +819,9 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             if let incomeTypesList = self.aitlfj as? [ApiIncomeTypes]{
                 destinationVC?.incomeTypesList = incomeTypesList
             }
+            if let serverAddress = self.serverAddress as? String{
+                destinationVC?.serverAddress = serverAddress
+            }
 //            if let password = passwordText.text {
 //                destinationVC?.password = password
 //            }

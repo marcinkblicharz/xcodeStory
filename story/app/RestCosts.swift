@@ -156,6 +156,37 @@ class RestCosts : ObservableObject {
         }.resume()
     }
     
+    func putCost(urlLink : String, jsonSend : [String : Any], completed: @escaping () -> ()){
+        
+        let url = URL(string: urlLink)
+        
+        let json : [String : Any] = jsonSend
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        
+        var request = URLRequest(url: url!)
+        request.httpMethod = "PATCH"
+        request.httpBody = jsonData
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with : request) { data, response, error in
+            if error == nil {
+                do {
+                    let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: [])
+//                    if let responseJSON = responseJSON as? [String : Any] {
+//                        print(responseJSON)
+//                    }
+                } catch {
+                    print("error put data to rest")
+                }
+                
+                DispatchQueue.main.async {
+                    completed()
+                }
+            }
+        }.resume()
+    }
+    
     
 }
 

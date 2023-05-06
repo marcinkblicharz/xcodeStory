@@ -19,6 +19,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     var restIncomeType : RestIncomeTypes = RestIncomeTypes()
     var costTypesList = [ApiCostTypes]()
     var incomeTypesList = [ApiIncomeTypes]()
+    var serverAddress : String = ""
     var cid : Int = 0
     var ctid : Int = 0
     var iid : Int = 0
@@ -259,20 +260,39 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     @IBAction func saveButton(_ sender: UIButton) {
         let type : String = "saveButton - ACTION"
+        var linkSend = "http://" + serverAddress + ":8080/rest/"
         if typeOfElement == "Cost" {
             print(type + " for Cost with ID: " + String(cid))
-            print("\tDATE: ", dateTextView?.text)
+            print("\tDATE: ", dateTextView?.text!)
             print("\tAMOUNT: ", valueText?.text)
-            print("\tTYPE: ", typeTextView?.text, ", ctid: ", String(ctid))
+            print("\tTYPE: ", typeTextView?.text, ", ctid: ", String(ctid) + "'")
             print("\tNAME: ", nameText?.text)
             print("\tINFO: ", infoText?.text)
+            print("link to send: '" + linkSend + "putCost/" + String(cid))
+            var jsonSend : ApiCost = ApiCost()
+            jsonSend.id = cid as! Int
+            jsonSend.name = nameText?.text as! String
+            jsonSend.date = dateTextView?.text as! String
+            jsonSend.info = infoText?.text as! String
+            jsonSend.fkCostType = ctid as! Int
+            jsonSend.value = Double((valueText?.text)!) as! Double
+            print("jsonSend: ", jsonSend)
+            let json: [String: Any] = ["fkCostType": String(ctid),
+                                       "date":  (dateTextView?.text!)!,
+                                       "value": String(Double((valueText?.text)!)!),
+                                       "name": "\"" + (nameText?.text)! + "\"",
+                                       "info": "\"" + (infoText?.text)! + "\""]
+//            restCost.putCost(urlLink: linkSend + "putCost/" + String(cid), jsonSend: jsonSend) {
+            restCost.putCost(urlLink: linkSend + "putCost/" + String(cid), jsonSend: json) {
+            }
         } else if typeOfElement == "Income" {
             print(type + " for Income with ID: " + String(iid))
-            print("\tDATE: ", dateTextView?.text)
+            print("\tDATE: ", dateTextView?.text!)
             print("\tAMOUNT: ", valueText?.text)
             print("\tTYPE: ", typeTextView?.text, ", itid: ", String(itid))
             print("\tNAME: ", nameText?.text)
             print("\tINFO: ", infoText?.text)
+            print("link to send: '" + linkSend + "putIncome/" + String(iid) + "'")
         }
         self.dismiss(animated: true)
     }
