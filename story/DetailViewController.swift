@@ -10,6 +10,7 @@ import UIKit
 class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     var typeOfElement : String = ""
+    var typeOfAction : String = ""
     var linkToRest : String = ""
     var restCost : RestCosts = RestCosts()
     var avcfj = ApiCosts()
@@ -24,6 +25,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     var ctid : Int = 0
     var iid : Int = 0
     var itid : Int = 0
+    var delegate: WelcomeViewController? = WelcomeViewController()
     
     private let dateFormatter: DateFormatter = {
         let df = DateFormatter()
@@ -59,7 +61,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("DetailViewController - viewDidLoad, typeOfElement: ", typeOfElement)
+        print("DetailViewController - viewDidLoad, typeOfElement: ", typeOfElement, ", on action: ", typeOfAction)
         titleLabel.text = typeOfElement.uppercased()
         
         dateTextView.layer.borderWidth = 0.25
@@ -75,6 +77,9 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         let typeClick = UITapGestureRecognizer(target: self, action: #selector(laTyAction))
         typeTextView.isUserInteractionEnabled = true
         typeTextView.addGestureRecognizer(typeClick)
+        
+        
+        updateButton.setTitle("Update", for: .normal)
         
         datePicker.maximumDate = Date()
         
@@ -93,76 +98,98 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             infoLabel.isHidden = false
             infoLabel.text = "Info"
             dateText.isHidden = true
-            dateText.text = "2023-01-01"
+            dateText.text = ""
             datePicker.isHidden = true
             valueText.isHidden = true
-            valueText.text = "1234.56"
+            valueText.text = ""
             typeText.isHidden = true
-            typeText.text = "przy"
+            typeText.text = ""
             typePicker.isHidden = true
             nameText.isHidden = true
-            nameText.text = "nazwa"
+            nameText.text = ""
             infoText.isHidden = true
-            infoText.text = "opis"
+            infoText.text = ""
             dateTextView.isHidden = false
-            dateTextView.text = "2023-01-01"
+            dateTextView.text = ""
             valueTextView.isHidden = false
-            valueTextView.text = "1234.56"
+            valueTextView.text = ""
             typeTextView.isHidden = false
-            typeTextView.text = "przy"
+            typeTextView.text = ""
             nameTextView.isHidden = false
-            nameTextView.text = "nazwa"
+            nameTextView.text = ""
             infoTextView.isHidden = false
-            infoTextView.text = "opis"
+            infoTextView.text = ""
             updateButton.isHidden = false
             saveButton.isHidden = true
             cancelButton.isHidden = true
             dateToolbar.isHidden = true
             typeToolbar.isHidden = true
-            if typeOfElement == "Cost" {
-                restCost.getvCost(urlLink: linkToRest){
-                    print("get data from restCost")
-                    self.dateText.text! = self.restCost.acv.date
-                    let date = self.restCost.acv.date
-                    self.datePicker.date = self.dateFormatter.date(from: date)!
-                    self.valueText.text! = String(self.restCost.acv.value)
-                    self.typeText.text! = String(self.restCost.acv.type)
-                    self.nameText.text! = self.restCost.acv.name
-                    self.infoText.text! = self.restCost.acv.info
-                    self.dateTextView.text! = self.restCost.acv.date
-                    self.valueTextView.text! = String(self.restCost.acv.value)
-                    if self.restCost.acv.subtype.count > 0 {
-                        self.typeTextView.text! = String(self.restCost.acv.type) + " - " + String(self.restCost.acv.subtype)
-                    } else {
-                        self.typeTextView.text! = String(self.restCost.acv.type)
+            if typeOfAction == "edit" {
+                print("prepare for edit element")
+                if typeOfElement == "Cost" {
+                    restCost.getvCost(urlLink: linkToRest){
+                        print("get data from restCost")
+                        self.dateText.text! = self.restCost.acv.date
+                        let date = self.restCost.acv.date
+                        self.datePicker.date = self.dateFormatter.date(from: date)!
+                        self.valueText.text! = String(self.restCost.acv.value)
+                        self.typeText.text! = String(self.restCost.acv.type)
+                        self.nameText.text! = self.restCost.acv.name
+                        self.infoText.text! = self.restCost.acv.info
+                        self.dateTextView.text! = self.restCost.acv.date
+                        self.valueTextView.text! = String(self.restCost.acv.value)
+                        if self.restCost.acv.subtype.count > 0 {
+                            self.typeTextView.text! = String(self.restCost.acv.type) + " - " + String(self.restCost.acv.subtype)
+                        } else {
+                            self.typeTextView.text! = String(self.restCost.acv.type)
+                        }
+                        self.nameTextView.text! = self.restCost.acv.name
+                        self.infoTextView.text! = self.restCost.acv.info
+                        self.cid = self.restCost.acv.cid
+                        self.ctid = self.restCost.acv.ctid
                     }
-                    self.nameTextView.text! = self.restCost.acv.name
-                    self.infoTextView.text! = self.restCost.acv.info
-                    self.cid = self.restCost.acv.cid
-                    self.ctid = self.restCost.acv.ctid
-                }
-            } else if typeOfElement == "Income" {
-                restIncome.getvIncome(urlLink: linkToRest){
-                    print("get data from restIncome")
-                    self.dateText.text! = self.restIncome.aiv.date
-                    let date = self.restIncome.aiv.date
-                    self.datePicker.date = self.dateFormatter.date(from: date)!
-                    self.valueText.text! = String(self.restIncome.aiv.value)
-                    self.typeText.text! = String(self.restIncome.aiv.type)
-                    self.nameText.text! = self.restIncome.aiv.name
-                    self.infoText.text! = self.restIncome.aiv.info
-                    self.dateTextView.text! = self.restIncome.aiv.date
-                    self.valueTextView.text! = String(self.restIncome.aiv.value)
-                    if self.restIncome.aiv.source.count > 0 {
-                        self.typeTextView.text! = String(self.restIncome.aiv.type) + " - " + String(self.restIncome.aiv.source)
-                    } else {
-                        self.typeTextView.text! = String(self.restIncome.aiv.type)
+                } else if typeOfElement == "Income" {
+                    restIncome.getvIncome(urlLink: linkToRest){
+                        print("get data from restIncome")
+                        self.dateText.text! = self.restIncome.aiv.date
+                        let date = self.restIncome.aiv.date
+                        self.datePicker.date = self.dateFormatter.date(from: date)!
+                        self.valueText.text! = String(self.restIncome.aiv.value)
+                        self.typeText.text! = String(self.restIncome.aiv.type)
+                        self.nameText.text! = self.restIncome.aiv.name
+                        self.infoText.text! = self.restIncome.aiv.info
+                        self.dateTextView.text! = self.restIncome.aiv.date
+                        self.valueTextView.text! = String(self.restIncome.aiv.value)
+                        if self.restIncome.aiv.source.count > 0 {
+                            self.typeTextView.text! = String(self.restIncome.aiv.type) + " - " + String(self.restIncome.aiv.source)
+                        } else {
+                            self.typeTextView.text! = String(self.restIncome.aiv.type)
+                        }
+                        self.nameTextView.text! = self.restIncome.aiv.name
+                        self.infoTextView.text! = self.restIncome.aiv.info
+                        self.iid = self.restIncome.aiv.iid
+                        self.itid = self.restIncome.aiv.itid
                     }
-                    self.nameTextView.text! = self.restIncome.aiv.name
-                    self.infoTextView.text! = self.restIncome.aiv.info
-                    self.iid = self.restIncome.aiv.iid
-                    self.itid = self.restIncome.aiv.itid
                 }
+            } else if typeOfAction == "add" {
+                print("prepare for add element")
+                updateButton.isHidden = false
+                saveButton.isHidden = true
+                cancelButton.isHidden = true
+                dateTextView.isHidden = false
+                valueTextView.isHidden = true
+                typeTextView.isHidden = false
+                typeText.isHidden = true
+                nameTextView.isHidden = true
+                infoTextView.isHidden = true
+                datePicker.isHidden = true
+                valueText.isHidden = false
+                dateToolbar.isHidden = true
+                nameText.isHidden = false
+                infoText.isHidden = false
+                updateButton.setTitle("Add", for: .normal)
+                dateTextView.text = dateFormatter.string(from: Date())
+                valueTextView.text = "0.00"
             }
         } else if typeOfElement == "CostType" || typeOfElement == "IncomeType" {
             dateLabel.isHidden = true
@@ -235,30 +262,36 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     @IBAction func updateButton(_ sender: UIButton) {
-        updateButton.isHidden = true
-        saveButton.isHidden = false
-        cancelButton.isHidden = false
-        dateTextView.isHidden = false
-        valueTextView.isHidden = true
-        typeTextView.isHidden = false
-        typeText.isHidden = true
-        nameTextView.isHidden = true
-        infoTextView.isHidden = true
-        datePicker.isHidden = true
-        valueText.isHidden = false
-        dateToolbar.isHidden = true
-        
-        if typeOfElement == "Cost" || typeOfElement == "Income" {
-            nameText.isHidden = false
-            infoText.isHidden = false
-        } else if typeOfElement == "CostType" || typeOfElement == "IncomeType" {
+        if typeOfAction == "edit" {
+            updateButton.isHidden = true
+            saveButton.isHidden = false
+            cancelButton.isHidden = false
+            dateTextView.isHidden = false
+            valueTextView.isHidden = true
+            typeTextView.isHidden = false
+            typeText.isHidden = true
+            nameTextView.isHidden = true
+            infoTextView.isHidden = true
+            datePicker.isHidden = true
+            valueText.isHidden = false
+            dateToolbar.isHidden = true
             
-        } else {
+            if typeOfElement == "Cost" || typeOfElement == "Income" {
+                nameText.isHidden = false
+                infoText.isHidden = false
+            } else if typeOfElement == "CostType" || typeOfElement == "IncomeType" {
+                
+            } else {
+                
+            }
+        } else if typeOfAction == "add" {
+            print("element adding")
             
+            self.dismiss(animated: true)
         }
     }
     
-    @IBAction func saveButton(_ sender: UIButton) {
+    @IBAction func saveElementButton(_ sender: UIButton) {
         let type : String = "saveButton - ACTION"
         var linkSend = "http://" + serverAddress + ":8080/rest/"
         if typeOfElement == "Cost" {
@@ -299,9 +332,9 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                                        "name": (nameText?.text)!,
                                        "info": (infoText?.text)!]
             restIncome.putIncome(urlLink: linkSend + "putIncome/" + String(iid), jsonSend: json){
-                
             }
         }
+        delegate?.refreshView()
         self.dismiss(animated: true)
     }
     

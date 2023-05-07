@@ -37,6 +37,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     var calendar : Calendar = Calendar.current
     var activePanel : String = "listCosts"
     var stypeOfElement : String! = "Cost"
+    var stypeOfAction : String! = "add"
     var slinkToRest : String! = ""
     
     let dp = UIDatePicker()
@@ -178,7 +179,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             if sortedCosts.count > 0 {
                 cell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath)
                 cell!.textLabel!.text = sortedCosts[indexPath.row].date + " - " + String(sortedCosts[indexPath.row].value) + " - " + sortedCosts[indexPath.row].name + " - " + sortedCosts[indexPath.row].type
-                print("trying create ccell")
+//                print("trying create ccell")
 //                let ccell : CustomTableViewCell = tableCosts.dequeueReusableCell(withIdentifier: "TableCostsCell", for: indexPath) as! CustomTableViewCell
 //                let ccell : CustomTableViewCell = tableCosts.dequeueReusableCell(withIdentifier: "CustomTableViewCell") as! CustomTableViewCell
 //                ccell.button.titleLabel?.text = ""
@@ -222,6 +223,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         print("Table: ", tableType, " element: ", "[", indexPath, "]", cell?.textLabel?.text, " | from tab: ", cellText)
         print("Link to REST is: ", slinkToRest)
+        stypeOfAction = "edit"
         self.performSegue(withIdentifier: "goToDetail", sender: self)
     }
     
@@ -646,11 +648,13 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     @IBAction func addButtonAction(_ sender: UIButton) {
+        stypeOfAction = "add"
             if activePanel == "listCosts" {
                 print("addButtonAction for Costs")
             } else if activePanel == "listIncomes" {
                 print("addButtonAction for Incomes")
             }
+        self.performSegue(withIdentifier: "goToDetail", sender: self)
     }
     
     @IBAction func qqq(_ sender: UITextField) {
@@ -766,6 +770,15 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         aitlfj = sortedIncomeTypes
     }
     
+    func refreshView() {
+        print("refreshView on WelcomeViewController")
+        if activePanel == "listCosts" {
+            getCostsList(dateFrom: dateFormatter.string(from: dateFromCosts), dateTo: dateFormatter.string(from: dateToCosts))
+        } else if activePanel == "listIncomes" {
+            getIncomesList(dateFrom: dateFormatter.string(from: dateFromIncomes), dateTo: dateFormatter.string(from: dateToIncomes))
+        }
+    }
+    
     func getLastMonday() -> Date {
         var pastMonday : Int = 0
         let dateFormatterFull = DateFormatter()
@@ -810,6 +823,9 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             if let stypeOfElement = self.stypeOfElement {
                 destinationVC?.typeOfElement = stypeOfElement
             }
+            if let stypeOfAction = self.stypeOfAction {
+                destinationVC?.typeOfAction = stypeOfAction
+            }
             if let slinkToRest = self.slinkToRest {
                 destinationVC?.linkToRest = slinkToRest
             }
@@ -821,6 +837,9 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             }
             if let serverAddress = self.serverAddress as? String{
                 destinationVC?.serverAddress = serverAddress
+            }
+            if let destination = segue.destination as? UIViewController {
+                destinationVC?.delegate = self
             }
 //            if let password = passwordText.text {
 //                destinationVC?.password = password

@@ -530,7 +530,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="tinted" title="Save"/>
                                 <connections>
-                                    <action selector="saveButton:" destination="MAf-hK-WSU" eventType="touchUpInside" id="bdl-oN-Ku2"/>
+                                    <action selector="saveElementButton:" destination="MAf-hK-WSU" eventType="touchUpInside" id="y5N-9M-mhu"/>
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="94D-Nl-2Ob">
