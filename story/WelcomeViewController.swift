@@ -615,6 +615,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         labelDatepicker.isHidden = true
         tableCosts.alpha = 1
         tableIncome.alpha = 1
+        addButton.isHidden = false
     }
     
     @IBAction func addBtoolbarToday(_ sender: UIBarButtonItem) {
@@ -640,6 +641,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         toolbarBottom.isHidden = true
         tableCosts.alpha = 1
         tableIncome.alpha = 1
+        addButton.isHidden = false
 //        toolbarDatepicker.isHidden = true
     }
     
@@ -695,7 +697,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             self.listCosts_size = self.aclfj.count
             print("Size of aclfj is: " + String(self.listCosts_size))
             if self.listCosts_size > 0 {
-                print("aclfj[0] (date): ", self.aclfj[0].date, ", (value): ", String(self.aclfj[0].value), ", (name): ", self.aclfj[0].name, ", (type): ", self.aclfj[0].type, ", (color): ", self.aclfj[0].color + "ff")
+//                print("aclfj[0] (date): ", self.aclfj[0].date, ", (value): ", String(self.aclfj[0].value), ", (name): ", self.aclfj[0].name, ", (type): ", self.aclfj[0].type, ", (color): ", self.aclfj[0].color + "ff")
                 self.tableCosts.register(UITableViewCell.self, forCellReuseIdentifier: "TableCostsCell")
                 self.tableCosts.dataSource = self
                 self.tableCosts.reloadData()
@@ -734,7 +736,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             self.listIncomes_size = self.ailfj.count
             print("Size of ailfj is: " + String(self.listIncomes_size))
             if self.listIncomes_size > 0 {
-                print("ailfj[0] (date): ", self.ailfj[0].date, ", (value): ", String(self.ailfj[0].value), ", (name): ", self.ailfj[0].name, ", (type): ", self.ailfj[0].type, ", (color): ", self.ailfj[0].color + "ff")
+//                print("ailfj[0] (date): ", self.ailfj[0].date, ", (value): ", String(self.ailfj[0].value), ", (name): ", self.ailfj[0].name, ", (type): ", self.ailfj[0].type, ", (color): ", self.ailfj[0].color + "ff")
                 self.tableIncome.register(UITableViewCell.self, forCellReuseIdentifier: "TableIncomeCell")
                 self.tableIncome.dataSource = self
                 self.tableIncome.reloadData()
@@ -771,11 +773,16 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func refreshView() {
-        print("refreshView on WelcomeViewController")
         if activePanel == "listCosts" {
-            getCostsList(dateFrom: dateFormatter.string(from: dateFromCosts), dateTo: dateFormatter.string(from: dateToCosts))
+            print("refreshView on WelcomeViewController for costs")
+            self.getCostsList(dateFrom: dateFormatter.string(from: dateFromCosts), dateTo: dateFormatter.string(from: dateToCosts))
+//            self.tableCosts.dataSource = self
+//            self.tableCosts.reloadData()
         } else if activePanel == "listIncomes" {
-            getIncomesList(dateFrom: dateFormatter.string(from: dateFromIncomes), dateTo: dateFormatter.string(from: dateToIncomes))
+            print("refreshView on WelcomeViewController for incomes")
+            self.getIncomesList(dateFrom: dateFormatter.string(from: dateFromIncomes), dateTo: dateFormatter.string(from: dateToIncomes))
+//            self.tableIncome.dataSource = self
+//            self.tableIncome.reloadData()
         }
     }
     

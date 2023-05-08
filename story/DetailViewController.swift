@@ -86,6 +86,12 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         typePicker.dataSource = self
         typePicker.delegate = self
         
+        
+        let sortedCostTypes = costTypesList.sorted{$0.type < $1.type}
+        costTypesList = sortedCostTypes
+        let sortedIncomeTypes = incomeTypesList.sorted{$0.type < $1.type}
+        incomeTypesList = sortedIncomeTypes
+        
         if typeOfElement == "Cost" || typeOfElement == "Income" {
             dateLabel.isHidden = false
             dateLabel.text = "Date"
@@ -189,7 +195,12 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                 infoText.isHidden = false
                 updateButton.setTitle("Add", for: .normal)
                 dateTextView.text = dateFormatter.string(from: Date())
-                valueTextView.text = "0.00"
+                valueText.text = "0.00"
+                if typeOfElement == "Cost" {
+                    typeTextView.text = costTypesList[0].type
+                } else if typeOfElement == "Income" {
+                    typeTextView.text = incomeTypesList[0].type
+                }
             }
         } else if typeOfElement == "CostType" || typeOfElement == "IncomeType" {
             dateLabel.isHidden = true
@@ -286,7 +297,48 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             }
         } else if typeOfAction == "add" {
             print("element adding")
-            
+            let type : String = "addButton - ACTION"
+            var linkSend = "http://" + serverAddress + ":8080/rest/"
+            if typeOfElement == "Cost" {
+                print(type + " for Cost with ID: " + String(cid))
+                print("\tDATE: ", dateTextView?.text!)
+                print("\tAMOUNT: ", valueText?.text)
+                print("\tTYPE: ", typeTextView?.text, ", ctid: ", String(ctid) + "'")
+                print("\tNAME: ", nameText?.text)
+                print("\tINFO: ", infoText?.text)
+                print("link to send: '" + linkSend + "addCost")
+                var jsonSend : ApiCost = ApiCost()
+                jsonSend.id = cid as! Int
+                jsonSend.name = nameText?.text as! String
+                jsonSend.date = dateTextView?.text as! String
+                jsonSend.info = infoText?.text as! String
+                jsonSend.fkCostType = ctid as! Int
+                jsonSend.value = Double((valueText?.text)!) as! Double
+                print("jsonSend: ", jsonSend)
+                let json: [String: Any] = ["fkCostType": String(ctid),
+                                           "date":  (dateTextView?.text!)!,
+                                           "value": String(Double((valueText?.text)!)!),
+                                           "name": (nameText?.text)!,
+                                           "info": (infoText?.text)!]
+                restCost.putCost(urlLink: linkSend + "addCost", jsonSend: json) {
+                }
+            } else if typeOfElement == "Income" {
+                print(type + " for Income with ID: " + String(iid))
+                print("\tDATE: ", dateTextView?.text!)
+                print("\tAMOUNT: ", valueText?.text)
+                print("\tTYPE: ", typeTextView?.text, ", itid: ", String(itid))
+                print("\tNAME: ", nameText?.text)
+                print("\tINFO: ", infoText?.text)
+                print("link to send: '" + linkSend + "addIncome")
+                let json: [String: Any] = ["fkIncomeType": String(itid),
+                                           "date":  (dateTextView?.text!)!,
+                                           "value": String(Double((valueText?.text)!)!),
+                                           "name": (nameText?.text)!,
+                                           "info": (infoText?.text)!]
+                restIncome.putIncome(urlLink: linkSend + "addIncome", jsonSend: json){
+                }
+            }
+            delegate?.refreshView()
             self.dismiss(animated: true)
         }
     }
@@ -334,6 +386,8 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             restIncome.putIncome(urlLink: linkSend + "putIncome/" + String(iid), jsonSend: json){
             }
         }
+        delegate?.tableCosts.reloadData()
+//        delegate?.welcomeLabel.text = "sadem"
         delegate?.refreshView()
         self.dismiss(animated: true)
     }
@@ -343,8 +397,8 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     @objc func laDaAction(){
-        if(saveButton.isHidden == false){
-            print("laDaAction")
+        print("laDaAction")
+        if(saveButton.isHidden == false || typeOfAction == "add"){
             if datePicker.isHidden == true && dateToolbar.isHidden == true {
                 typePicker.isHidden = true
                 typeToolbar.isHidden = true
@@ -361,24 +415,28 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 //        typeTextView.isUserInteractionEnabled = false
 //        typeTextView.isEditable = false
 //        typeTextView.isSelectable = false
-        if typeOfElement == "Cost" {
-            var selectId : Int = -1
-            for i in 0...costTypesList.count-1 {
-                if costTypesList[i].id == self.restCost.acv.ctid {
-                    selectId = i
+        if typeOfAction == "edit" {
+            if typeOfElement == "Cost" {
+                var selectId : Int = -1
+                for i in 0...costTypesList.count-1 {
+                    if costTypesList[i].id == self.restCost.acv.ctid {
+                        selectId = i
+                    }
                 }
-            }
-            typePicker.selectRow(selectId, inComponent: 0, animated: false)
-        } else if typeOfElement == "Income" {
-            var selectId : Int = -1
-            for i in 0...incomeTypesList.count-1 {
-                if incomeTypesList[i].id == self.restIncome.aiv.itid {
-                    selectId = i
+                typePicker.selectRow(selectId, inComponent: 0, animated: false)
+            } else if typeOfElement == "Income" {
+                var selectId : Int = -1
+                for i in 0...incomeTypesList.count-1 {
+                    if incomeTypesList[i].id == self.restIncome.aiv.itid {
+                        selectId = i
+                    }
                 }
+                typePicker.selectRow(selectId, inComponent: 0, animated: false)
             }
-            typePicker.selectRow(selectId, inComponent: 0, animated: false)
+        } else if typeOfAction == "add" {
+            typePicker.selectRow(0, inComponent: 0, animated: false)
         }
-        if(saveButton.isHidden == false){
+        if(saveButton.isHidden == false || typeOfAction == "add"){
             print("laTyAction")
             if typePicker.isHidden == true {
                 dateToolbar.isHidden = true
@@ -458,24 +516,24 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if typeOfElement == "Cost" {
-            let sortedCostTypes = costTypesList.sorted{$0.type < $1.type}
-            costTypesList = sortedCostTypes
+//            let sortedCostTypes = costTypesList.sorted{$0.type < $1.type}
+//            costTypesList = sortedCostTypes
             if costTypesList[row].subtype.count > 0 {
                 return costTypesList[row].type + " - " + costTypesList[row].subtype
             } else {
                 return costTypesList[row].type
             }
         } else if typeOfElement == "Income" {
-            let sortedIncomeTypes = incomeTypesList.sorted{$0.type < $1.type}
-            incomeTypesList = sortedIncomeTypes
+//            let sortedIncomeTypes = incomeTypesList.sorted{$0.type < $1.type}
+//            incomeTypesList = sortedIncomeTypes
             if incomeTypesList[row].source.count > 0 {
                 return incomeTypesList[row].type + " - " + incomeTypesList[row].source
             } else {
                 return incomeTypesList[row].type
             }
         } else {
-            let sortedCostTypes = costTypesList.sorted{$0.type < $1.type}
-            costTypesList = sortedCostTypes
+//            let sortedCostTypes = costTypesList.sorted{$0.type < $1.type}
+//            costTypesList = sortedCostTypes
             if costTypesList[row].subtype.count > 0 {
                 return costTypesList[row].type + " - " + costTypesList[row].subtype
             } else {
