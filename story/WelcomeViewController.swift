@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WelcomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class WelcomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
     
     var login : String = ""
     var password : String = ""
@@ -156,7 +156,6 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return self.tableViewData.count
         var size : Int?
         if tableView == self.tableCosts {
             size = self.listCosts_size
@@ -225,6 +224,26 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         print("Link to REST is: ", slinkToRest)
         stypeOfAction = "edit"
         self.performSegue(withIdentifier: "goToDetail", sender: self)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        print("scrolled")
+        if tableCosts.isHidden == false {
+            let scrollViewContentHeight = self.tableCosts.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - self.tableCosts.bounds.size.height
+            if scrollView.contentOffset.y > scrollOffsetThreshold {
+                print("scrolled Costs - top")
+                refreshView()
+            }
+        }
+        if tableIncome.isHidden == false {
+            let scrollViewContentHeight = self.tableIncome.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - self.tableIncome.bounds.size.height
+            if scrollView.contentOffset.y > scrollOffsetThreshold {
+                print("scrolled Incomes - top")
+                refreshView()
+            }
+        }
     }
     
     func updateTable (add : String) {
@@ -693,7 +712,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             self.aclfj.removeAll()
             print("Get data CostsList from JSON with success!")
             self.aclfj = self.restCosts.acl
-            print("size of inside 'aclfj' is: " + String(self.aclfj.count))
+//            print("size of inside 'aclfj' is: " + String(self.aclfj.count))
             self.listCosts_size = self.aclfj.count
             print("Size of aclfj is: " + String(self.listCosts_size))
             if self.listCosts_size > 0 {
@@ -708,7 +727,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
                 print("aclfj 0 sized")
             }
         }
-        print("size of outside 'aclfj' is: " + String(self.aclfj.count))
+//        print("size of outside 'aclfj' is: " + String(self.aclfj.count))
     }
     
     func getIncomesList(dateFrom : String, dateTo : String) {
@@ -732,7 +751,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             self.ailfj.removeAll()
             print("Get data IncomesList from JSON with success!")
             self.ailfj = self.restIncomes.ail
-            print("size of inside 'ailfj' is: " + String(self.ailfj.count))
+//            print("size of inside 'ailfj' is: " + String(self.ailfj.count))
             self.listIncomes_size = self.ailfj.count
             print("Size of ailfj is: " + String(self.listIncomes_size))
             if self.listIncomes_size > 0 {
@@ -747,7 +766,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
                 print("ailfj 0 sized")
             }
         }
-        print("size of outside 'ailfj' is: " + String(self.ailfj.count))
+//        print("size of outside 'ailfj' is: " + String(self.ailfj.count))
     }
     
     func getCostTypes() {

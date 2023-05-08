@@ -386,8 +386,6 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             restIncome.putIncome(urlLink: linkSend + "putIncome/" + String(iid), jsonSend: json){
             }
         }
-        delegate?.tableCosts.reloadData()
-//        delegate?.welcomeLabel.text = "sadem"
         delegate?.refreshView()
         self.dismiss(animated: true)
     }
