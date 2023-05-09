@@ -542,8 +542,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="tinted" title="Cancel"/>
                                 <connections>
-                                    <action selector="cancelButton:" destination="MAf-hK-WSU" eventType="touchUpInside" id="hzT-1B-DAZ"/>
-                                    <action selector="saveButton:" destination="MAf-hK-WSU" eventType="touchUpInside" id="Uve-Qj-Xg0"/>
+                                    <action selector="cancelButton:" destination="MAf-hK-WSU" eventType="touchUpInside" id="IiG-2e-MEI"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqp-uh-Vcu">

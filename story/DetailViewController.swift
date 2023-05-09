@@ -391,6 +391,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     @IBAction func cancelButton(_ sender: UIButton) {
+        print("cancel editing")
         self.dismiss(animated: true)
     }
     

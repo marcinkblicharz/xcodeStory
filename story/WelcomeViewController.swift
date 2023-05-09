@@ -39,6 +39,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     var stypeOfElement : String! = "Cost"
     var stypeOfAction : String! = "add"
     var slinkToRest : String! = ""
+    var lateRefresh : Bool = false
+    var testCount : Int = 0
     
     let dp = UIDatePicker()
     
@@ -228,22 +230,34 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        print("scrolled")
-        if tableCosts.isHidden == false {
-            let scrollViewContentHeight = self.tableCosts.contentSize.height
-            let scrollOffsetThreshold = scrollViewContentHeight - self.tableCosts.bounds.size.height
-            if scrollView.contentOffset.y > scrollOffsetThreshold {
-                print("scrolled Costs - top")
-                refreshView()
+//        if !lateRefresh {
+//            lateRefresh = true
+        tableCosts.alpha = 0.05
+        tableIncome.alpha = 0.05
+            if tableCosts.isHidden == false {
+                let scrollViewContentHeight = self.tableCosts.contentSize.height
+                let scrollOffsetThreshold = scrollViewContentHeight - self.tableCosts.bounds.size.height
+                if scrollView.contentOffset.y > scrollOffsetThreshold {
+                    print("scrolled Costs - top")
+//                    , -", String(scrollViewContentHeight) + ", -" + String(scrollOffsetThreshold))
+//                    refreshView()
+                }
             }
-        }
-        if tableIncome.isHidden == false {
-            let scrollViewContentHeight = self.tableIncome.contentSize.height
-            let scrollOffsetThreshold = scrollViewContentHeight - self.tableIncome.bounds.size.height
-            if scrollView.contentOffset.y > scrollOffsetThreshold {
-                print("scrolled Incomes - top")
-                refreshView()
+            if tableIncome.isHidden == false {
+                let scrollViewContentHeight = self.tableIncome.contentSize.height
+                let scrollOffsetThreshold = scrollViewContentHeight - self.tableIncome.bounds.size.height
+                if scrollView.contentOffset.y > scrollOffsetThreshold {
+                    print("scrolled Incomes - top")
+//                    refreshView()
+                }
             }
-        }
+        tableCosts.alpha = 1
+        tableIncome.alpha = 1
+//            sleep(5)
+//            lateRefresh = false
+            print("testCount" + String(testCount))
+            testCount += 1
+//        }
     }
     
     func updateTable (add : String) {
