@@ -228,6 +228,27 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         self.performSegue(withIdentifier: "goToDetail", sender: self)
     }
     
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        print("scrollViewDidScrollToTop")
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        if scrollView.index(ofAccessibilityElement: <#T##Any#>) {
+//            print("top")
+//        }
+//        if tableCosts.isHidden == false {
+//            let scrollViewContentHeight = self.tableCosts.contentSize.height
+//            let scrollOffsetThreshold = scrollViewContentHeight - self.tableCosts.bounds.size.height
+//            print(String(self.tableCosts.contentSize!.height))
+//        }
+        print("scrollViewDidEndDragging")
+        refreshView()
+//        if scrollView == self.tableCosts {
+//                self.lastKnowContentOfsset = scrollView.contentOffset.y
+//                print("lastKnowContentOfsset: ", scrollView.contentOffset.y)
+//            }
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        print("scrolled")
 //        if !lateRefresh {
@@ -238,7 +259,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
                 let scrollViewContentHeight = self.tableCosts.contentSize.height
                 let scrollOffsetThreshold = scrollViewContentHeight - self.tableCosts.bounds.size.height
                 if scrollView.contentOffset.y > scrollOffsetThreshold {
-                    print("scrolled Costs - top")
+//                    print("scrolled Costs - top")
 //                    , -", String(scrollViewContentHeight) + ", -" + String(scrollOffsetThreshold))
 //                    refreshView()
                 }
@@ -247,7 +268,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
                 let scrollViewContentHeight = self.tableIncome.contentSize.height
                 let scrollOffsetThreshold = scrollViewContentHeight - self.tableIncome.bounds.size.height
                 if scrollView.contentOffset.y > scrollOffsetThreshold {
-                    print("scrolled Incomes - top")
+//                    print("scrolled Incomes - top")
 //                    refreshView()
                 }
             }
@@ -255,7 +276,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         tableIncome.alpha = 1
 //            sleep(5)
 //            lateRefresh = false
-            print("testCount" + String(testCount))
+//            print("testCount" + String(testCount))
             testCount += 1
 //        }
     }
