@@ -41,6 +41,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     var slinkToRest : String! = ""
     var lateRefresh : Bool = false
     var testCount : Int = 0
+    var scrollUp : Bool = false
     
     let dp = UIDatePicker()
     
@@ -228,6 +229,38 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         self.performSegue(withIdentifier: "goToDetail", sender: self)
     }
     
+//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+//
+//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+//        return .delete
+//    }
+    
+//    func tableViewedi
+    
+//    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
+//        if tableView == self.tableCosts {
+//            self.tableCosts.deleteRows(at: <#T##[IndexPath]#>, with: .automatic)
+//        }
+//        if tableView == self.tableIncome {
+//            self.tableIncome.deleteRows(at: <#T##[IndexPath]#>, with: .automatic)
+//        }
+//    }
+    
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            print("Deleted")
+//            if tableView == self.tableCosts {
+//                self.tableCosts.beginUpdates()
+//                let tb = self.tableCosts as UITableView
+//
+//                self.tableCosts.deleteRows(at: [indexPath], with: .fade)
+//                self.tableCosts.endUpdates()
+//            }
+//        }
+//    }
+    
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         print("scrollViewDidScrollToTop")
     }
@@ -241,8 +274,34 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
 //            let scrollOffsetThreshold = scrollViewContentHeight - self.tableCosts.bounds.size.height
 //            print(String(self.tableCosts.contentSize!.height))
 //        }
-        print("scrollViewDidEndDragging")
-        refreshView()
+//        print("scrollViewDidEndDragging - scrollUp is", String(scrollUp))
+        if scrollUp {
+            print("scrollViewDidEndDragging - to up")
+        } else {
+            print("scrollViewDidEndDragging - to down")
+            tableCosts.alpha = 0.05
+            tableIncome.alpha = 0.05
+            if tableCosts.isHidden == false {
+                print("scrollViewDidEndDragging - aclfj size: ", String(self.aclfj.count))
+                if tableCosts.numberOfRows(inSection: 0) > 0 {
+                    print("tableCosts is not null")
+                } else {
+                    print("tableCosts is null")
+                }
+            }
+            if tableIncome.isHidden == false {
+                print("scrollViewDidEndDragging - ailfj size: ", String(self.ailfj.count))
+                if tableIncome.numberOfRows(inSection: 0) > 0 {
+                    print("tableIncome is not null")
+                } else {
+                    print("tableIncome is null")
+                }
+            }
+            refreshView()
+            //        sleep(5)
+            tableCosts.alpha = 1
+            tableIncome.alpha = 1
+        }
 //        if scrollView == self.tableCosts {
 //                self.lastKnowContentOfsset = scrollView.contentOffset.y
 //                print("lastKnowContentOfsset: ", scrollView.contentOffset.y)
@@ -250,34 +309,40 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        print("scrolled")
-//        if !lateRefresh {
-//            lateRefresh = true
-        tableCosts.alpha = 0.05
-        tableIncome.alpha = 0.05
-            if tableCosts.isHidden == false {
-                let scrollViewContentHeight = self.tableCosts.contentSize.height
-                let scrollOffsetThreshold = scrollViewContentHeight - self.tableCosts.bounds.size.height
-                if scrollView.contentOffset.y > scrollOffsetThreshold {
-//                    print("scrolled Costs - top")
-//                    , -", String(scrollViewContentHeight) + ", -" + String(scrollOffsetThreshold))
-//                    refreshView()
-                }
-            }
-            if tableIncome.isHidden == false {
-                let scrollViewContentHeight = self.tableIncome.contentSize.height
-                let scrollOffsetThreshold = scrollViewContentHeight - self.tableIncome.bounds.size.height
-                if scrollView.contentOffset.y > scrollOffsetThreshold {
-//                    print("scrolled Incomes - top")
-//                    refreshView()
-                }
-            }
-        tableCosts.alpha = 1
-        tableIncome.alpha = 1
-//            sleep(5)
-//            lateRefresh = false
-//            print("testCount" + String(testCount))
-            testCount += 1
+////        print("scrolled")
+////        if !lateRefresh {
+////            lateRefresh = true
+//        tableCosts.alpha = 0.05
+//        tableIncome.alpha = 0.05
+        let translation = scrollView.panGestureRecognizer.translation(in: scrollView.superview!)
+        if translation.y > 0 {
+            scrollUp = false
+        } else {
+            scrollUp = true
+        }
+//            if tableCosts.isHidden == false {
+//                let scrollViewContentHeight = self.tableCosts.contentSize.height
+//                let scrollOffsetThreshold = scrollViewContentHeight - self.tableCosts.bounds.size.height
+//                if scrollView.contentOffset.y > scrollOffsetThreshold {
+////                    print("scrolled Costs - top")
+////                    , -", String(scrollViewContentHeight) + ", -" + String(scrollOffsetThreshold))
+////                    refreshView()
+//                }
+//            }
+//            if tableIncome.isHidden == false {
+//                let scrollViewContentHeight = self.tableIncome.contentSize.height
+//                let scrollOffsetThreshold = scrollViewContentHeight - self.tableIncome.bounds.size.height
+//                if scrollView.contentOffset.y > scrollOffsetThreshold {
+////                    print("scrolled Incomes - top")
+////                    refreshView()
+//                }
+//            }
+//        tableCosts.alpha = 1
+//        tableIncome.alpha = 1
+////            sleep(5)
+////            lateRefresh = false
+////            print("testCount" + String(testCount))
+//            testCount += 1
 //        }
     }
     
@@ -728,6 +793,17 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     func getCostsList(dateFrom : String, dateTo : String) {
         aclfj.removeAll()
         self.aclfj.removeAll()
+//        let tcs = self.tableCosts.numberOfRows(inSection: 0)
+//        print("getCostsList - tcs: " + String(tcs))
+//        for i in 0...tcs {
+//            let indexPath = IndexPath(item: i, section: 0)
+//            if tcs > 0 {
+//                self.tableCosts.deleteRows(at: [indexPath], with: .automatic)
+//            }
+//        }
+//        self.tableCosts.dataSource = self
+//        self.tableCosts.reloadData()
+//        self.tableCosts.deleteRows(at: <#T##[IndexPath]#>, with: .automatic)
 	//        let count = self.tableCosts.tab
 //        self.tableCosts.deleteRows(at: (0..<count).map({ (i) in IndexPath(row: i, section: 0)}), with: .automatic)
         print("getCostsList - dateFrom: " + dateFrom + ", dateTo: " + dateTo)
