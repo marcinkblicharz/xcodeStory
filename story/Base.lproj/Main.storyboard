@@ -102,15 +102,25 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="390" height="20"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Hi ___, welcome to App" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uk4-uS-vrc">
-                                                        <rect key="frame" x="0.0" y="0.0" width="390" height="20"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="330" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                         <size key="shadowOffset" width="0.0" height="0.0"/>
                                                     </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="List" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uWc-7d-Pzn">
+                                                        <rect key="frame" x="340" y="0.0" width="50" height="20"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="50" id="2Gy-re-ths"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="ZFv-D5-I85"/>
+                                                    <constraint firstAttribute="trailing" secondItem="uWc-7d-Pzn" secondAttribute="trailing" id="uKp-4D-9Jt"/>
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QXA-EA-gLh" userLabel="HStackCalMove">
@@ -275,7 +285,7 @@
                                                 <rect key="frame" x="0.0" y="70" width="390" height="658"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="uQA-x7-FXA">
-                                                        <rect key="frame" x="0.0" y="0.0" width="390" height="658"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="390" height="0.0"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TableCostsCell" textLabel="iia-nx-njm" style="IBUITableViewCellStyleDefault" id="6RI-hv-nW5" customClass="CustomTableViewCell" customModule="story" customModuleProvider="target">
@@ -285,8 +295,8 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iia-nx-njm">
-                                                                            <rect key="frame" x="20" y="0.0" width="350" height="43.666667938232422"/>
+                                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iia-nx-njm">
+                                                                            <rect key="frame" x="8" y="0.0" width="374" height="43.666667938232422"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                                             <nil key="textColor"/>
@@ -301,9 +311,21 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="390" height="0.0"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     </tableView>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="txP-Ka-GhE">
+                                                        <rect key="frame" x="0.0" y="0.0" width="390" height="658"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    </tableView>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="YnO-XW-LOe">
+                                                        <rect key="frame" x="0.0" y="658" width="390" height="0.0"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    </tableView>
                                                 </subviews>
                                                 <constraints>
+                                                    <constraint firstItem="txP-Ka-GhE" firstAttribute="top" secondItem="xU6-hA-Kv1" secondAttribute="top" id="9ii-Gt-iuK"/>
+                                                    <constraint firstAttribute="trailing" secondItem="txP-Ka-GhE" secondAttribute="trailing" id="OK4-A9-QeS"/>
                                                     <constraint firstItem="uQA-x7-FXA" firstAttribute="top" secondItem="Qmj-ge-SOD" secondAttribute="top" id="XhR-PB-hbT"/>
+                                                    <constraint firstAttribute="bottom" secondItem="txP-Ka-GhE" secondAttribute="bottom" id="yH6-pa-QRE"/>
+                                                    <constraint firstItem="txP-Ka-GhE" firstAttribute="leading" secondItem="xU6-hA-Kv1" secondAttribute="leading" id="yQM-xI-XxU"/>
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ecz-Zz-vvl" userLabel="VStackButBottom">
@@ -460,6 +482,8 @@
                     <navigationItem key="navigationItem" title="Lists" id="xxN-5F-glB"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="HStackCalMove" destination="QXA-EA-gLh" id="CPy-1b-cUF"/>
+                        <outlet property="VStackCalEdit" destination="i8Z-g1-y0c" id="x3f-hR-B2K"/>
                         <outlet property="addButton" destination="oq8-au-Lmw" id="LlO-bh-Kx0"/>
                         <outlet property="buttonCosts" destination="ViB-i6-jgV" id="gyg-H6-23d"/>
                         <outlet property="buttonFrom" destination="EaO-Am-JRH" id="2yi-nV-CbT"/>
@@ -474,11 +498,14 @@
                         <outlet property="stackViewScreen" destination="rBV-8L-xJJ" id="PcX-F8-F04"/>
                         <outlet property="taDateFrom" destination="pYV-j0-uKS" id="sYf-zR-RbG"/>
                         <outlet property="taDateTo" destination="5Qh-tu-QKY" id="Aw2-ql-cfo"/>
+                        <outlet property="tableCostTypes" destination="txP-Ka-GhE" id="kC3-1a-Kic"/>
                         <outlet property="tableCosts" destination="uQA-x7-FXA" id="Vs6-mg-Sq5"/>
                         <outlet property="tableIncome" destination="Qmj-ge-SOD" id="aiY-SL-bSe"/>
+                        <outlet property="tableIncomeTypes" destination="YnO-XW-LOe" id="1SX-wO-wdt"/>
                         <outlet property="toolbarBottom" destination="9oK-sJ-Y3F" id="Pk2-X6-jG8"/>
                         <outlet property="toolbarFromDatepicker" destination="7LF-dS-OvV" id="JVt-2C-KFW"/>
                         <outlet property="toolbarToDatepicker" destination="oOE-ce-tBG" id="T8m-lT-bV9"/>
+                        <outlet property="typeLabel" destination="uWc-7d-Pzn" id="A0x-4f-mji"/>
                         <outlet property="welcomeLabel" destination="Uk4-uS-vrc" id="E6I-Bf-W4E"/>
                         <segue destination="MAf-hK-WSU" kind="show" identifier="goToDetail" id="k6N-QP-FA2"/>
                     </connections>

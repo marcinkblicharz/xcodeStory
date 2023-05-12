@@ -27,6 +27,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     var linkIncomeTypes : String =  ""
     var listCosts_size : Int = 0
     var listIncomes_size : Int = 0
+    var listCostTypes_size : Int = 0
+    var listIncomeTypes_size : Int = 0
     var tableViewData = [String]()
     var dateFromCosts : Date = Date()
     var dateToCosts : Date = Date()
@@ -59,6 +61,8 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet weak var tableCosts: UITableView!
     @IBOutlet weak var tableIncome: UITableView!
+    @IBOutlet weak var tableCostTypes: UITableView!
+    @IBOutlet weak var tableIncomeTypes: UITableView!
     @IBOutlet weak var welcomeLabel: UILabel!
     @IBOutlet weak var rangeButton: UIButton!
     @IBOutlet weak var dateFrom: UIDatePicker!
@@ -77,7 +81,12 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var labelDateTo: UILabel!
     @IBOutlet weak var labelDatepicker: UILabel!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var typeLabel: UILabel!
     
+    @IBOutlet weak var HStackCalMove: UIStackView!
+    @IBOutlet weak var VStackCalEdit: UIStackView!
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -86,6 +95,10 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         tableCosts.register(CustomTableViewCell.self, forCellReuseIdentifier: "TableCostsCell")
         tableIncome.delegate = self
         tableIncome.dataSource = self
+        tableCostTypes.dataSource = self
+        tableCostTypes.delegate = self
+        tableIncomeTypes.dataSource = self
+        tableIncomeTypes.delegate = self
         
         activePanel = "listCosts"
         
@@ -154,6 +167,13 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         labelDateTo.isUserInteractionEnabled = true
         labelDateTo.addGestureRecognizer(dateToClick)
         
+        typeLabel.text = "List"
+        let typeLabelClick = UITapGestureRecognizer(target: self, action: #selector(laTyLaAction))
+        typeLabel.isUserInteractionEnabled = true
+        typeLabel.addGestureRecognizer(typeLabelClick)
+        tableCostTypes.isHidden = true
+        tableIncomeTypes.isHidden = true
+        
         getCostTypes()
         getIncomeTypes()
     }
@@ -164,6 +184,10 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             size = self.listCosts_size
         } else if tableView == self.tableIncome {
             size =  self.listIncomes_size
+        } else if tableView == self.tableCostTypes {
+            size =  self.listCostTypes_size
+        } else if tableView == self.tableIncomeTypes {
+            size =  self.listIncomeTypes_size
         } else {
             size = 0
         }
@@ -173,8 +197,12 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let sortedCosts = aclfj.sorted{$0.date < $1.date}
         let sortedIncomes = ailfj.sorted{$0.date < $1.date}
+        let sortedCostTypes = actlfj.sorted{$0.type < $1.type}
+        let sortedIncomeTypes = aitlfj.sorted{$0.type < $1.type}
         aclfj = sortedCosts
         ailfj = sortedIncomes
+        actlfj = sortedCostTypes
+        aitlfj = sortedIncomeTypes
         var cell : UITableViewCell?
         if tableView == self.tableCosts {
 //            print("tableView_sortedCosts: " + String(sortedCosts.count))
@@ -205,6 +233,36 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
                 self.tableIncome.deleteRows(at: [indexPath], with: .automatic)
             }
         }
+        
+        else if tableView == self.tableCostTypes {
+            if sortedCostTypes.count > 0 {
+                cell = tableCostTypes.dequeueReusableCell(withIdentifier: "TableCostTypeCell", for: indexPath)
+                if String(sortedCostTypes[indexPath.row].subtype).count > 0 {
+                    cell!.textLabel!.text = String(sortedCostTypes[indexPath.row].type) + " - " + String(sortedCostTypes[indexPath.row].subtype)
+                } else {
+                    cell!.textLabel!.text = String(sortedCostTypes[indexPath.row].type)
+                }
+                return cell!
+            } else {
+                cell = tableCostTypes.dequeueReusableCell(withIdentifier: "TableCostTypeCell", for: indexPath)
+                cell!.textLabel!.text = ""
+                self.tableCostTypes.deleteRows(at: [indexPath], with: .automatic)
+            }
+        } else if tableView == self.tableIncomeTypes {
+            if sortedIncomeTypes.count > 0 {
+                cell = tableIncomeTypes.dequeueReusableCell(withIdentifier: "TableIncomeTypeCell", for: indexPath)
+                if String(sortedIncomeTypes[indexPath.row].source).count > 0 {
+                    cell!.textLabel!.text = String(sortedIncomeTypes[indexPath.row].type) + " - " + String(sortedIncomeTypes[indexPath.row].source)
+                } else {
+                    cell!.textLabel!.text = String(sortedIncomeTypes[indexPath.row].type)
+                }
+                return cell!
+            } else {
+                cell = tableIncomeTypes.dequeueReusableCell(withIdentifier: "TableIncomeTypeCell", for: indexPath)
+                cell!.textLabel!.text = ""
+                self.tableIncomeTypes.deleteRows(at: [indexPath], with: .automatic)
+            }
+        }
         return cell!
     }
     
@@ -222,6 +280,24 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             cell = tableIncome.dequeueReusableCell(withIdentifier: "TableIncomeCell", for: indexPath)
             cellText = String(ailfj[indexPath.row].iid) + " - " + ailfj[indexPath.row].date + " - " + String(ailfj[indexPath.row].value) + " - " + ailfj[indexPath.row].name + " - " + ailfj[indexPath.row].type
             slinkToRest = "http://" + serverAddress + ":8080/rest/getvIncome/" + String(ailfj[indexPath.row].iid)
+        } else if tableView == self.tableCostTypes {
+            tableType = "CostTypes"
+            cell = tableCostTypes.dequeueReusableCell(withIdentifier: "TableCostTypeCell", for: indexPath)
+            if String(actlfj[indexPath.row].subtype).count > 0 {
+                cellText = String(actlfj[indexPath.row].id) + " - " + String(actlfj[indexPath.row].type) + " - " + String(actlfj[indexPath.row].subtype)
+            } else {
+                cellText = String(actlfj[indexPath.row].id) + " - " + String(actlfj[indexPath.row].type)
+            }
+            slinkToRest = "http://" + serverAddress + ":8080/rest/getCostType/" + String(actlfj[indexPath.row].id)
+        } else if tableView == self.tableIncomeTypes {
+            tableType = "IncomeTypes"
+            cell = tableIncomeTypes.dequeueReusableCell(withIdentifier: "TableIncomeTypeCell", for: indexPath)
+            if String(aitlfj[indexPath.row].source).count > 0 {
+                cellText = String(aitlfj[indexPath.row].id) + " - " + String(aitlfj[indexPath.row].type) + " - " + String(aitlfj[indexPath.row].source)
+            } else {
+                cellText = String(aitlfj[indexPath.row].id) + " - " + String(aitlfj[indexPath.row].type)
+            }
+            slinkToRest = "http://" + serverAddress + ":8080/rest/getIncomeType/" + String(aitlfj[indexPath.row].id)
         }
         print("Table: ", tableType, " element: ", "[", indexPath, "]", cell?.textLabel?.text, " | from tab: ", cellText)
         print("Link to REST is: ", slinkToRest)
@@ -275,32 +351,34 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
 //            print(String(self.tableCosts.contentSize!.height))
 //        }
 //        print("scrollViewDidEndDragging - scrollUp is", String(scrollUp))
-        if scrollUp {
-            print("scrollViewDidEndDragging - to up")
-        } else {
-            print("scrollViewDidEndDragging - to down")
-            tableCosts.alpha = 0.05
-            tableIncome.alpha = 0.05
-            if tableCosts.isHidden == false {
-                print("scrollViewDidEndDragging - aclfj size: ", String(self.aclfj.count))
-                if tableCosts.numberOfRows(inSection: 0) > 0 {
-                    print("tableCosts is not null")
-                } else {
-                    print("tableCosts is null")
+        if typeLabel.text == "List" {
+            if scrollUp {
+                print("scrollViewDidEndDragging - to up")
+            } else {
+                print("scrollViewDidEndDragging - to down")
+                tableCosts.alpha = 0.05
+                tableIncome.alpha = 0.05
+                if tableCosts.isHidden == false {
+                    print("scrollViewDidEndDragging - aclfj size: ", String(self.aclfj.count))
+                    if tableCosts.numberOfRows(inSection: 0) > 0 {
+                        print("tableCosts is not null")
+                    } else {
+                        print("tableCosts is null")
+                    }
                 }
-            }
-            if tableIncome.isHidden == false {
-                print("scrollViewDidEndDragging - ailfj size: ", String(self.ailfj.count))
-                if tableIncome.numberOfRows(inSection: 0) > 0 {
-                    print("tableIncome is not null")
-                } else {
-                    print("tableIncome is null")
+                if tableIncome.isHidden == false {
+                    print("scrollViewDidEndDragging - ailfj size: ", String(self.ailfj.count))
+                    if tableIncome.numberOfRows(inSection: 0) > 0 {
+                        print("tableIncome is not null")
+                    } else {
+                        print("tableIncome is null")
+                    }
                 }
+                refreshView()
+                //        sleep(5)
+                tableCosts.alpha = 1
+                tableIncome.alpha = 1
             }
-            refreshView()
-            //        sleep(5)
-            tableCosts.alpha = 1
-            tableIncome.alpha = 1
         }
 //        if scrollView == self.tableCosts {
 //                self.lastKnowContentOfsset = scrollView.contentOffset.y
@@ -314,11 +392,13 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
 ////            lateRefresh = true
 //        tableCosts.alpha = 0.05
 //        tableIncome.alpha = 0.05
-        let translation = scrollView.panGestureRecognizer.translation(in: scrollView.superview!)
-        if translation.y > 0 {
-            scrollUp = false
-        } else {
-            scrollUp = true
+        if typeLabel.text == "List" {
+            let translation = scrollView.panGestureRecognizer.translation(in: scrollView.superview!)
+            if translation.y > 0 {
+                scrollUp = false
+            } else {
+                scrollUp = true
+            }
         }
 //            if tableCosts.isHidden == false {
 //                let scrollViewContentHeight = self.tableCosts.contentSize.height
@@ -351,34 +431,57 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     @IBAction func costButton(_ sender: UIButton) {
-        tableCosts.isHidden = false
-        tableIncome.isHidden = true
-        dateFrom.date = dateFromCosts
-        labelDateFrom.text = dateFormatter.string(from: dateFromCosts)
-        dateTo.date = dateToCosts
-        labelDateTo.text = dateFormatter.string(from: dateToCosts)
-        buttonCosts.backgroundColor = UIColor.systemGray2
-        buttonIncomes.backgroundColor = UIColor.systemGray2.withAlphaComponent(0.0)
         activePanel = "listCosts"
         print("Show Costs and hide Incomes")
-//        let storyboard = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
-//        self.navigationController?.pushViewController(storyboard, animated: true)
-//        self.performSegue(withIdentifier: "goToDetail", sender: self)
-        stypeOfElement = "Cost"
+        buttonCosts.backgroundColor = UIColor.systemGray2
+        buttonIncomes.backgroundColor = UIColor.systemGray2.withAlphaComponent(0.0)
+        if typeLabel.text == "List" {
+            HStackCalMove.isHidden = false
+            VStackCalEdit.isHidden = false
+            tableCosts.isHidden = false
+            tableIncome.isHidden = true
+            dateFrom.date = dateFromCosts
+            labelDateFrom.text = dateFormatter.string(from: dateFromCosts)
+            dateTo.date = dateToCosts
+            labelDateTo.text = dateFormatter.string(from: dateToCosts)
+            stypeOfElement = "Cost"
+        }
+        if typeLabel.text == "Type" {
+            HStackCalMove.isHidden = true
+            VStackCalEdit.isHidden = true
+            tableCosts.isHidden = true
+            tableIncome.isHidden = true
+            tableCostTypes.isHidden = false
+            tableIncomeTypes.isHidden = true
+            stypeOfElement = "CostType"
+        }
     }
     
     @IBAction func incomeButton(_ sender: UIButton) {
-        tableCosts.isHidden = true
-        tableIncome.isHidden = false
-        dateFrom.date = dateFromIncomes
-        labelDateFrom.text = dateFormatter.string(from: dateFromIncomes)
-        dateTo.date = dateToIncomes
-        labelDateTo.text = dateFormatter.string(from: dateToIncomes)
-        buttonCosts.backgroundColor = UIColor.systemGray2.withAlphaComponent(0.0)
-        buttonIncomes.backgroundColor = UIColor.systemGray2
         activePanel = "listIncomes"
         print("Show Incomes and hide Costs")
-        stypeOfElement = "Income"
+        buttonCosts.backgroundColor = UIColor.systemGray2.withAlphaComponent(0.0)
+        buttonIncomes.backgroundColor = UIColor.systemGray2
+        if typeLabel.text == "List" {
+            HStackCalMove.isHidden = false
+            VStackCalEdit.isHidden = false
+            tableCosts.isHidden = true
+            tableIncome.isHidden = false
+            dateFrom.date = dateFromIncomes
+            labelDateFrom.text = dateFormatter.string(from: dateFromIncomes)
+            dateTo.date = dateToIncomes
+            labelDateTo.text = dateFormatter.string(from: dateToIncomes)
+            stypeOfElement = "Income"
+        }
+        if typeLabel.text == "Type" {
+            HStackCalMove.isHidden = true
+            VStackCalEdit.isHidden = true
+            tableCosts.isHidden = true
+            tableIncome.isHidden = true
+            tableCostTypes.isHidden = true
+            tableIncomeTypes.isHidden = false
+            stypeOfElement = "IncomeType"
+        }
     }
     
     @IBAction func backDateToUpIn(_ sender: UIButton) {
@@ -700,6 +803,35 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
+    @objc func laTyLaAction() {
+        print("laTyLaAction - " + typeLabel.text!)
+        if typeLabel.text == "Type" {
+            typeLabel.text = "List"
+            HStackCalMove.isHidden = false
+            VStackCalEdit.isHidden = false
+            if activePanel == "listCosts" {
+                tableCosts.isHidden = false
+            } else if activePanel == "listIncomes" {
+                tableIncome.isHidden = false
+            }
+            tableCostTypes.isHidden = true
+            tableIncomeTypes.isHidden = true
+        } else if typeLabel.text == "List" {
+            typeLabel.text = "Type"
+            HStackCalMove.isHidden = true
+            VStackCalEdit.isHidden = true
+            tableCosts.isHidden = true
+            tableIncome.isHidden = true
+            if activePanel == "listCosts" {
+                tableCostTypes.isHidden = false
+            } else if activePanel == "listIncomes" {
+                tableIncomeTypes.isHidden = false
+            }
+        } else {
+            typeLabel.text = "List"
+        }
+    }
+    
     @IBAction func addBtoolbarSet(_ sender: UIBarButtonItem) {
         print("addBtoolbarSet")
         if activePanel == "listCosts" {
@@ -885,7 +1017,18 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             self.actlfj.removeAll()
             print("Get data CostTypesList from JSON with success!")
             self.actlfj = self.restCostType.actl
-            print("size of inside 'actlfj' is: " + String(self.actlfj.count))
+            self.listCostTypes_size = self.actlfj.count
+            print("size of actlfj is: " + String(self.listCostTypes_size))
+            if self.listCostTypes_size > 0 {
+                self.tableCostTypes.register(UITableViewCell.self, forCellReuseIdentifier: "TableCostTypeCell")
+                self.tableCostTypes.dataSource = self
+                self.tableCostTypes.reloadData()
+            } else {
+                self.tableCostTypes.register(UITableViewCell.self, forCellReuseIdentifier: "TableCostTypeCell")
+                self.tableCostTypes.dataSource = self
+                self.tableCostTypes.reloadData()
+                print("actlfj 0 sized")
+            }
         }
         let sortedCostTypes = actlfj.sorted{$0.type < $1.type}
         actlfj = sortedCostTypes
@@ -896,7 +1039,18 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             self.aitlfj.removeAll()
             print("Get data getIncomeTypes from JSON with success!")
             self.aitlfj = self.restIncomeType.aitl
-            print("size of inside 'aitlfj' is: " + String(self.aitlfj.count))
+            self.listIncomeTypes_size = self.aitlfj.count
+            print("size of inside 'aitlfj' is: " + String(self.listIncomeTypes_size))
+            if self.listCostTypes_size > 0 {
+                self.tableIncomeTypes.register(UITableViewCell.self, forCellReuseIdentifier: "TableIncomeTypeCell")
+                self.tableIncomeTypes.dataSource = self
+                self.tableIncomeTypes.reloadData()
+            } else {
+                self.tableIncomeTypes.register(UITableViewCell.self, forCellReuseIdentifier: "TableIncomeTypeCell")
+                self.tableIncomeTypes.dataSource = self
+                self.tableIncomeTypes.reloadData()
+                print("aitlfj 0 sized")
+            }
         }
         let sortedIncomeTypes = aitlfj.sorted{$0.type < $1.type}
         aitlfj = sortedIncomeTypes
