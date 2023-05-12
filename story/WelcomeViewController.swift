@@ -811,8 +811,10 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             VStackCalEdit.isHidden = false
             if activePanel == "listCosts" {
                 tableCosts.isHidden = false
+                stypeOfElement = "Cost"
             } else if activePanel == "listIncomes" {
                 tableIncome.isHidden = false
+                stypeOfElement = "Income"
             }
             tableCostTypes.isHidden = true
             tableIncomeTypes.isHidden = true
@@ -824,8 +826,10 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             tableIncome.isHidden = true
             if activePanel == "listCosts" {
                 tableCostTypes.isHidden = false
+                stypeOfElement = "CostType"
             } else if activePanel == "listIncomes" {
                 tableIncomeTypes.isHidden = false
+                stypeOfElement = "IncomeType"
             }
         } else {
             typeLabel.text = "List"
@@ -903,9 +907,19 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBAction func addButtonAction(_ sender: UIButton) {
         stypeOfAction = "add"
             if activePanel == "listCosts" {
-                print("addButtonAction for Costs")
+                if stypeOfElement == "Cost" {
+                    print("addButtonAction for Costs")
+                }
+                if stypeOfElement == "CostType" {
+                    print("addButtonAction for CostTypes")
+                }
             } else if activePanel == "listIncomes" {
-                print("addButtonAction for Incomes")
+                if stypeOfElement == "Income" {
+                    print("addButtonAction for Incomes")
+                }
+                if stypeOfElement == "IncomeType" {
+                    print("addButtonAction for IncomeTypes")
+                }
             }
         self.performSegue(withIdentifier: "goToDetail", sender: self)
     }

@@ -203,10 +203,10 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                 }
             }
         } else if typeOfElement == "CostType" || typeOfElement == "IncomeType" {
-            dateLabel.isHidden = true
-            dateLabel.text = "Name"
-            valueLabel.isHidden = true
-            valueLabel.text = "Info"
+            dateLabel.isHidden = false
+            dateLabel.text = "Type"
+            valueLabel.isHidden = false
+            valueLabel.text = "Subtype"
             typeLabel.isHidden = true
             nameLabel.isHidden = true
             infoLabel.isHidden = true
@@ -231,6 +231,26 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             cancelButton.isHidden = true
             dateToolbar.isHidden = true
             typeToolbar.isHidden = true
+//            dateText.wid
+            if typeOfElement == "CostType" {
+                valueLabel.text = "Subtype"
+                restCostType.getCostType(urlLink: linkToRest){
+                    print("get data from restCostType")
+                    self.dateText.text! = self.restCostType.act.type
+                    self.valueText.text! = self.restCostType.act.subtype
+                    self.dateTextView.text! = self.restCostType.act.type
+                    self.valueTextView.text! = self.restCostType.act.subtype
+                }
+            } else if typeOfElement == "IncomeType" {
+                valueLabel.text = "Source"
+                restIncomeType.getIncomeType(urlLink: linkToRest){
+                    print("get data from restIncomeType")
+                    self.dateText.text! = self.restIncomeType.ait.type
+                    self.valueText.text! = self.restIncomeType.ait.source
+                    self.dateTextView.text! = self.restIncomeType.ait.type
+                    self.valueTextView.text! = self.restIncomeType.ait.source
+                }
+            }
         } else {
             dateLabel.isHidden = false
             dateLabel.text = "Date"
