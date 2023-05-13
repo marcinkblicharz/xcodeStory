@@ -232,24 +232,28 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             dateToolbar.isHidden = true
             typeToolbar.isHidden = true
 //            dateText.wid
-            if typeOfElement == "CostType" {
-                valueLabel.text = "Subtype"
-                restCostType.getCostType(urlLink: linkToRest){
-                    print("get data from restCostType")
-                    self.dateText.text! = self.restCostType.act.type
-                    self.valueText.text! = self.restCostType.act.subtype
-                    self.dateTextView.text! = self.restCostType.act.type
-                    self.valueTextView.text! = self.restCostType.act.subtype
+            if typeOfAction == "edit" {
+                if typeOfElement == "CostType" {
+                    valueLabel.text = "Subtype"
+                    restCostType.getCostType(urlLink: linkToRest){
+                        print("get data from restCostType")
+                        self.dateText.text! = self.restCostType.act.type
+                        self.valueText.text! = self.restCostType.act.subtype
+                        self.dateTextView.text! = self.restCostType.act.type
+                        self.valueTextView.text! = self.restCostType.act.subtype
+                    }
+                } else if typeOfElement == "IncomeType" {
+                    valueLabel.text = "Source"
+                    restIncomeType.getIncomeType(urlLink: linkToRest){
+                        print("get data from restIncomeType")
+                        self.dateText.text! = self.restIncomeType.ait.type
+                        self.valueText.text! = self.restIncomeType.ait.source
+                        self.dateTextView.text! = self.restIncomeType.ait.type
+                        self.valueTextView.text! = self.restIncomeType.ait.source
+                    }
                 }
-            } else if typeOfElement == "IncomeType" {
-                valueLabel.text = "Source"
-                restIncomeType.getIncomeType(urlLink: linkToRest){
-                    print("get data from restIncomeType")
-                    self.dateText.text! = self.restIncomeType.ait.type
-                    self.valueText.text! = self.restIncomeType.ait.source
-                    self.dateTextView.text! = self.restIncomeType.ait.type
-                    self.valueTextView.text! = self.restIncomeType.ait.source
-                }
+            } else if typeOfAction == "add" {
+                updateButton.setTitle("Add", for: .normal)
             }
         } else {
             dateLabel.isHidden = false
@@ -311,7 +315,9 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                 nameText.isHidden = false
                 infoText.isHidden = false
             } else if typeOfElement == "CostType" || typeOfElement == "IncomeType" {
-                
+                dateText.isHidden = false
+                dateTextView.isHidden = true
+                typeTextView.isHidden = true
             } else {
                 
             }
@@ -357,6 +363,10 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                                            "info": (infoText?.text)!]
                 restIncome.putIncome(urlLink: linkSend + "addIncome", jsonSend: json){
                 }
+            } else if typeOfElement == "CostType" {
+                
+            } else if typeOfElement == "IncomeType" {
+                
             }
             delegate?.refreshView()
             self.dismiss(animated: true)
@@ -405,6 +415,10 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                                        "info": (infoText?.text)!]
             restIncome.putIncome(urlLink: linkSend + "putIncome/" + String(iid), jsonSend: json){
             }
+        } else if typeOfElement == "CostType" {
+            
+        } else if typeOfElement == "IncomeType" {
+            
         }
         delegate?.refreshView()
         self.dismiss(animated: true)
@@ -418,7 +432,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @objc func laDaAction(){
         print("laDaAction")
         if(saveButton.isHidden == false || typeOfAction == "add"){
-            if datePicker.isHidden == true && dateToolbar.isHidden == true {
+            if datePicker.isHidden == true && dateToolbar.isHidden == true && (typeOfElement == "Cost" || typeOfElement == "Income"){
                 typePicker.isHidden = true
                 typeToolbar.isHidden = true
                 dateToolbar.isHidden = false
