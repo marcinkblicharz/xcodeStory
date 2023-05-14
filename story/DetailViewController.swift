@@ -22,8 +22,10 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     var incomeTypesList = [ApiIncomeTypes]()
     var serverAddress : String = ""
     var cid : Int = 0
-    var ctid : Int = 0
+    var ctfkid : Int = 0
     var iid : Int = 0
+    var itfkid : Int = 0
+    var ctid : Int = 0
     var itid : Int = 0
     var delegate: WelcomeViewController? = WelcomeViewController()
     
@@ -152,7 +154,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                         self.nameTextView.text! = self.restCost.acv.name
                         self.infoTextView.text! = self.restCost.acv.info
                         self.cid = self.restCost.acv.cid
-                        self.ctid = self.restCost.acv.ctid
+                        self.ctfkid = self.restCost.acv.ctid
                     }
                 } else if typeOfElement == "Income" {
                     restIncome.getvIncome(urlLink: linkToRest){
@@ -174,7 +176,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                         self.nameTextView.text! = self.restIncome.aiv.name
                         self.infoTextView.text! = self.restIncome.aiv.info
                         self.iid = self.restIncome.aiv.iid
-                        self.itid = self.restIncome.aiv.itid
+                        self.itfkid = self.restIncome.aiv.itid
                     }
                 }
             } else if typeOfAction == "add" {
@@ -241,6 +243,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                         self.valueText.text! = self.restCostType.act.subtype
                         self.dateTextView.text! = self.restCostType.act.type
                         self.valueTextView.text! = self.restCostType.act.subtype
+                        self.ctid = self.restCostType.act.id
                     }
                 } else if typeOfElement == "IncomeType" {
                     valueLabel.text = "Source"
@@ -250,6 +253,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                         self.valueText.text! = self.restIncomeType.ait.source
                         self.dateTextView.text! = self.restIncomeType.ait.type
                         self.valueTextView.text! = self.restIncomeType.ait.source
+                        self.itid = self.restIncomeType.ait.id
                     }
                 }
             } else if typeOfAction == "add" {
@@ -329,7 +333,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                 print(type + " for Cost with ID: " + String(cid))
                 print("\tDATE: ", dateTextView?.text!)
                 print("\tAMOUNT: ", valueText?.text)
-                print("\tTYPE: ", typeTextView?.text, ", ctid: ", String(ctid) + "'")
+                print("\tTYPE: ", typeTextView?.text, ", ctid: ", String(ctfkid) + "'")
                 print("\tNAME: ", nameText?.text)
                 print("\tINFO: ", infoText?.text)
                 print("link to send: '" + linkSend + "addCost")
@@ -338,10 +342,10 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                 jsonSend.name = nameText?.text as! String
                 jsonSend.date = dateTextView?.text as! String
                 jsonSend.info = infoText?.text as! String
-                jsonSend.fkCostType = ctid as! Int
+                jsonSend.fkCostType = ctfkid as! Int
                 jsonSend.value = Double((valueText?.text)!) as! Double
                 print("jsonSend: ", jsonSend)
-                let json: [String: Any] = ["fkCostType": String(ctid),
+                let json: [String: Any] = ["fkCostType": String(ctfkid),
                                            "date":  (dateTextView?.text!)!,
                                            "value": String(Double((valueText?.text)!)!),
                                            "name": (nameText?.text)!,
@@ -352,11 +356,11 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                 print(type + " for Income with ID: " + String(iid))
                 print("\tDATE: ", dateTextView?.text!)
                 print("\tAMOUNT: ", valueText?.text)
-                print("\tTYPE: ", typeTextView?.text, ", itid: ", String(itid))
+                print("\tTYPE: ", typeTextView?.text, ", itid: ", String(itfkid))
                 print("\tNAME: ", nameText?.text)
                 print("\tINFO: ", infoText?.text)
                 print("link to send: '" + linkSend + "addIncome")
-                let json: [String: Any] = ["fkIncomeType": String(itid),
+                let json: [String: Any] = ["fkIncomeType": String(itfkid),
                                            "date":  (dateTextView?.text!)!,
                                            "value": String(Double((valueText?.text)!)!),
                                            "name": (nameText?.text)!,
@@ -364,9 +368,9 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                 restIncome.putIncome(urlLink: linkSend + "addIncome", jsonSend: json){
                 }
             } else if typeOfElement == "CostType" {
-                
+                print(type + " for Cost with ID: " + String(cid))
             } else if typeOfElement == "IncomeType" {
-                
+                print(type + " for Cost with ID: " + String(cid))
             }
             delegate?.refreshView()
             self.dismiss(animated: true)
@@ -380,7 +384,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             print(type + " for Cost with ID: " + String(cid))
             print("\tDATE: ", dateTextView?.text!)
             print("\tAMOUNT: ", valueText?.text)
-            print("\tTYPE: ", typeTextView?.text, ", ctid: ", String(ctid) + "'")
+            print("\tTYPE: ", typeTextView?.text, ", ctid: ", String(ctfkid) + "'")
             print("\tNAME: ", nameText?.text)
             print("\tINFO: ", infoText?.text)
             print("link to send: '" + linkSend + "putCost/" + String(cid))
@@ -389,10 +393,10 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             jsonSend.name = nameText?.text as! String
             jsonSend.date = dateTextView?.text as! String
             jsonSend.info = infoText?.text as! String
-            jsonSend.fkCostType = ctid as! Int
+            jsonSend.fkCostType = ctfkid as! Int
             jsonSend.value = Double((valueText?.text)!) as! Double
             print("jsonSend: ", jsonSend)
-            let json: [String: Any] = ["fkCostType": String(ctid),
+            let json: [String: Any] = ["fkCostType": String(ctfkid),
                                        "date":  (dateTextView?.text!)!,
                                        "value": String(Double((valueText?.text)!)!),
                                        "name": (nameText?.text)!,
@@ -404,11 +408,11 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             print(type + " for Income with ID: " + String(iid))
             print("\tDATE: ", dateTextView?.text!)
             print("\tAMOUNT: ", valueText?.text)
-            print("\tTYPE: ", typeTextView?.text, ", itid: ", String(itid))
+            print("\tTYPE: ", typeTextView?.text, ", itid: ", String(itfkid))
             print("\tNAME: ", nameText?.text)
             print("\tINFO: ", infoText?.text)
             print("link to send: '" + linkSend + "putIncome/" + String(iid) + "'")
-            let json: [String: Any] = ["fkIncomeType": String(itid),
+            let json: [String: Any] = ["fkIncomeType": String(itfkid),
                                        "date":  (dateTextView?.text!)!,
                                        "value": String(Double((valueText?.text)!)!),
                                        "name": (nameText?.text)!,
@@ -502,7 +506,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         if typeOfElement == "Cost" {
             let type = costTypesList[typePicker.selectedRow(inComponent: 0)].type
             let subtype = costTypesList[typePicker.selectedRow(inComponent: 0)].subtype
-            ctid = costTypesList[typePicker.selectedRow(inComponent: 0)].id
+            ctfkid = costTypesList[typePicker.selectedRow(inComponent: 0)].id
             var name : String = ""
             if subtype.count > 0 {
                 name = type + " - " + subtype
@@ -514,7 +518,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         } else if typeOfElement == "Income" {
             let type = incomeTypesList[typePicker.selectedRow(inComponent: 0)].type
             let source = incomeTypesList[typePicker.selectedRow(inComponent: 0)].source
-            itid = incomeTypesList[typePicker.selectedRow(inComponent: 0)].id
+            itfkid = incomeTypesList[typePicker.selectedRow(inComponent: 0)].id
             var name : String = ""
             if source.count > 0 {
                 name = type + " - " + source
