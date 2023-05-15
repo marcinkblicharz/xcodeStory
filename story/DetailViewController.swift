@@ -60,6 +60,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBOutlet weak var typePicker: UIPickerView!
     @IBOutlet weak var dateToolbar: UIToolbar!
     @IBOutlet weak var typeToolbar: UIToolbar!
+    @IBOutlet weak var colorWheel: UIColorWell!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,6 +133,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             cancelButton.isHidden = true
             dateToolbar.isHidden = true
             typeToolbar.isHidden = true
+            colorWheel.isHidden = true
             if typeOfAction == "edit" {
                 print("prepare for edit element")
                 if typeOfElement == "Cost" {
@@ -233,8 +235,9 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             cancelButton.isHidden = true
             dateToolbar.isHidden = true
             typeToolbar.isHidden = true
-//            dateText.wid
+            colorWheel.isHidden = false
             if typeOfAction == "edit" {
+                colorWheel.isEnabled = false
                 if typeOfElement == "CostType" {
                     valueLabel.text = "Subtype"
                     restCostType.getCostType(urlLink: linkToRest){
@@ -244,6 +247,15 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                         self.dateTextView.text! = self.restCostType.act.type
                         self.valueTextView.text! = self.restCostType.act.subtype
                         self.ctid = self.restCostType.act.id
+//                        var color = self.restCostType.act.color
+//                        var index_color = color.index(color.startIndex, offsetBy: 1)
+//                        color.removeSubrange(color.startIndex..<index_color)
+//                        self.colorWheel.selectedColor = UIColor(hex: color)
+//                        self.colorWheel.selectedColor = UIColor.brown
+//                        self.colorWheel.selectedColor = UIColor(hex: "#00AAFFFF")
+                        self.colorWheel.selectedColor = UIColor(hex: self.restCostType.act.color + "FF")
+//                        print(" - color: " + color)
+                        print(" - color: " + self.restCostType.act.color)
                     }
                 } else if typeOfElement == "IncomeType" {
                     valueLabel.text = "Source"
@@ -254,10 +266,23 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                         self.dateTextView.text! = self.restIncomeType.ait.type
                         self.valueTextView.text! = self.restIncomeType.ait.source
                         self.itid = self.restIncomeType.ait.id
+                        self.colorWheel.selectedColor = UIColor(hex: self.restIncomeType.ait.color + "FF")
+                        print(" - color: " + self.restIncomeType.ait.color)
                     }
                 }
             } else if typeOfAction == "add" {
                 updateButton.setTitle("Add", for: .normal)
+                dateTextView.isHidden = true
+                valueTextView.isHidden = true
+                dateText.isHidden = false
+                valueText.isHidden = false
+                colorWheel.isHidden = false
+                colorWheel.isEnabled = true
+                if typeOfElement == "CostType" {
+                    valueLabel.text = "Subtype"
+                } else if typeOfElement == "IncomeType" {
+                    valueLabel.text = "Source"
+                }
             }
         } else {
             dateLabel.isHidden = false
@@ -297,6 +322,8 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             cancelButton.isHidden = true
             dateToolbar.isHidden = true
             typeToolbar.isHidden = true
+            colorWheel.isHidden = true
+            colorWheel.isEnabled = false
         }
     }
     
@@ -314,7 +341,6 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             datePicker.isHidden = true
             valueText.isHidden = false
             dateToolbar.isHidden = true
-            
             if typeOfElement == "Cost" || typeOfElement == "Income" {
                 nameText.isHidden = false
                 infoText.isHidden = false
@@ -322,8 +348,9 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                 dateText.isHidden = false
                 dateTextView.isHidden = true
                 typeTextView.isHidden = true
+                colorWheel.isEnabled = true
             } else {
-                
+                updateButton.setTitle("Add", for: .normal)
             }
         } else if typeOfAction == "add" {
             print("element adding")
@@ -368,9 +395,25 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                 restIncome.putIncome(urlLink: linkSend + "addIncome", jsonSend: json){
                 }
             } else if typeOfElement == "CostType" {
-                print(type + " for Cost with ID: " + String(cid))
+                print(type + " for CostType with ID: " + String(ctid))
+                print("\tTYPE: ", dateText?.text!)
+                print("\tSUBTYPE: ", valueText?.text)
+                print("\tCOLOR: ", colorWheel.selectedColor)
+                print("link to send: '" + linkSend + "addCostType")
+                let json: [String: Any] = ["type": dateText?.text!,
+                                           "subtype": valueText?.text!,
+                                           "color": colorWheel.selectedColor]
+//                restCostType.putCostType(urlLink: linkSend + "addCostType", jsonSend: json){
+//                }
             } else if typeOfElement == "IncomeType" {
-                print(type + " for Cost with ID: " + String(cid))
+                print(type + " for IncomeType with ID: " + String(itid))
+                print("\tTYPE: ", dateText?.text!)
+                print("\tSOURCE: ", valueText?.text)
+                print("link to send: '" + linkSend + "addIncomeType")
+                let json: [String: Any] = ["type": dateText?.text!,
+                                           "source": valueText?.text!]
+                restIncomeType.putIncomeType(urlLink: linkSend + "addIncomeType", jsonSend: json){
+                }
             }
             delegate?.refreshView()
             self.dismiss(animated: true)
@@ -588,3 +631,31 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
 }
+
+//extension UIColor {
+//    public convenience init?(hex: String) {
+//        let r, g, b, a: CGFloat
+//
+//        if hex.hasPrefix("#") {
+//            let start = hex.index(hex.startIndex, offsetBy: 1)
+//            let hexColor = String(hex[start...])
+//
+//            if hexColor.count == 8 {
+//                let scanner = Scanner(string: hexColor)
+//                var hexNumber: UInt64 = 0
+//
+//                if scanner.scanHexInt64(&hexNumber) {
+//                    r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
+//                    g = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
+//                    b = CGFloat((hexNumber & 0x0000ff00) >> 8) / 255
+//                    a = CGFloat(hexNumber & 0x000000ff) / 255
+//
+//                    self.init(red: r, green: g, blue: b, alpha: a)
+//                    return
+//                }
+//            }
+//        }
+//
+//        return nil
+//    }
+//}

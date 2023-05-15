@@ -1076,11 +1076,13 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
             self.getCostsList(dateFrom: dateFormatter.string(from: dateFromCosts), dateTo: dateFormatter.string(from: dateToCosts))
 //            self.tableCosts.dataSource = self
 //            self.tableCosts.reloadData()
+            self.getCostTypes()
         } else if activePanel == "listIncomes" {
             print("refreshView on WelcomeViewController for incomes")
             self.getIncomesList(dateFrom: dateFormatter.string(from: dateFromIncomes), dateTo: dateFormatter.string(from: dateToIncomes))
 //            self.tableIncome.dataSource = self
 //            self.tableIncome.reloadData()
+            self.getIncomeTypes()
         }
     }
     

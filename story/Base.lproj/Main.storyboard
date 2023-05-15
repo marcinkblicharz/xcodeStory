@@ -766,11 +766,15 @@
                                     <constraint firstAttribute="height" constant="150" id="Vdo-fU-thO"/>
                                 </constraints>
                             </pickerView>
+                            <colorWell hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="AWV-jR-AhU">
+                                <rect key="frame" x="181" y="227" width="28" height="28"/>
+                            </colorWell>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="KV0-tI-JrY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="KV0-tI-JrY" firstAttribute="trailing" secondItem="6AH-mK-8yK" secondAttribute="trailing" constant="20" id="0Qf-Fz-8EN"/>
+                            <constraint firstItem="AWV-jR-AhU" firstAttribute="top" secondItem="CEh-GY-eb9" secondAttribute="bottom" constant="30" id="10K-4w-gWk"/>
                             <constraint firstItem="Cos-aV-9uX" firstAttribute="bottom" secondItem="bwb-UR-0He" secondAttribute="bottom" id="1Jn-MX-2uh"/>
                             <constraint firstItem="6AH-mK-8yK" firstAttribute="leading" secondItem="KV0-tI-JrY" secondAttribute="leading" constant="115" id="1eD-cd-zQY"/>
                             <constraint firstItem="6AH-mK-8yK" firstAttribute="top" secondItem="wA1-UK-PbG" secondAttribute="bottom" constant="20" id="1mx-am-dwU"/>
@@ -815,6 +819,7 @@
                             <constraint firstItem="ndv-de-OFZ" firstAttribute="leading" secondItem="KV0-tI-JrY" secondAttribute="leading" id="eWS-2v-KUv"/>
                             <constraint firstItem="c3j-8f-IDY" firstAttribute="bottom" secondItem="CEh-GY-eb9" secondAttribute="bottom" id="hEV-f0-c7D"/>
                             <constraint firstItem="25i-Rr-28W" firstAttribute="leading" secondItem="iwc-dK-AFv" secondAttribute="trailing" constant="30" id="hRr-nR-iS1"/>
+                            <constraint firstItem="AWV-jR-AhU" firstAttribute="centerX" secondItem="js6-RQ-Hqt" secondAttribute="centerX" id="jKl-pp-kQk"/>
                             <constraint firstItem="Cos-aV-9uX" firstAttribute="leading" secondItem="wqp-uh-Vcu" secondAttribute="trailing" constant="30" id="jqG-DB-ljq"/>
                             <constraint firstItem="js6-RQ-Hqt" firstAttribute="leading" secondItem="KV0-tI-JrY" secondAttribute="leading" id="l4Q-Gf-rNr"/>
                             <constraint firstItem="BUA-oY-xcp" firstAttribute="leading" secondItem="KV0-tI-JrY" secondAttribute="leading" constant="75" id="lax-Au-aLB"/>
@@ -835,6 +840,7 @@
                     <navigationItem key="navigationItem" id="8nO-mR-eA3"/>
                     <connections>
                         <outlet property="cancelButton" destination="94D-Nl-2Ob" id="XTh-3p-4i8"/>
+                        <outlet property="colorWheel" destination="AWV-jR-AhU" id="oGS-qu-UUT"/>
                         <outlet property="dateLabel" destination="wqp-uh-Vcu" id="Y5F-m3-eF5"/>
                         <outlet property="datePicker" destination="ndv-de-OFZ" id="bdG-vf-4mj"/>
                         <outlet property="dateText" destination="bwb-UR-0He" id="kUe-pw-xpt"/>
@@ -852,7 +858,7 @@
                         <outlet property="typePicker" destination="Xvj-Uk-Nyt" id="qhE-D5-BMy"/>
                         <outlet property="typeText" destination="xwF-11-sCF" id="slG-aJ-s79"/>
                         <outlet property="typeTextView" destination="25i-Rr-28W" id="dSo-HJ-Q2R"/>
-                        <outlet property="typeToolbar" destination="jOL-yv-0cg" id="IcL-bP-Tqo"/>
+                        <outlet property="typeToolbar" destination="AWV-jR-AhU" id="zXc-Is-uWy"/>
                         <outlet property="updateButton" destination="bin-GR-j9N" id="03W-a5-lFa"/>
                         <outlet property="valueLabel" destination="WaG-xZ-AJp" id="WVx-dh-pFD"/>
                         <outlet property="valueText" destination="CEh-GY-eb9" id="eWi-yM-b3P"/>
