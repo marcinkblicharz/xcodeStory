@@ -395,10 +395,11 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                 restIncome.putIncome(urlLink: linkSend + "addIncome", jsonSend: json){
                 }
             } else if typeOfElement == "CostType" {
+                let col = colorWheel.selectedColor!
                 print(type + " for CostType with ID: " + String(ctid))
                 print("\tTYPE: ", dateText?.text!)
                 print("\tSUBTYPE: ", valueText?.text)
-                print("\tCOLOR: ", colorWheel.selectedColor)
+                print("\tCOLOR: ", col, ", HEX: ", converUIColorToHex(colorToConver: col))
                 print("link to send: '" + linkSend + "addCostType")
                 let json: [String: Any] = ["type": dateText?.text!,
                                            "subtype": valueText?.text!,
@@ -628,6 +629,40 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     func UIPickerViewDelegate () {
         
+    }
+    
+    func converUIColorToHex(colorToConver : UIColor)-> String{
+
+        var red:CGFloat = 0
+        var green:CGFloat = 0
+        var blue:CGFloat = 0
+        var alpha:CGFloat = 0
+
+        colorToConver.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+
+        print("converUIColorToHex, red 00: ",red)
+
+        if(red < 0) {red = 0}
+
+        if(green < 0) {green = 0}
+
+        if(blue < 0) {blue = 0}
+
+        if(red > 255) {red = 255}
+
+        if(green > 255) {green = 255}
+
+        if(blue > 255) {blue = 255}
+
+        print("converUIColorToHex, red 01: ",red)
+
+        let decimalCode = Int((red * 65536) + (green * 256) + blue)
+
+        let hexColorCode = String(decimalCode, radix: 16)
+
+        print("converUIColorToHex, hexColorCode: ",hexColorCode)
+
+        return hexColorCode
     }
     
 }
