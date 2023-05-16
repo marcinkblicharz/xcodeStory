@@ -392,14 +392,14 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
 ////            lateRefresh = true
 //        tableCosts.alpha = 0.05
 //        tableIncome.alpha = 0.05
-        if typeLabel.text == "List" {
+//        if typeLabel.text == "List" {
             let translation = scrollView.panGestureRecognizer.translation(in: scrollView.superview!)
             if translation.y > 0 {
                 scrollUp = false
             } else {
                 scrollUp = true
             }
-        }
+//        }
 //            if tableCosts.isHidden == false {
 //                let scrollViewContentHeight = self.tableCosts.contentSize.height
 //                let scrollOffsetThreshold = scrollViewContentHeight - self.tableCosts.bounds.size.height
