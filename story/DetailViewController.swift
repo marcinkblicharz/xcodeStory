@@ -399,20 +399,24 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                 print(type + " for CostType with ID: " + String(ctid))
                 print("\tTYPE: ", dateText?.text!)
                 print("\tSUBTYPE: ", valueText?.text)
-                print("\tCOLOR: ", col, ", HEX: ", converUIColorToHex(colorToConver: col))
+//                print("\tCOLOR: ", col, ", HEX: ", converUIColorToHex(colorToConver: col))
+                print("\tCOLOR: ", converUIColorToHex(colorToConver: col))
                 print("link to send: '" + linkSend + "addCostType")
                 let json: [String: Any] = ["type": dateText?.text!,
                                            "subtype": valueText?.text!,
-                                           "color": colorWheel.selectedColor]
-//                restCostType.putCostType(urlLink: linkSend + "addCostType", jsonSend: json){
-//                }
+                                           "color": converUIColorToHex(colorToConver: col)]
+                restCostType.putCostType(urlLink: linkSend + "addCostType", jsonSend: json){
+                }
             } else if typeOfElement == "IncomeType" {
+                let col = colorWheel.selectedColor!
                 print(type + " for IncomeType with ID: " + String(itid))
                 print("\tTYPE: ", dateText?.text!)
                 print("\tSOURCE: ", valueText?.text)
+                print("\tCOLOR: ", converUIColorToHex(colorToConver: col))
                 print("link to send: '" + linkSend + "addIncomeType")
                 let json: [String: Any] = ["type": dateText?.text!,
-                                           "source": valueText?.text!]
+                                           "source": valueText?.text!,
+                                           "color": converUIColorToHex(colorToConver: col)]
                 restIncomeType.putIncomeType(urlLink: linkSend + "addIncomeType", jsonSend: json){
                 }
             }
@@ -464,9 +468,29 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             restIncome.putIncome(urlLink: linkSend + "putIncome/" + String(iid), jsonSend: json){
             }
         } else if typeOfElement == "CostType" {
-            
+            let col = colorWheel.selectedColor!
+            print(type + " for CostType with ID: " + String(ctid))
+            print("\tTYPE: ", dateText?.text!)
+            print("\tSUBTYPE: ", valueText?.text)
+            print("\tCOLOR: ", converUIColorToHex(colorToConver: col))
+            print("link to send: '" + linkSend + "putCostType/" + String(ctid) + "'")
+            let json: [String: Any] = ["type": dateText?.text!,
+                                       "subtype": valueText?.text!,
+                                       "color": converUIColorToHex(colorToConver: col)]
+            restCostType.putCostType(urlLink: linkSend + "putCostType/" + String(ctid), jsonSend: json){
+            }
         } else if typeOfElement == "IncomeType" {
-            
+            let col = colorWheel.selectedColor!
+            print(type + " for IncomeType with ID: " + String(ctid))
+            print("\tTYPE: ", dateText?.text!)
+            print("\tSOURCE: ", valueText?.text)
+            print("\tCOLOR: ", converUIColorToHex(colorToConver: col))
+            print("link to send: '" + linkSend + "putIncomeType/" + String(itid) + "'")
+            let json: [String: Any] = ["type": dateText?.text!,
+                                       "source": valueText?.text!,
+                                       "color": converUIColorToHex(colorToConver: col)]
+            restIncomeType.putIncomeType(urlLink: linkSend + "putIncomeType/" + String(itid), jsonSend: json){
+            }
         }
         delegate?.refreshView()
         self.dismiss(animated: true)
@@ -496,6 +520,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 //        typeTextView.isUserInteractionEnabled = false
 //        typeTextView.isEditable = false
 //        typeTextView.isSelectable = false
+        print("laTyAction - typeOfAction: ", typeOfAction)
         if typeOfAction == "edit" {
             if typeOfElement == "Cost" {
                 var selectId : Int = -1
@@ -518,7 +543,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             typePicker.selectRow(0, inComponent: 0, animated: false)
         }
         if(saveButton.isHidden == false || typeOfAction == "add"){
-            print("laTyAction")
+            print("laTyAction - saveButton is hidden")
             if typePicker.isHidden == true {
                 dateToolbar.isHidden = true
                 datePicker.isHidden = true
@@ -648,20 +673,39 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 
         if(blue < 0) {blue = 0}
 
-        if(red > 255) {red = 255}
+        if(red > 1) {red = 1}
 
-        if(green > 255) {green = 255}
+        if(green > 1) {green = 1}
 
-        if(blue > 255) {blue = 255}
+        if(blue > 1) {blue = 1}
 
         print("converUIColorToHex, red 01: ",red)
 
         let decimalCode = Int((red * 65536) + (green * 256) + blue)
 
-        let hexColorCode = String(decimalCode, radix: 16)
+//        let hexColorCode = String(decimalCode, radix: 16)
+        
+        var hexRed : String = String(Int(red * 255), radix: 16)
+        if hexRed.count == 1 {
+            hexRed = "0" + hexRed
+        }
+        var hexGreen : String = String(Int(green * 255), radix: 16)
+        if hexGreen.count == 1 {
+            hexGreen = "0" + hexGreen
+        }
+        var hexBlue : String = String(Int(blue * 255), radix: 16)
+        if hexBlue.count == 1 {
+            hexBlue = "0" + hexBlue
+        }
 
-        print("converUIColorToHex, hexColorCode: ",hexColorCode)
+//        print("converUIColorToHex, hexColorCode: ",hexColorCode)
+        print("--converUIColorToHex, hexColorCodeElementFLOAT: RED - ", red.description, ", GREEN - ", green.description, ", BLUE - ", blue.description)
+        print("--converUIColorToHex, hexColorCodeElementDEC: RED - ", String(Int(red * 255)), ", GREEN - ", String(Int(green * 255)), ", BLUE - ", String(Int(blue * 255)))
+        print("--converUIColorToHex, hexColorCodeElementHEX: RED - ", String(Int(red * 255), radix: 16), ", GREEN - ", String(Int(green * 255), radix: 16), ", BLUE - ", String(Int(blue * 255), radix: 16))
+        print("--converUIColorToHex, hexColorCodeElementHEX: FINAL - " + hexRed + "" + hexGreen + "" + hexBlue)
 
+        let hexColorCode = "#" + hexRed + "" + hexGreen + "" + hexBlue
+        
         return hexColorCode
     }
     

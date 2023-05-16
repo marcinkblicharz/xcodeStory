@@ -351,7 +351,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
 //            print(String(self.tableCosts.contentSize!.height))
 //        }
 //        print("scrollViewDidEndDragging - scrollUp is", String(scrollUp))
-        if typeLabel.text == "List" {
+//        if typeLabel.text == "List" {
             if scrollUp {
                 print("scrollViewDidEndDragging - to up")
             } else {
@@ -379,7 +379,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
                 tableCosts.alpha = 1
                 tableIncome.alpha = 1
             }
-        }
+//        }
 //        if scrollView == self.tableCosts {
 //                self.lastKnowContentOfsset = scrollView.contentOffset.y
 //                print("lastKnowContentOfsset: ", scrollView.contentOffset.y)
@@ -1046,6 +1046,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         let sortedCostTypes = actlfj.sorted{$0.type < $1.type}
         actlfj = sortedCostTypes
+        self.tableCostTypes.reloadData()
     }
     
     func getIncomeTypes() {
@@ -1068,6 +1069,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         let sortedIncomeTypes = aitlfj.sorted{$0.type < $1.type}
         aitlfj = sortedIncomeTypes
+        self.tableCostTypes.reloadData()
     }
     
     func refreshView() {

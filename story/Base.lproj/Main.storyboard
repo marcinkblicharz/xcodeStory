@@ -840,7 +840,7 @@
                     <navigationItem key="navigationItem" id="8nO-mR-eA3"/>
                     <connections>
                         <outlet property="cancelButton" destination="94D-Nl-2Ob" id="XTh-3p-4i8"/>
-                        <outlet property="colorWheel" destination="AWV-jR-AhU" id="oGS-qu-UUT"/>
+                        <outlet property="colorWheel" destination="AWV-jR-AhU" id="hth-9R-gfc"/>
                         <outlet property="dateLabel" destination="wqp-uh-Vcu" id="Y5F-m3-eF5"/>
                         <outlet property="datePicker" destination="ndv-de-OFZ" id="bdG-vf-4mj"/>
                         <outlet property="dateText" destination="bwb-UR-0He" id="kUe-pw-xpt"/>
@@ -858,7 +858,7 @@
                         <outlet property="typePicker" destination="Xvj-Uk-Nyt" id="qhE-D5-BMy"/>
                         <outlet property="typeText" destination="xwF-11-sCF" id="slG-aJ-s79"/>
                         <outlet property="typeTextView" destination="25i-Rr-28W" id="dSo-HJ-Q2R"/>
-                        <outlet property="typeToolbar" destination="AWV-jR-AhU" id="zXc-Is-uWy"/>
+                        <outlet property="typeToolbar" destination="jOL-yv-0cg" id="4O4-88-GUr"/>
                         <outlet property="updateButton" destination="bin-GR-j9N" id="03W-a5-lFa"/>
                         <outlet property="valueLabel" destination="WaG-xZ-AJp" id="WVx-dh-pFD"/>
                         <outlet property="valueText" destination="CEh-GY-eb9" id="eWi-yM-b3P"/>
