@@ -101,6 +101,29 @@ class RestIncomes : ObservableObject {
             }
         }.resume()
     }
+    
+    func delIncome(urlLink : String, completed: @escaping () -> ()){
+        
+        let url = URL(string: urlLink)
+        
+        var request = URLRequest(url: url!)
+        request.httpMethod = "DELETE"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with : request) { data, response, error in
+            if error == nil {
+                do {
+                    let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: [])
+                } catch {
+                    print("error delete data to rest")
+                }
+                
+                DispatchQueue.main.async {
+                    completed()
+                }
+            }
+        }.resume()
+    }
 }
 
 struct ApiIncomes : Decodable {

@@ -56,6 +56,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBOutlet weak var updateButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var typePicker: UIPickerView!
     @IBOutlet weak var dateToolbar: UIToolbar!
@@ -131,6 +132,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             updateButton.isHidden = false
             saveButton.isHidden = true
             cancelButton.isHidden = true
+            deleteButton.isHidden = true
             dateToolbar.isHidden = true
             typeToolbar.isHidden = true
             colorWheel.isHidden = true
@@ -186,6 +188,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                 updateButton.isHidden = false
                 saveButton.isHidden = true
                 cancelButton.isHidden = true
+                deleteButton.isHidden = true
                 dateTextView.isHidden = false
                 valueTextView.isHidden = true
                 typeTextView.isHidden = false
@@ -200,10 +203,17 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                 updateButton.setTitle("Add", for: .normal)
                 dateTextView.text = dateFormatter.string(from: Date())
                 valueText.text = "0.00"
+//                if typeOfElement == "Cost" {
+//                    ctfkid = costTypesList[typePicker.selectedRow(inComponent: 0)].id
+//                } else if typeOfElement == "Income" {
+//                    itfkid = incomeTypesList[typePicker.selectedRow(inComponent: 0)].id
+//                }
                 if typeOfElement == "Cost" {
                     typeTextView.text = costTypesList[0].type
+                    ctfkid = costTypesList[typePicker.selectedRow(inComponent: 0)].id
                 } else if typeOfElement == "Income" {
                     typeTextView.text = incomeTypesList[0].type
+                    itfkid = incomeTypesList[typePicker.selectedRow(inComponent: 0)].id
                 }
             }
         } else if typeOfElement == "CostType" || typeOfElement == "IncomeType" {
@@ -233,6 +243,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             updateButton.isHidden = false
             saveButton.isHidden = true
             cancelButton.isHidden = true
+            deleteButton.isHidden = true
             dateToolbar.isHidden = true
             typeToolbar.isHidden = true
             colorWheel.isHidden = false
@@ -320,6 +331,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             updateButton.isHidden = false
             saveButton.isHidden = true
             cancelButton.isHidden = true
+            deleteButton.isHidden = true
             dateToolbar.isHidden = true
             typeToolbar.isHidden = true
             colorWheel.isHidden = true
@@ -332,6 +344,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             updateButton.isHidden = true
             saveButton.isHidden = false
             cancelButton.isHidden = false
+            deleteButton.isHidden = false
             dateTextView.isHidden = false
             valueTextView.isHidden = true
             typeTextView.isHidden = false
@@ -498,6 +511,33 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     @IBAction func cancelButton(_ sender: UIButton) {
         print("cancel editing")
+        self.dismiss(animated: true)
+    }
+    
+    @IBAction func deleteButtonAction(_ sender: UIButton) {
+        let type : String = "deleteButton - ACTION"
+        var linkSend = "http://" + serverAddress + ":8080/rest/"
+        if typeOfElement == "Cost" {
+            print(type + " for Cost with ID: " + String(cid))
+            print("link to send: '" + linkSend + "delCost/" + String(cid) + "'")
+            restCost.delCost(urlLink: linkSend + "delCost/" + String(cid)){
+            }
+        } else if typeOfElement == "Income" {
+            print(type + " for Income with ID: " + String(iid))
+            print("link to send: '" + linkSend + "delIncome/" + String(iid) + "'")
+            restIncome.delIncome(urlLink: linkSend + "delIncome/" + String(iid)){
+            }
+        } else if typeOfElement == "CostType" {
+            print(type + " for CostType with ID: " + String(ctid))
+            print("link to send: '" + linkSend + "delCostType/" + String(ctid) + "'")
+            restCostType.delCostType(urlLink: linkSend + "delCostType/" + String(ctid)){
+            }
+        } else if typeOfElement == "IncomeType" {
+            print(type + " for IncomeType with ID: " + String(itid))
+            print("link to send: '" + linkSend + "delIncomeType/" + String(itid) + "'")
+            restIncomeType.delIncomeType(urlLink: linkSend + "delIncomeType/" + String(itid)){
+            }
+        }
         self.dismiss(animated: true)
     }
     
