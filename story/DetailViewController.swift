@@ -368,7 +368,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         } else if typeOfAction == "add" {
             print("element adding")
             let type : String = "addButton - ACTION"
-            var linkSend = "http://" + serverAddress + ":8080/rest/"
+            var linkSend = "http://" + serverAddress + "/rest/"
             if typeOfElement == "Cost" {
                 print(type + " for Cost with ID: " + String(cid))
                 print("\tDATE: ", dateTextView?.text!)
@@ -440,7 +440,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     @IBAction func saveElementButton(_ sender: UIButton) {
         let type : String = "saveButton - ACTION"
-        var linkSend = "http://" + serverAddress + ":8080/rest/"
+        var linkSend = "http://" + serverAddress + "/rest/"
         if typeOfElement == "Cost" {
             print(type + " for Cost with ID: " + String(cid))
             print("\tDATE: ", dateTextView?.text!)
@@ -516,7 +516,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     @IBAction func deleteButtonAction(_ sender: UIButton) {
         let type : String = "deleteButton - ACTION"
-        var linkSend = "http://" + serverAddress + ":8080/rest/"
+        var linkSend = "http://" + serverAddress + "/rest/"
         if typeOfElement == "Cost" {
             print(type + " for Cost with ID: " + String(cid))
             print("link to send: '" + linkSend + "delCost/" + String(cid) + "'")

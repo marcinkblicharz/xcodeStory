@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var passwordText: UITextField!
     @IBOutlet weak var setServerButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var customAddress: UITextField!
     var restLogin = RestLogin()
     var isLogin : Bool = false
     var restCost = RestCosts()
@@ -41,16 +42,18 @@ class ViewController: UIViewController {
         
         
         if setServerButton.currentTitle == "local" {
-            serverAddress = "localhost"
+            serverAddress = "localhost:8080"
         } else if setServerButton.currentTitle == "remote" {
-            serverAddress = "192.168.1.69"
+            serverAddress = "192.168.1.69:8080"
+        } else if setServerButton.currentTitle == "custom" {
+            serverAddress = customAddress.text
         }
         
-        costLink = "http://" + serverAddress + ":8080/rest/getCosts?from=" + dateFormatterDay.string(from: getLastMonday())
-        incomeLink = "http://" + serverAddress + ":8080/rest/getIncomes?from=" + dateFormatterDay.string(from: getFirstDayOfMonth())
+        costLink = "http://" + serverAddress + "/rest/getCosts?from=" + dateFormatterDay.string(from: getLastMonday())
+        incomeLink = "http://" + serverAddress + "/rest/getIncomes?from=" + dateFormatterDay.string(from: getFirstDayOfMonth())
         print("\nSize of login table is: " + String(restLogin.vm_logins.count))
         
-        restLogin.getLogin(urlLink: "http://localhost:8080/rest/getLogin?name=" + loginText.text! + "&password=" + passwordText.text!){
+        restLogin.getLogin(urlLink: "http://" + serverAddress + "/rest/getLogin?name=" + loginText.text! + "&password=" + passwordText.text!){
             if self.loginText.text!.caseInsensitiveCompare(self.restLogin.vm_login.name) == .orderedSame && self.passwordText.text! == self.restLogin.vm_login.password {
                 print("Get data from JSON, user: " + self.loginText.text! + ", password: " + self.passwordText.text! + " with success!")
                 self.performSegue(withIdentifier: "goToWelcome", sender: self)
@@ -97,12 +100,25 @@ class ViewController: UIViewController {
     func setPullDownServerButton(){
         let optionClosure = {(action: UIAction) in
             print("change server to: " + action.title)
+            if self.setServerButton.currentTitle == "custom" {
+                self.customAddress.isHidden = false
+            } else {
+                self.customAddress.isHidden = true
+            }
         }
         setServerButton.menu = UIMenu(children : [
             UIAction(title: "local", state: .on, handler: optionClosure),
-            UIAction(title: "remote", handler: optionClosure)])
+            UIAction(title: "remote", handler: optionClosure),
+            UIAction(title: "custom", handler: optionClosure)])
         setServerButton.showsMenuAsPrimaryAction = true
         setServerButton.changesSelectionAsPrimaryAction = true
+    }
+    
+    @IBAction func serverButton(_ sender: UIButton) {
+        print("serverButton - ACTION")
+        if setServerButton.currentTitle == "custom" {
+            customAddress.isHidden = false
+        }
     }
     
     func getLastMonday() -> Date {
