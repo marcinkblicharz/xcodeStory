@@ -8,7 +8,7 @@
 import UIKit
 import Foundation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var loginText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
@@ -31,6 +31,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.customAddress.delegate = self
         setPullDownServerButton()
     }
 
@@ -157,6 +158,10 @@ class ViewController: UIViewController {
         let firstDay = Calendar.current.date(byAdding: dateComponent, to: currentDate)
         print("current day of month is: " + String(dayOfMonth) + "., first day of month: " + dateFormatterDay.string(from: firstDay!))
         return firstDay!
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return customAddress.resignFirstResponder()
     }
 }
 
