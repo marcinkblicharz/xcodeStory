@@ -7,6 +7,7 @@
 
 import UIKit
 import Foundation
+import SwiftUI
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
@@ -21,6 +22,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var costLink : String! = ""
     var incomeLink : String! = ""
     var serverAddress : String! = ""
+    @State var def_arv_add : String = UserDefaults.standard.string(forKey: "SERVER_ADDRESS") ?? ""
+    @State var in_def_arv_add : String = ""
     
     private let dateFormatterDay: DateFormatter = {
         let df = DateFormatter()
@@ -32,6 +35,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.customAddress.delegate = self
+        customAddress.text = def_arv_add
         setPullDownServerButton()
     }
 
@@ -48,6 +52,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
             serverAddress = "192.168.1.69:8080"
         } else if setServerButton.currentTitle == "custom" {
             serverAddress = customAddress.text
+            if serverAddress.count > 0 {
+                in_def_arv_add = "serverAddress"
+                UserDefaults.standard.set(in_def_arv_add, forKey: "SERVER_ADDRESS")
+                def_arv_add = in_def_arv_add
+                print("Set ADDRESS: ", def_arv_add, " - from: ", serverAddress, ", in_def_arv_add: ", in_def_arv_add)
+            }
         }
         
         costLink = "http://" + serverAddress + "/rest/getCosts?from=" + dateFormatterDay.string(from: getLastMonday())
@@ -164,4 +174,5 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return customAddress.resignFirstResponder()
     }
 }
+
 
