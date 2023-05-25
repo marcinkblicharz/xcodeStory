@@ -21,9 +21,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var restCost = RestCosts()
     var costLink : String! = ""
     var incomeLink : String! = ""
+    var statusLink : String! = ""
     var serverAddress : String! = ""
     @State var def_srv_add : String = UserDefaults.standard.string(forKey: "SERVER_ADDRESS") ?? ""
     @State var in_def_srv_add : String = ""
+    var connectionStatus : Bool = false
     
     private let dateFormatterDay: DateFormatter = {
         let df = DateFormatter()
@@ -62,7 +64,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         costLink = "http://" + serverAddress + "/rest/getCosts?from=" + dateFormatterDay.string(from: getLastMonday())
         incomeLink = "http://" + serverAddress + "/rest/getIncomes?from=" + dateFormatterDay.string(from: getFirstDayOfMonth())
+        statusLink = "http://" + serverAddress + "/rest/getStatus"
         print("\nSize of login table is: " + String(restLogin.vm_logins.count))
+        
+        restLogin.getStatus(urlLink: statusLink){
+            print("restLogin.vm_status: ", self.restLogin.vm_status)
+            if self.restLogin.vm_status == "OK" {
+                self.connectionStatus = true
+                print("connectionStatus: ", String(self.connectionStatus))
+            }
+        }
         
         restLogin.getLogin(urlLink: "http://" + serverAddress + "/rest/getLogin?name=" + loginText.text! + "&password=" + passwordText.text!){
             if self.loginText.text!.caseInsensitiveCompare(self.restLogin.vm_login.name) == .orderedSame && self.passwordText.text! == self.restLogin.vm_login.password {
@@ -81,9 +92,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
         if restLogin.error == true {
             print("Could not connect to the server!")
-//            self.errorLabel.textColor = UIColor.red
-//            self.errorLabel.isHidden = false
-//            self.errorLabel.text = "Could not connect to the server!"
+            self.errorLabel.textColor = UIColor.red
+            self.errorLabel.isHidden = false
+            self.errorLabel.text = "Could not connect to the server!"
         }
     }
     

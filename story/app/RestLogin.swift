@@ -11,6 +11,7 @@ class RestLogin : ObservableObject {
     
     @Published var vm_logins : [ApiUser] = []
     @Published var vm_login : ApiUser = ApiUser()
+    @Published var vm_status : String = ""
     @Published var error : Bool = true
     
     func getLogins(urlLink : String){
@@ -50,6 +51,28 @@ class RestLogin : ObservableObject {
             if error == nil {
                 do {
                     self.vm_login = try JSONDecoder().decode(ApiUser.self, from: data!)
+                    self.error = false
+                } catch {
+                    print("error get data from api")
+                    self.error = true
+                }
+                DispatchQueue.main.async {
+                    completed()
+                }
+            } else {
+                self.error = true
+            }
+        }.resume()
+    }
+    
+    func getStatus(urlLink : String, completed: @escaping () -> ()){
+        
+        let url = URL(string: urlLink)
+        
+        URLSession.shared.dataTask(with : url!) { data, response, error in
+            if error == nil {
+                do {
+                    self.vm_status = try JSONDecoder().decode(String.self, from: data!)
                     self.error = false
                 } catch {
                     print("error get data from api")
