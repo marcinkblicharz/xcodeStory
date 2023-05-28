@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
     
     var typeOfElement : String = ""
     var typeOfAction : String = ""
@@ -65,6 +65,9 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.valueText.delegate = self
+        self.nameText.delegate = self
+        self.infoText.delegate = self
         print("DetailViewController - viewDidLoad, typeOfElement: ", typeOfElement, ", on action: ", typeOfAction)
         titleLabel.text = typeOfElement.uppercased()
         
@@ -747,6 +750,11 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         let hexColorCode = "#" + hexRed + "" + hexGreen + "" + hexBlue
         
         return hexColorCode
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
 }

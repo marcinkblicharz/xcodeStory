@@ -36,6 +36,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.loginText.delegate = self
+        self.passwordText.delegate = self
         self.customAddress.delegate = self
         customAddress.text = def_srv_add
         setPullDownServerButton()
@@ -92,9 +94,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
         if restLogin.error == true {
             print("Could not connect to the server!")
-            self.errorLabel.textColor = UIColor.red
-            self.errorLabel.isHidden = false
-            self.errorLabel.text = "Could not connect to the server!"
+//            self.errorLabel.textColor = UIColor.red
+//            self.errorLabel.isHidden = false
+//            self.errorLabel.text = "Could not connect to the server!"
         }
     }
     
@@ -182,7 +184,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return customAddress.resignFirstResponder()
+        textField.resignFirstResponder()
+        return true
     }
 }
 
