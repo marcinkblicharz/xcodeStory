@@ -139,6 +139,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             dateToolbar.isHidden = true
             typeToolbar.isHidden = true
             colorWheel.isHidden = true
+            valueText.keyboardType = UIKeyboardType.decimalPad
             if typeOfAction == "edit" {
                 print("prepare for edit element")
                 if typeOfElement == "Cost" {
@@ -250,6 +251,7 @@ class DetailViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             dateToolbar.isHidden = true
             typeToolbar.isHidden = true
             colorWheel.isHidden = false
+            valueText.keyboardType = UIKeyboardType.default
             if typeOfAction == "edit" {
                 colorWheel.isEnabled = false
                 if typeOfElement == "CostType" {
